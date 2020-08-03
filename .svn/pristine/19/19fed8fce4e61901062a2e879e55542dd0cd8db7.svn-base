@@ -1,0 +1,1204 @@
+<style>
+
+    .table .thead-dark th {
+        color: #fff !important;
+        background-color: #696969 !important;
+        border-color: #ecf0f5 !important;
+    }
+    .table td{
+        border:1px solid #696969 !important;
+    }
+    table>thead>tr>th {
+        padding: 4px !important;
+        background-color: #696969;
+        color: white;
+        font-size: 13px;
+    }
+</style>
+
+<section class="content-header">
+    <h1>
+        UserAccountSetUp
+    </h1>
+
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="top-box">
+                <div class="col-md-2">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Search..." id="textinput" name="textinput"  type="text"
+                                   placeholder="Search User" ng-model="searchText"
+                                   ng-change="getPaginatedUserAccountSetupList(searchText)">
+                        </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="top-button-area">
+                        <div class="col-md-2 col-sm-4">
+                            <button type="button" class="btn btn-block btn-success" ng-click="addNewuseraccountsetupwithpermissions()">Add</button>
+                        </div>
+                        <div class="col-md-2 col-sm-4">
+                            <button type="button" class="btn btn-block btn-success" id="colButnw"  data-toggle="modal"
+                                    ng-model="inactiveStatus" data-target=".print-me"
+                                    ng-click="inactiveUserAccountSetUp()">{{ButtonStatus}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12 col-xs-12 customer-data">
+            <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
+                <thead>
+                <tr>
+                    <th>
+                        User Name
+                    </th>
+                    <th>
+                        Full Name
+                    </th>
+                    <th>
+                        Telephone Number
+                    </th>
+                    <th>
+                        Email Address
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+
+
+                </thead>
+                <tbody>
+                <tr ng-repeat="user in userAccountSetupList| filter:searchText">
+                    <hidden value="{{user.useraccount_id}}"/>
+                    <td>{{user.user_loginId}}</td>
+                    <td>{{user.full_name}}</td>
+                    <td>{{user.phone}}</td>
+                    <td>{{user.email}}</td>
+
+                    <td><button type="button" class="btn btn-primary hi_btn"  ng-click="editUserAccountSetupWithPermissions(user)">Edit</button>
+                    <button type="button" class="btn btn-primary hi_btn"  ng-click="permissionUserAccountSetup11(user)">Permissions</button></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="modal fade selectItem" tabindex="-1" id="selectAccount" role="dialog" data-backdrop="static"
+                 aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content checkout">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Select Account</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Search: <input class="form-control input-sm" ng-change="getCashAccountList(searchText)"
+                                                          ng-change-delay="300" ng-model="searchText"></label>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table_costomize itemlisttable four_table_info" id="">
+                                            <thead>
+                                            <tr>
+                                                <th data-field="name">Account Code</th>
+                                                <th data-field="desc">Account Name</th>
+                                                <th data-field="desc">Upper Level Name </th>
+                                                <th data-field="desc">Account Type</th>
+                                                <!--<th data-field="desc">Item Category Name</th>-->
+                                            </tr>
+                                            </thead>
+                                            <tbody id="parentTable">
+                                            <tr ng-repeat="account in accountList| filter:searchText"
+                                                ng-click="showAcceptedNotificationList ? updateNotificationItemInList(account) : cashAccount(account,$index);">
+                                                <td hidden>{{account.accountid}}</td>
+                                                <td>{{account.stringAccountCode}}</td>
+                                                <!--<td class="word_break">{{account.account_name}}</td>-->
+                                                <td>{{account.account_name}}</td>
+                                                <td>{{account.parentAccount_name}}</td>
+                                                <td>{{account.accountGroup}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade selectItem" tabindex="-1" id="selectAccount1" role="dialog" data-backdrop="static"
+                 aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content checkout">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true" ng-click="remove()">&times;</span></button>
+                            <h4 class="modal-title">Select Account</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Search: <input class="form-control input-sm"
+                                                          ng-keyup="$event.keyCode == 13 ? getBankAccountList(text) : null"
+                                                          ng-change-delay="300" ng-model="text"></label>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table_costomize itemlisttable four_table_info" id="">
+                                            <thead>
+                                            <tr>
+                                                <th data-field="name">Account Code</th>
+                                                <th data-field="desc">Account Name</th>
+                                                <th data-field="desc">Upper Level Name </th>
+                                                <th data-field="desc">Account Type</th>
+                                                <!--<th data-field="desc">Item Category Name</th>-->
+                                            </tr>
+                                            </thead>
+                                            <tbody id="parentTable">
+                                            <tr ng-repeat="account in accountList| filter:searchText"
+                                                ng-click="showAcceptedNotificationList ? updateNotificationItemInList(account) : bankAccount(account,$index);">
+                                                <td hidden>{{account.accountid}}</td>
+                                                <td>{{account.stringAccountCode}}</td>
+                                                <!--<td class="word_break">{{account.account_name}}</td>-->
+                                                <td>{{account.account_name}}</td>
+                                                <td>{{account.parentAccount_name}}</td>
+                                                <td>{{account.accountGroup}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" ng-click="remove()" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" tabindex="-1" id="add_permissions_modal_1check" role="dialog" data-backdrop="static"
+                 aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-md" style="width: 750px;">
+                    <div class="modal-content checkout">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 id="User-title" class="modal-title">Edit Permission</h4>
+                        </div>
+                        <hidden value="{{useraccount_id}}"/>
+                        <div class="panel-body">
+                            <div class="row row_ch_per_info" style=" height: 500px; overflow-y: auto;">
+                                <div class="col-md-4 col-sm-4">
+                                    <input type="checkbox" class="regular-checkbox"
+                                           ng-model="userObj.restDashboard"
+                                           id="restDashboard" ng-true-value="true" ng-false-value="false"/>
+                                    <label for="restDashboard"></label><span
+                                        class="check_span_info">Rest Dashboard</span>
+                                </div>
+                                <!--  Restaurant -->
+                                <div class="col-md-12 col-sm-12">
+                                    <input type="checkbox" class="regular-checkbox"
+                                           ng-model="userObj.restaurant" id="restaurant" ng-true-value="true"
+                                           ng-false-value="false"/>
+                                    <label for="restaurant"></label><span class="check_span_info"> Restaurant </span>
+                                </div>
+                                <div class="col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1"
+                                     ng-hide="!userObj.restaurant">
+                                    <div class="row margin_0px">
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restDineIn" id="restDineIn"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restDineIn"></label><span
+                                                class="check_span_info">Restaurant DineIn</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restTakeaway" id="restTakeaway"
+                                                   ng-true-value="true"
+                                                   ng-false-value="false"/>
+                                            <label for="restTakeaway"></label><span class="check_span_info">Restaurant Takeaway</span>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restTableReservation" id="restTableReservation"
+                                                   ng-true-value="true"
+                                                   ng-false-value="false"/>
+                                            <label for="taxTax"></label><span class="check_span_info">Restaurant TableReservation</span>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restDelivery" id="restDelivery"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restDelivery"></label><span class="check_span_info">Restuarant Delivery</span>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restDigiOrders" id="restDigiOrders"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restDigiOrders"></label><span class="check_span_info">Restuarant Digi Orders</span>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restOnlineDelivery" id="restOnlineDelivery"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restOnlineDelivery"></label><span class="check_span_info">Restuarant OnlineDelivery</span>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restTable" id="restTable"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restTable"></label><span class="check_span_info">Restuarant Table</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restWaiter" id="restWaiter"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restWaiter"></label><span class="check_span_info">Restuarant Waiter</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restItemSearch" id="restItemSearch"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restItemSearch"></label><span class="check_span_info">Restuarant ItemSearch</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restItemAdd" id="restItemAdd"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restItemAdd"></label><span class="check_span_info">Restuarant ItemAdd</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restAgent" id="restAgent"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restAgent"></label><span class="check_span_info">Restuarant Agent</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restCustomer" id="restCustomer"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restCustomer"></label><span class="check_span_info">Restuarant Customer</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restCustomerAdd" id="restCustomerAdd"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restCustomerAdd"></label><span class="check_span_info">Restuarant CustomerAdd</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restPax" id="restPax"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restPax"></label><span
+                                                class="check_span_info">Restuarant Pax</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restSave" id="restSave"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restSave"></label><span
+                                                class="check_span_info">Restuarant Save</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restSavePrint" id="restSavePrint"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restSavePrint"></label><span class="check_span_info">Restuarant SavePrint</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restSaveSms" id="restSaveSms"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restSaveSms"></label><span class="check_span_info">Restuarant SaveSms</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restCustomerBill" id="restCustomerBill"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restCustomerBill"></label><span class="check_span_info">Restuarant CustomerBill</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restClearall" id="restClearall"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restClearall"></label><span class="check_span_info">Restuarant Clearall</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restSplitbill" id="restSplitbill"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restSplitbill"></label><span class="check_span_info">Restuarant Splitbill</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restChangeTable" id="restChangeTable"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restChangeTable"></label><span class="check_span_info">Restuarant ChangeTable</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restMergeTable" id="restMergeTable"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restMergeTable"></label><span class="check_span_info">Restuarant MergeTable</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restPrintList" id="restPrintList"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restPrintList"></label><span class="check_span_info">Restuarant PrintList</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restDailyReport" id="restDailyReport"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restDailyReport"></label><span class="check_span_info">Restuarant DailyReport</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restVoucher" id="restVoucher"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restMergeTable"></label><span class="check_span_info">Restuarant Voucher</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restOffers" id="restOffers"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restOffers"></label><span class="check_span_info">Restuarant Offers</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-sm-12">
+                                    <input type="checkbox" class="regular-checkbox"
+                                           ng-model="userObj.tokens" id="tokens" ng-true-value="true"
+                                           ng-false-value="false"/>
+                                    <label for="tokens"></label><span class="check_span_info"> Tokens </span>
+                                </div>
+                                <div class="col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1"
+                                     ng-model="userObj.tokens">
+                                    <div class="row margin_0px">
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.kitchenTokens" id="kitchenTokens"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="kitchenTokens"></label><span class="check_span_info">Kitchen Token Report</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.waiterTokens" id="waiterTokens"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="waiterTokens"></label><span class="check_span_info">Waiter Token Report</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  Masters -->
+
+                                <div class="col-md-12 col-sm-12">
+                                    <input type="checkbox" class="regular-checkbox"
+                                           ng-model="userObj.masters" id="masters" ng-true-value="true"
+                                           ng-false-value="false"/>
+                                    <label for="masters"></label><span class="check_span_info"> Masters </span>
+                                </div>
+                                <div class="col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1"
+                                     ng-hide="!userObj.masters">
+                                    <div class="row margin_0px">
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.country" id="country"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="country"></label><span
+                                                class="check_span_info">Country</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.state" id="state" ng-true-value="true"
+                                                   ng-false-value="false"/>
+                                            <label for="state"></label><span class="check_span_info">State</span>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.currency" id="currency" ng-true-value="true"
+                                                   ng-false-value="false"/>
+                                            <label for="currency"></label><span class="check_span_info">Currency</span>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.tableZone" id="tableZone"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="tableZone"></label><span
+                                                class="check_span_info">Table Zone</span>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.tablePos" id="tablePos"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="tablePos"></label><span
+                                                class="check_span_info">Table Pos </span>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.agent" id="agent"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="agent"></label><span class="check_span_info">Agent</span>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.employee" id="employee"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="employee"></label><span class="check_span_info">Employee</span>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.customer" id="customer"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="customer"></label><span class="check_span_info">Customer</span>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.category" id="category"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="category"></label><span
+                                                class="check_span_info">Category</span>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.item" id="item"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="item"></label><span class="check_span_info">Item</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.paymentMethod" id="paymentMethod"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="paymentMethod"></label><span class="check_span_info">PaymentMethod</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.userAccountSetUp" id="userAccountSetUp"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="userAccountSetUp"></label><span class="check_span_info">User AccountSetup</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.accountType" id="accountType"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="accountType"></label><span
+                                                class="check_span_info">Account Type</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.accountGroup" id="accountGroup"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="accountGroup"></label><span class="check_span_info">Account Group</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.chartOfAccounts" id="chartOfAccounts"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="chartOfAccounts"></label><span class="check_span_info">Chart Of Accounts</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.contact" id="contact"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="contact"></label><span class="check_span_info">Contact</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.configuration" id="configuration"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="configuration"></label><span class="check_span_info">Configuration</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.shift" id="shift"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="shift"></label><span class="check_span_info">Shift</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.paymentVoucher" id="paymentVoucher"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="paymentVoucher"></label><span class="check_span_info">PaymentVoucher</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.smsService" id="smsService"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="smsService"></label><span
+                                                class="check_span_info">Sms Service</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!--  Reports -->
+                                <div class="col-md-12 col-sm-12">
+                                    <input type="checkbox" class="regular-checkbox"
+                                           ng-model="userObj.reports" id="reports" ng-true-value="true"
+                                           ng-false-value="false"/>
+                                    <label for="reportsID"></label><span class="check_span_info"> Reports </span>
+                                </div>
+                                <div class="col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1"
+                                     ng-model="userObj.reports">
+                                    <div class="row margin_0px">
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restaurantReports" id="restaurantReports"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restaurantReports"></label><span class="check_span_info">Restaurant Report</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.restaurantInvReg" id="restaurantInvReg"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="restaurantInvReg"></label><span class="check_span_info">Restaurant Invoice Report</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.monthEndReport" id="monthEndReport"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="monthEndReport"></label><span class="check_span_info">Month End Report</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.itemSalesReport" id="itemSalesReport"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="itemSalesReport"></label><span class="check_span_info">Item Sales Report</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.shiftReport" id="shiftReport"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="shiftReport"></label><span
+                                                class="check_span_info">Shift Report</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.cancelledItemReg" id="cancelledItemReg"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="cancelledItemReg"></label><span class="check_span_info">Cancelled Item Report</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.freeMealReport" id="freeMealReport"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="freeMealReport"></label><span class="check_span_info">Free Meal Report</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.discountReport" id="discountReport"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="discountReport"></label><span class="check_span_info">Discount Report</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.freeMealReport" id="freeMealReport"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="freeMealReport"></label><span class="check_span_info">Free Meal Report</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.tableWiseReport" id="tableWiseReport"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="tableWiseReport"></label><span class="check_span_info">Table Wise Report</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.cancelledInv" id="cancelledInv"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="cancelledInv"></label><span class="check_span_info">Cancelled Invoice Report</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.dayEndReport" id="dayEndReport"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="dayEndReport"></label><span class="check_span_info">Day End Report</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.onlineInvReport" id="onlineInvReport"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="onlineInvReport"></label><span class="check_span_info">Online Invoice Report</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.waiterReport" id="waiterReport"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="waiterReport"></label><span class="check_span_info">Waiter Report</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12 col-sm-12">
+                                    <input type="checkbox" class="regular-checkbox"
+                                           ng-model="userObj.finance" id="finance" ng-true-value="true"
+                                           ng-false-value="false"/>
+                                    <label for="finance"></label><span class="check_span_info"> Finance </span>
+                                </div>
+                                <div class="col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1"
+                                     ng-model="userObj.finance">
+                                    <div class="row margin_0px">
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.receipt" id="receipt"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="receipt"></label><span class="check_span_info">Receipt</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.receiptAddCnct" id="receiptAddCnct"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="receiptAddCnct"></label><span class="check_span_info">Add Contact</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.receiptSelectAcnt" id="receiptSelectAcnt"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="receiptSelectAcnt"></label><span class="check_span_info">Select Account</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.receiptRemoveAcnt" id="receiptRemoveAcnt"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="receiptRemoveAcnt"></label><span class="check_span_info">Remove Account</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.receiptClearAll" id="receiptClearAll"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="receiptClearAll"></label><span
+                                                class="check_span_info">Clear All</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.receiptSave" id="receiptSave"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="receiptSave"></label><span class="check_span_info">Save</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.receiptPrintlist" id="receiptPrintlist"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="receiptPrintlist"></label><span class="check_span_info">Print List</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.expense" id="expense"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="expense"></label><span class="check_span_info">Expense</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.expenseAddCnct" id="expenseAddCnct"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="expenseAddCnct"></label><span class="check_span_info">Add Contact</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.expenseSelectAcnt" id="expenseSelectAcnt"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="expenseSelectAcnt"></label><span class="check_span_info">Select Account</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.expenseRemoveAcnt" id="expenseRemoveAcnt"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="expenseRemoveAcnt"></label><span class="check_span_info">Remove Account</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.expenseClearAll" id="expenseClearAll"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="expenseClearAll"></label><span
+                                                class="check_span_info">Clear All</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.expenseSave" id="expenseSave"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="expenseSave"></label><span class="check_span_info">Save</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.expensePrintlist" id="expensePrintlist"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="expensePrintlist"></label><span class="check_span_info">Print List</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.journalEntry" id="journalEntry"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="journalEntry"></label><span class="check_span_info">Journal Entry</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.jESelectAcnt" id="jESelectAcnt"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="jESelectAcnt"></label><span class="check_span_info">Select Account</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.jEPrintlist" id="jEPrintlist"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="jEPrintlist"></label><span
+                                                class="check_span_info">Print List</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.jERemoveAcnt" id="jERemoveAcnt"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="jERemoveAcnt"></label><span class="check_span_info">Remove Account</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.expenseClearAll" id="expenseClearAll"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="expenseClearAll"></label><span
+                                                class="check_span_info">Clear All</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.jESave" id="jESave"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="jESave"></label><span class="check_span_info">Save</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.jEDraft" id="jEDraft"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="jEDraft"></label><span class="check_span_info">Draft</span>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <input type="checkbox" class="regular-checkbox"
+                                                   ng-model="userObj.jECancel" id="jECancel"
+                                                   ng-true-value="true" ng-false-value="false"/>
+                                            <label for="jECancel"></label><span class="check_span_info">Cancel</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <div class="col-md-3 col-sm-3 text-left">
+                                    <!--<a class="btn btn-default next" href="javascript:void(0)" ng-click="next_wizard()" data-toggle="tab" data-step="2">More</a>-->
+                                </div>
+                                <div class="col-md-9 col-sm-9 text-right">
+                                    <button type="submit" class="btn btn-default" data-toggle="modal" ng-disabled="isDisabled"
+                                            data-target=".print-me" ng-click="addPermisstion();">Save
+                                    </button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade addCustomer" tabindex="-1" id="edit_configurator" role="dialog" data-backdrop="static"
+                 aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content checkout">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Edit Configurator</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form class="form-horizontal"name="form">
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="">Cash Account :</label>
+                                                <div class="col-sm-8" style="position:relative;">
+                                                    <input type="hidden" ng-model="CashAccountIDText">
+                                                    <input type="text"
+                                                           class="form-control input-md"
+                                                           placeholder="Select Account"
+                                                           ng-model="account_name"
+                                                           ng-click="getCashAccountList(accountSearchText)">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="">Bank Account :</label>
+                                                <div class="col-sm-8" style="position:relative;">
+                                                    <input type="hidden" ng-model="BankAccountIDText">
+                                                    <input type="text"
+                                                           class="form-control input-md"
+                                                           placeholder="Select Account"
+                                                           ng-model="BankAccountText"
+                                                           ng-click="getBankAccountList(accountSearchText)">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="">Unit Price:</label>
+                                                <div class="col-sm-8">
+                                                    <select ng-model="UnitPriceText"  ng-init="UnitPriceText='Editable'"  class="form-control">
+                                                        <option  value="Editable" selected="selected">Editable</option>
+                                                        <option value="Non-editable"> Non-editable</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="">Discount:</label>
+                                                <div class="col-sm-8">
+                                                    <select ng-model="DiscountText"  ng-init="DiscountText='Editable'"  class="form-control">
+                                                        <option  value="Editable" selected="selected">Editable</option>
+                                                        <option value="Non-editable"> Non-editable</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="">Cess:</label>
+                                                <div class="col-sm-8">
+                                                    <select ng-model="CessText"  ng-init="CessText='Editable'"  class="form-control">
+                                                        <option  value="Editable" selected="selected">Editable</option>
+                                                        <option value="Non-editable"> Non-editable</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="">Uom:</label>
+                                                <div class="col-sm-8">
+                                                    <select ng-model="UomText"  ng-init="UomText='Editable'"  class="form-control">
+                                                        <option  value="Editable" selected="selected">Editable</option>
+                                                        <option value="Non-editable"> Non-editable</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="">Tax:</label>
+                                                <div class="col-sm-8">
+                                                    <select ng-model="TaxText"  ng-init="TaxText='Editable'"  class="form-control">
+                                                        <option  value="Editable" selected="selected">Editable</option>
+                                                        <option value="Non-editable"> Non-editable</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="">Date:</label>
+                                                <div class="col-sm-8">
+                                                    <select ng-model="DateText"  ng-init="DateText='Editable'"  class="form-control">
+                                                        <option  value="Editable" selected="selected">Editable</option>
+                                                        <option value="Non-editable"> Non-editable</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="">Payment Type:</label>
+                                                <div class="col-sm-8">
+                                                    <select ng-model="PaymentType"  ng-init="PaymentType='Editable'"  class="form-control">
+                                                        <option value="Editable" selected="selected">Editable</option>
+                                                        <option value="Non-editable"> Non-editable</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="">Quantity:</label>
+                                                <div class="col-sm-8">
+                                                    <select ng-model="QuantityText" ng-init="QuantityText='Editable'" class="form-control">
+                                                        <option value="Editable" selected="selected">Editable</option>
+                                                        <option value="Non-editable"> Non-editable</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="">Description:</label>
+                                                <div class="col-sm-8">
+                                                    <select id="desc" name="DescriptionText" ng-model="DescriptionText" ng-init="DescriptionText='Editable'" class="form-control">
+                                                        <option value="Editable" selected="selected">Editable</option>
+                                                        <option value="Non-editable"> Non-editable</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="">Print Type:</label>
+                                                <div class="col-sm-8">
+                                                    <input type="radio" ng-model="PrintTypeText" value="normal">Normal (A4)
+                                                    <input type="radio" ng-model="PrintTypeText" value="pos">POS (3 Inch)
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-default" data-toggle="modal" ng-disabled="isDisabled"
+                                    data-target=".print-me" ng-click="saveConfigurator()">Save
+                            </button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 pagination_">
+
+                <div class="col-sm-12" style="float:right !important;">
+                    <button type="button" class="btn btn-default hi_btn" ng-class="{'diabled-class': first}"
+                            ng-disabled="first"
+                            ng-click="getPaginatedUserAccountSetupList('firstPage')" ng-model="first">First
+                    </button>
+                    <button type="button" class="btn btn-default hi_btn" ng-class="{'diabled-class': prev}"
+                            ng-disabled="prev"
+                            ng-click="getPaginatedUserAccountSetupList('prevPage')" ng-model="prev">Prev
+                    </button>
+                    <button type="button" class="btn btn-default hi_btn" name="next" ng-disabled="next"
+                            ng-click="getPaginatedUserAccountSetupList('nextPage')" value="next"
+                            ng-class="{'diabled-class': next}" ng-model="next">Next
+                    </button>
+                    <button type="button" class="btn btn-default hi_btn"
+                            ng-click="getPaginatedUserAccountSetupList('lastPage')" ng-class="{'diabled-class': last}"
+                            ng-disabled="last"
+                            ng-model="last">Last
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="add_useraccountsetupwithpermissions_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Add User</h4>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="row" id="cus_step1">
+
+                        <div class="form-group">
+                            <div  class="form-group">
+                                <label class="col-sm-3 control-label">User Name<span>*</span></label>
+                                <div class="col-sm-9">
+                                    <input id="UserName" name="UserName"
+                                           allowpattern="[a-z]"
+                                           type="text" placeholder="User Name"
+                                           ng-model="AddressText" maxlength="125"
+                                           ng-value="setupobj.user_loginId"
+                                           class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-show="!isUserAccountInEditMode">
+                            <label class="col-sm-3 control-label"> Password
+                                <span>*</span></label>
+                            <div class="col-sm-9">
+                                <input id="newPassword" name="newPassword"
+                                       maxlength="125"
+                                       type="password" placeholder="Password"
+                                       ng-model="PasswordText"
+                                       class="form-control ">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3  control-label">Full Name<span>*</span></label>
+                            <div class="col-sm-9">
+                                <input id="FullName" name="FullName"
+                                       ng-pattern="/[aA-zZ\s]$/"
+                                       maxlength="125"
+                                       type="text" placeholder="Full Name"
+                                       ng-model="FullNameText"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Question<span>*</span></label>
+                            <div class="col-sm-9">
+                                <input id="SecurityQuestion" name="SecurityQuestion"
+                                       ng-pattern="/[aA-zZ\s]$/"
+                                       type="text" placeholder="Security Question"
+                                       ng-model="SecurityQuestionText"
+                                       class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Answer<span>*</span></label>
+                             <div class="col-sm-9">
+                                <input id="Answer" name="Answer"
+                                       ng-pattern="/[aA-zZ\s]$/"
+                                       type="text" placeholder="Answer"
+                                       ng-model="AnswerText"
+                                       class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Phone<span>*</span></label>
+                            <div class="col-sm-9">
+                                <input id="TelephoneNumber" name="TelephoneNumber" num-with-space maxlength="10"
+                                       type="text" placeholder="Telephone Number"
+                                       ng-model="TelephoneNumberText"
+                                       class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Email<span>*</span></label>
+                            <div class="col-sm-9">
+                                <input id="EmailAddress" name="EmailAddress"
+                                       type="text" placeholder="Email Address"
+                                       ng-model="EmailAddressText"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label">Status</label>
+                            <div class="col-sm-9">
+                                <select name="status" id="status" ng-init="status='Active'" ng-model="status" class="form-control" required>
+                                    <option value="Active">Active</option>
+                                    <option value="InActive">InActive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" >Employee</label>
+                            <div class="col-sm-6">
+                                <input type="checkbox" id="myCheck" ng-model="employee">
+                            </div>
+                        </div>
+                        </div>
+                        <div class="form-group" ng-show="employee==true" style="float: left;">
+                            <label class="col-md-3 col-sm-3 control-label" >Waiter Person</label>
+                            <div class="col-md-6 col-sm-6"  style="float: right;">
+                                <input type="checkbox" id="myCheck" ng-model="waiterFlag">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="employee==true"  style="float: left;">
+                            <label class="col-sm-3  control-label" >Delivery Person</label>
+                            <div class=" col-md-6 col-sm-6"  style="float: right;">
+                                <input type="checkbox" id="myCheck1" ng-model="deliveryFlag">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-12 control-label" >Kitchen</label>
+                            <div class="col-sm-6 ">
+                                <input type="checkbox" id="myCheck" ng-model="Kitchen">
+                            </div>
+                        </div>
+                    </div>
+                            <!--<div class="form-group">-->
+                                <!--<label class="col-sm-12 col-md-4  control-label" >Kitchen</label>-->
+                                <!--<div class="col-sm-12 col-md-4 ">-->
+                                    <!--<input type="checkbox" id="myCheck" ng-model="kitchen">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <div class="form-group" ng-show="kitchen==true">
+                                <label class="col-sm-3 control-label" >Kitchen</label>
+                                <div class="col-sm-9 ">
+                                    <select id="kitchenId" name="kitchenId" ng-model="kitchenId" ng-options="kitchen.kitchenId as
+											kitchen.kitchenName for kitchen in kitchenList" class="form-control input-md">
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-toggle="modal" ng-disabled="isDisabled"
+                            data-target=".print-me" ng-click="saveUserAccountSetup('add_useraccountsetupwithpermissions_modal')">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="removeCountryDetails()">Close</button>
+
+                </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal fade addCustomer" tabindex="-1" id="change_password_popup" role="dialog" data-backdrop="static"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content checkout">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">change password</h4>
+
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <form class="form-horizontal" name="mail">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input type="hidden" ng-model="user" value="{{user.useraccount_id}}"/>
+                                    <div class="form-group">
+                                        <label class="col-md-4 col-sm-4 control-label">change password</label>
+                                        <div class="col-md-6 col-sm-6" style="position:relative;">
+                                            <input id="password" name="password"
+                                                   allowpattern="[a-z]"
+                                                   type="text" placeholder="password"
+                                                   ng-model="user.password"
+                                                   ng-value="user.password"
+                                                   class="form-control input-md" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 col-sm-4 control-label">confirm password</label>
+                                        <div class="col-md-6 col-sm-6" style="position:relative;">
+                                            <input id="cunform password" name="cunform password"
+                                                   allowpattern="[a-z]"
+                                                   type="text" placeholder="cunform password"
+                                                   ng-model="user.cunformpassword"
+                                                   ng-value="user.cunformpassword"
+                                                   class="form-control input-md" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                    </div>
+                </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default" data-toggle="modal" ng-disabled="isDisabled"
+                            data-target=".print-me" ng-click="savepassword()">Save
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="4.6">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$MAVEN_REPOSITORY$/com/license4j/license4j-runtime-library" />
+    </SOURCES>
+  </library>
+</component>

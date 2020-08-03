@@ -1,0 +1,396 @@
+<head>
+    <title>Flacto</title>
+    <link id="load-css-0" rel="stylesheet" type="text/css"
+          href="https://www.gstatic.com/charts/46.2/css/core/tooltip.css">
+    <link id="load-css-1" rel="stylesheet" type="text/css" href="https://www.gstatic.com/charts/46.2/css/util/util.css">
+
+    <style>
+        .card {
+            position: relative;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid rgba(0,0,0,.125);
+            border-radius: .25rem;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            -webkit-box-shadow: 0 8px 42px 0 rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 42px 0 rgba(0, 0, 0, 0.08);
+            background-color: white;
+            border: none;
+        }
+
+        .widget-user {
+            min-height: 200px !important;
+            max-height: 200px !important;
+        }
+        .text-center {
+            text-align: center!important;
+        }
+        .card-body {
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            padding: 1.25rem;
+        }
+
+
+        .text-custom {
+            color: #fe6271 !important;
+        }
+        h4 {
+            font-size: 18px;
+            line-height: 22px;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #505458;
+            margin: 10px 0;
+            font-weight: 700;
+        }
+        .row {
+            margin-right: -10px;
+            margin-left: -10px;
+        }
+        .text-muted {
+            color: #9a9da0 !important;
+        }
+        .m-t-20 {
+            margin-top: 20px !important;
+        }
+        .text-muted {
+            color: #6c757d!important;
+        }
+        h6 {
+            font-size: 12px;
+        }
+        @media (min-width: 576px) {
+            .d-sm-block {
+                display: block !important;
+            }
+        }
+
+
+
+        .nav-pills-custom {
+            margin-bottom: 20px;
+        }
+        .float-right {
+            float: right!important;
+        }
+        .nav {
+            display: -ms-flexbox;
+            display: block;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            padding-left: 0;
+            margin-bottom: 0;
+            list-style: none;
+        }
+        dl, ol, ul {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        * {
+            outline: none !important;
+        }
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+        user agent stylesheet
+        ul, menu, dir {
+            display: block;
+            list-style-type: disc;
+            -webkit-margin-before: 1em;
+            -webkit-margin-after: 1em;
+            -webkit-margin-start: 0px;
+            -webkit-margin-end: 0px;
+            -webkit-padding-start: 40px;
+        }
+        .nav-pills-custom .nav-item .nav-link {
+            padding: 5px 18px;
+            border-radius: 20px;
+            color: #fe6271;
+            line-height: 28px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            background-color: transparent;
+        }
+
+        .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+            color: #fff;
+            background-color: #007bff;
+        }
+        :root {
+            --blue: #007bff;
+            --indigo: #6610f2;
+            --purple: #6f42c1;
+            --pink: #e83e8c;
+            --red: #dc3545;
+            --orange: #fd7e14;
+            --yellow: #ffc107;
+            --green: #28a745;
+            --teal: #20c997;
+            --cyan: #17a2b8;
+            --white: #fff;
+            --gray: #6c757d;
+            --gray-dark: #343a40;
+            --primary: #007bff;
+            --secondary: #6c757d;
+            --success: #28a745;
+            --info: #17a2b8;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --breakpoint-xs: 0;
+            --breakpoint-sm: 576px;
+            --breakpoint-md: 768px;
+            --breakpoint-lg: 992px;
+            --breakpoint-xl: 1200px;
+            --font-family-sans-serif: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+            --font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+        }
+
+
+    </style>
+</head>
+
+    <div class="content-page" style="background-color: #f0f0f0;">
+    <!-- Start content -->
+    <div class="content">
+        <div class="container-fluid" style="width: 100%;">
+
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-2">
+                    <h4 class="page-title">Dashboard</h4>
+
+                    </div>
+            <div class="col-sm-2">
+                <label id="fromDate">From Date:</label>
+                <p class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt"
+                           is-open="popup1.opened" datepicker-options="dateOptions" readonly ng-required="true" close-text="Close"
+                           alt-input-formats="altInputFormats"/>
+                    <span class="input-group-btn">
+                             <button type="button" class="btn btn-default" ng-click="open1()"><i
+                                     class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                </p>
+            </div>
+                    <div class="col-sm-2">
+                        <label id="toDate">To Date:</label>
+                        <p class="input-group">
+                            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt1"
+                                   is-open="popup2.opened" datepicker-options="dateOptions" readonly ng-required="true" close-text="Close"
+                                   alt-input-formats="altInputFormats"/>
+                            <span class="input-group-btn">
+                             <button type="button" class="btn btn-default" ng-click="open2()"><i
+                                     class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="button" style="margin-top: 18px !important;float:right" class="btn btn-primary hi_btn" ng-disabled="disable"  ng-click="restdashboard()">View</button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6" >
+                    <div class="card widget-user" style="background-color: white;">
+                        <div class="card-body text-center">
+                            <h4 class="text-custom">Sales</h4>
+                            <h2>₹ {{total| setDecimal:2}}</h2>
+                        </div>
+                        <div class="widget-chart text-center">
+                            <ul class="list-inline m-t-15">
+                                <li>
+                                    <h6 class="text-muted m-t-20">{{subtotal|number:2}}</h6>
+                                    <h6 class="m-b-0">Sub Total</h6>
+                                </li>
+                                <li>
+                                    <h6 class="text-muted m-t-20">{{result.discount|number:2}}</h6>
+                                    <h6 class="m-b-0">Discount</h6>
+                                </li>
+                                <li>
+                                    <h6 class="text-muted m-t-20">{{result.taxamount|number:2}}</h6>
+                                    <h6 class="m-b-0">Tax</h6>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" >
+                    <div class="card widget-user" style="background-color: white;">
+                        <div class="card-body text-center">
+                            <h4 class="text-custom">Running Sales</h4>
+                            <h2>₹ {{runningSalesTotal|number:2}}</h2>
+                        </div>
+                        <div class="widget-chart text-center">
+                            <ul class="list-inline m-t-15">
+                                <li>
+                                    <h6 class="text-muted m-t-20">{{runningSalesList.amount|number:2}}</h6>
+                                    <h6 class="m-b-0">Sub Total</h6>
+                                </li>
+                                <li>
+                                    <h6 class="text-muted m-t-20">{{runningSalesList.discount|number:2}}</h6>
+                                    <h6 class="m-b-0">Discount</h6>
+                                </li>
+                                <li>
+                                    <h6 class="text-muted m-t-20">{{runningSalesList.taxamount |number:2}}</h6>
+                                    <h6 class="m-b-0">Tax</h6>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" >
+                    <div class="card widget-user" style="background-color: white;">
+                        <div class="card-body text-center">
+                            <h4 class="text-custom text-left">Top 5</h4>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                    <tr ng-repeat="item in itemList|orderBy:'-value' " ng-if="$index <5">
+                                        <td style="width: 159px;">{{item.name}}</td>
+                                        <td style="width: 26px;">{{item.value}}</td>
+                                        <td style="width: 26px;">{{item.itemAmountExcTax|number:2}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row">
+
+
+                <div class="col-lg-4">
+                    <div class="card" style="max-height: 200px !important;">
+                        <div class="card-body">
+                            <div class="dropdown float-right">
+                                <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="zmdi zmdi-more-vert"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="#" class="dropdown-item">Action</a></li>
+                                    <li><a href="#" class="dropdown-item">Another action</a></li>
+                                    <li><a href="#" class="dropdown-item">Something else here</a></li>
+                                    <li class="dropdown-divider"></li>
+                                    <li><a href="#" class="dropdown-item">Separated link</a></li>
+                                </ul>
+                            </div>
+
+                            <h4 class="header-title m-t-0 m-b-30">Order Type</h4>
+
+                            <div class="row mr-0">
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <div class="panel-body"  style="max-height: 240px;">
+                                            <canvas id="doughnut" class="chart chart-bar chart_dimension"
+                                                    chart-colors="colors"
+                                                    chart-data="doughnutTotalAmountData1"
+                                                    chart-labels="doughnutTotalAmountLabel1">
+                                            </canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end col-->
+
+                <div class="col-lg-4">
+                    <div class="card" style="max-height: 200px !important;">
+                        <div class="card-body">
+                            <div class="dropdown float-right">
+                                <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="zmdi zmdi-more-vert"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="#" class="dropdown-item">Action</a></li>
+                                    <li><a href="#" class="dropdown-item">Another action</a></li>
+                                    <li><a href="#" class="dropdown-item">Something else here</a></li>
+                                    <li class="dropdown-divider"></li>
+                                    <li><a href="#" class="dropdown-item">Separated link</a></li>
+                                </ul>
+                            </div>
+
+                            <h4 class="header-title m-t-0 m-b-30">Payment Type</h4>
+
+                            <div class="row mr-0">
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <div class="panel-body"  style="max-height: 240px;">
+                                            <canvas id="doughnut" class="chart chart-bar chart_dimension"
+                                                    chart-colors="colors"
+                                                    chart-data="doughnutTotalAmountData"
+                                                    chart-labels="doughnutTotalAmountLabel">
+                                            </canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end col-->
+                <div class="col-lg-4">
+                    <div class="card" style="max-height: 200px !important;">
+                        <div class="card-body">
+                            <div class="dropdown float-right">
+                                <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="zmdi zmdi-more-vert"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="#" class="dropdown-item">Action</a></li>
+                                    <li><a href="#" class="dropdown-item">Another action</a></li>
+                                    <li><a href="#" class="dropdown-item">Something else here</a></li>
+                                    <li class="dropdown-divider"></li>
+                                    <li><a href="#" class="dropdown-item">Separated link</a></li>
+                                </ul>
+                            </div>
+
+                            <h4 class="header-title">Shifts</h4>
+
+                            <div class="row mr-0">
+                                <div class="panel">
+                                    <div class="panel-body" style="max-height: 193px !important;">
+                                        <div class="panel-body"  style="max-height: 240px;">
+                                            <canvas id="doughnut" class="chart chart-bar chart_dimension"
+                                                    chart-colors="colors"
+                                                    chart-data="doughnutTotalAmountData2"
+                                                    chart-labels="doughnutTotalAmountLabel2">
+                                            </canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div> <!-- container-fluid -->
+
+    </div> <!-- content -->
+
+
+
+</div>

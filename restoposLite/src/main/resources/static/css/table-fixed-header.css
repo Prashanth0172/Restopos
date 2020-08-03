@@ -1,0 +1,256 @@
+table .header-fixed {
+    position: fixed;
+    top: 40px;
+    z-index: 1020;
+    /* 10 less than .navbar-fixed to prevent any overlap */
+    border-bottom: 1px solid #d5d5d5;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0, 0, 0, 0.1);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    /* IE6-9 */
+}
+.header-background {
+    /*      border-bottom: 1px solid black;*/
+}
+
+/* above this is decorative, not part of the test */
+
+.fixed-table-container {
+    width: 100%;
+    /*max-height: 200px !important;*/
+    /*border: 1px solid black;*/
+    /*margin: 10px auto;*/
+    background-color: #5185b7;
+    /* above is decorative or flexible */
+    position: relative; /* could be absolute or relative */
+    padding-top: 30px; /* height of header */
+}
+
+.fixed-table-container-min {
+    width: 100%;
+    max-height: 130px;
+    /*border: 1px solid black;*/
+    /*margin: 10px auto;*/
+    background-color: white;
+    /* above is decorative or flexible */
+    position: relative; /* could be absolute or relative */
+    padding-top: 30px; /* height of header */
+}
+
+.fixed-table-container-inner {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.fixed-table-container-inner table {
+    margin-top: -8px;
+}
+
+.fixed-table-container-inner table thead th .th-inner {
+    padding: 5px 6px 5px 10px;
+    border-left: 1px solid #eee !important;
+    margin-left: -10px;
+    min-height: 31px;
+    height: auto;
+    min-width:147px;
+    max-width: auto;
+    word-break: break-all;
+    color: #fff;
+}
+
+.fixed-table-container-inner-custom {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.fixed-table-container-inner-custom table {
+    margin-top: -30px;
+}
+
+.fixed-table-container-inner-custom table thead th {
+    min-width: 80px !important;
+    height: 57px;
+}
+
+.fixed-table-container-inner-custom table thead th .th-inner {
+    padding: 5px 6px 5px 10px;
+    border-left: 1px solid #eee !important;
+    margin-left: -10px;
+    min-height: 57px;
+    height: 100%;
+    max-width: 81px;
+    line-height: 17px !important;
+    overflow: visible;
+    word-break: break-all;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+/*.header-background {
+  background-color: #1E5687;
+  height: 30px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  border-radius: 5px 5px 0 0;
+} */
+
+.table.table-fixed-header>thead:first-child>tr:first-child>th {
+    border-top: 1px solid #ccc;
+    padding: 0px 8px;
+}
+
+.header-background-custom {
+    background-color: #1e5687;
+    min-height: 57px; /* height of header */
+    height:auto;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+table {
+    background-color: white;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.th-inner {
+    position: absolute;
+    top: 0;
+    line-height: 23px; /* height of header */
+    text-align: left;
+    /*border-left: 1px solid black;*/
+    padding-left: 45px;
+    margin-left: -13px;
+    color: #fff;
+}
+.first .th-inner {
+    border-left: none;
+    padding-left: 6px;
+}
+
+.fixed-table-container-inner-custom table tbody td {
+    max-width: 87px;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.head_center {
+    padding-left: 160px !important;
+    max-width: 100% !important;
+    /*max-width: 221px !important;*/
+}
+
+/* extra-wrap */
+
+.extrawrap th {
+    text-align: center;
+}
+
+.extra-wrap {
+    width: 100%;
+}
+
+/* Zupa styles for centered headers */
+
+.zupa div.zupa1 {
+    margin: 0 auto !important;
+    width: 0 !important;
+}
+
+.zupa div.th-inner {
+    width: 100%;
+    margin-left: -50%;
+    text-align: center;
+    border: none;
+}
+
+/* for hidden header hack to calculate widths of dynamic content */
+
+.hidden-head {
+    min-width: 530px; /* enough width to show all header text, or bad things happen */
+}
+
+.hidden-header .th-inner {
+    position: static;
+    overflow-y: hidden;
+    height: 0;
+    white-space: nowrap;
+    padding-right: 5px;
+}
+
+/* for complex headers */
+
+.complex .fixed-table-container {
+    /*padding-top: 60px;*/ /* height of header */
+    overflow-x: hidden; /* for border */
+}
+
+.complex .header-background {
+    height: 60px;
+}
+
+.complex-top .th-inner {
+    border-bottom: 1px solid black;
+    width: 100%
+}
+
+.complex-bottom .th-inner {
+    top: 30px;
+    width: 100%
+}
+
+.complex-top .third .th-inner { /* double row cell */
+    height: 60px;
+    border-bottom: none;
+    background-color: #D5ECFF;
+}
+
+/* for tableSorter headers */
+
+.fixed-table-container.sort-decoration {
+    overflow-x: hidden;
+    min-width: 530px; /* enough width to show arrows */
+}
+.sort-decoration .th-inner {
+    width: 100%;
+}
+.header .th-inner {
+    background-color: #D5ECFF;
+}
+.headerSortUp .th-inner, .headerSortDown .th-inner {
+    background-color: #5DDFFD;
+}
+span.sortArrow {
+    background: url(icons/bg.gif) 0 4px no-repeat transparent;
+    padding: 1px 10px;
+    line-height: 30px;
+}
+.headerSortUp span.sortArrow {
+    background: url(icons/asc.gif) 0 7px no-repeat transparent;
+}
+.headerSortDown span.sortArrow {
+    background: url(icons/desc.gif) 0 7px no-repeat transparent;
+}
+
+
+.table_wrap {
+    width: 100%;
+    max-height: 227px;
+    border: 1px solid #ddd;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 0px;
+    background: #FFFFFF;
+}

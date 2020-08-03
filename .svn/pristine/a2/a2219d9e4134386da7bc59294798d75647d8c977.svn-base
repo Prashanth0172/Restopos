@@ -1,0 +1,29 @@
+package com.hyva.restopos.rest.entities;
+
+import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.Date;
+@Data
+@Entity
+public class Agent {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
+    private Long agentId;
+    private String agentName;
+    private String accountNo;
+    private String agentAccountCode;
+    private String email;
+    private String mobile;
+    private String address;
+    private String commission;
+    private String effectiveDate;
+    private String status;
+    private String gstinNo;
+    private String ecommerce;
+    private String locationId;
+    private String useraccount_id;
+}

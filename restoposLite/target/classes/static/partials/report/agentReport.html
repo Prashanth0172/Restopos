@@ -1,0 +1,266 @@
+
+<style>
+    .table .thead-dark th {
+        color: #fff !important;
+        background-color: #696969 !important;
+        border-color: #ecf0f5 !important;
+    }
+    .form-group{
+        margin-top:0px !important;
+    }
+    .top-button-area1 button{
+        margin-top: 10px !important;
+    }
+    .table td{
+        border:1px solid #696969 !important;
+    }
+
+    .top-box1{
+        height:auto;
+    }
+    .top-button-area1 {
+        margin: 10px 0px !important;
+        float: none !important;
+        margin-top: 0px !important;
+    }
+</style>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Agent Register
+
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="top-box1">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 form-group">
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                            <label>Date:</label>
+                        </div>
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 input-group date">
+                            <p class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
+                                       ng-model="fromDate" style="height: 35px;"
+                                       is-open="popup1.opened" readonly datepicker-options="dateOptions"
+                                       ng-required="true"
+                                       close-text="Close" alt-input-formats="altInputFormats"/>
+                                <span class="input-group-btn">
+                                     <button type="button" class="btn btn-default" ng-click="open1()"><i
+                                             class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 form-group">
+                        <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                            <label>To:</label>
+                        </div>
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 input-group date">
+                            <p class="input-group">
+                                <input type="text" class="form-control" readonly uib-datepicker-popup="{{format}}"
+                                       ng-model="toDate" style="height: 35px;"
+                                       is-open="popup2.opened" datepicker-options="dateOptions"
+                                       ng-required="true"
+                                       close-text="Close" alt-input-formats="altInputFormats"/>
+                                <span class="input-group-btn">
+                                     <button type="button" class="btn btn-default" ng-click="open2()"><i
+                                             class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 form-group">
+                        <div class="col-lg-3 col-md-12">
+                            <label>Agent:</label>
+                        </div>
+                        <div class="col-lg-7 col-md-12 col-xs-12 input-group date">
+                            <div class="form-group">
+                            <input id="agenttextinput" name="agenttextinput" type="text" ng-change="updateAgentId(this)"
+                                   placeholder="Agent" ng-model="agentSearchText" class="form-control input-md"
+                                   ng-click="getAgentListSearch(searchAgentText)" style="width: 100% !important;"/>
+                            </div>
+                            <!--<div>-->
+                            <!--<button  class="btn btn-default add_btn sub_btn" ng-disabled="user_access_rights.salesCustomerAdd==false" ng-click="addCustomer()"><i-->
+                            <!--class="fa fa-plus fa-fw" style="color: #fff"></i></button>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+                        <div class="top-button-area1">
+                            <div class="col-lg-4 col-md-4 col-sm-3">
+                                <button type="button" class="btn btn-block btn-success" ng-click="getAgentListingwithFilter('',SIfilter)">View</button>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-5">
+                                <a href="/reports/downloadAgentExcelSheet?fromDate={{fromDate| date:'yyyy-MM-dd'}}&toDate={{toDate| date:'yyyy-MM-dd'}}&agentId={{agentId}}">
+                                    <button type="button" class="btn btn-block btn-success">EXCEL</button>
+                                </a>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4">
+                                <a href="/reports/downloadAgentPdf?fromDate={{fromDate| date:'yyyy-MM-dd'}}&toDate={{toDate| date:'yyyy-MM-dd'}}&agentId={{agentId}}">
+                                    <button type="button" class="btn btn-block btn-success">PDF</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!--<div class="row">-->
+                    <!--<div class="col-md-offset-6 col-md-6">-->
+                        <!--<div class="top-button-area1">-->
+                            <!--<div class="col-md-3 col-sm-3" style="padding-left: 0;">-->
+                                <!--<button type="button" class="btn btn-block btn-success" ng-click="getAgentListingwithFilter('',SIfilter)">View</button>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-5 col-sm-5">-->
+                                <!--<a href="/reports/downloadAgentExcelSheet?fromDate={{fromDate| date:'yyyy-MM-dd'}}&toDate={{toDate| date:'yyyy-MM-dd'}}&agentId={{agentId}}">-->
+                                    <!--<button type="button" class="btn btn-block btn-success">EXCEL</button>-->
+                                <!--</a>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-4 col-sm-4">-->
+                                <!--<a href="/reports/downloadAgentPdf?fromDate={{fromDate| date:'yyyy-MM-dd'}}&toDate={{toDate| date:'yyyy-MM-dd'}}&agentId={{agentId}}">-->
+                                    <!--<button type="button" class="btn btn-block btn-success">PDF</button>-->
+                                <!--</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <div style="overflow-x:auto;">
+                <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th data-field="invdate"><div class="th-inner">Date</div></th>
+                        <th data-field="invno"><div class="th-inner">Invoice No</div></th>
+                        <th data-field="currency"><div class="th-inner">Invoice Amount</div></th>
+                        <th data-field="agntname"><div class="th-inner">Agent Name</div></th>
+                        <th data-field="agntno"><div class="th-inner">Agent No</div></th>
+                        <th data-field="agentemail"><div class="th-inner">Agent Email</div></th>
+                        <th data-field="agtcomper"><div class="th-inner">Agent Commission</div></th>
+                        <th data-field="currency"><div class="th-inner">Commission Amt</div></th>
+                    </tr>
+                    </thead>
+                    <tbody ng-repeat="agent in agentReportList">
+                    <tr>
+                        <td> {{agent.invdate| date:'dd/MM/yyyy'}}</td>
+                        <td> {{agent.invoiceNO}}</td>
+                        <td> {{agent.totalAmount}}</td>
+                        <td> {{agent.agentName}}</td>
+                        <td> {{agent.accountNo}}</td>
+                        <td> {{agent.email}}</td>
+                        <td> {{agent.commission}}</td>
+                        <td>{{(agent.commission*agent.totalAmount)/100|number:2}}</td>
+
+
+                    </tr>
+                    <tfoot>
+                    <tr>
+                        <td ><strong>Grand Total</strong></td>
+                        <td></td>
+                        <td class="align_right"><strong>{{invoiceTotal|number:2}}</strong></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="align_right"><strong>{{comissionTotal|number:2}}</strong></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            </tbody>
+
+            </table>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12 col-md-12 pagination_" style="margin-top: 180px;">
+
+            <button type="button" class="btn btn-default hi_btn" ng-class="{'diabled-class': first}"
+                    ng-disabled="first"
+                    ng-click="getPaginatedAgentListing('firstPage')" ng-model="first">First
+            </button>
+            <button type="button" class="btn btn-default hi_btn" ng-class="{'diabled-class': prev}"
+                    ng-disabled="prev"
+                    ng-click="getPaginatedAgentListing('prevPage')" ng-model="prev">Prev
+            </button>
+            <button type="button" class="btn btn-default hi_btn" name="next" ng-disabled="next"
+                    ng-click="getPaginatedAgentListing('nextPage')" value="next"
+                    ng-class="{'diabled-class': next}" ng-model="next">Next
+            </button>
+            <button type="button" class="btn btn-default hi_btn"
+                    ng-click="getPaginatedAgentListing('lastPage')" ng-class="{'diabled-class': last}"
+                    ng-disabled="last"
+                    ng-model="last">Last
+            </button>
+        </div>
+    </div>
+    <div class="modal fade selectEmployee" tabindex="-1" id="selectAgent" role="dialog" data-backdrop="static"
+         aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content checkout">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Select Agent</h4>
+                </div>
+                <div class="modal-body" style="height: 460px; overflow-y: scroll;">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <label style="margin-left:20px;">Search: <input class="form-control input-sm"
+                                                                            ng-change="getAgentListSearch(searchAgentText)"
+                                                                            ng-change-delay="300"
+                                                                            ng-model="searchAgentText"></label>
+                            <div class="table-responsive">
+                                <table class="table table-striped table_costomize employeelisttable" id="">
+                                    <thead>
+                                    <tr>
+                                        <th data-field="name" style="width: 33.3% !important">Agent Name</th>
+                                        <th style="width: 33.3% !important" data-field="desc">Email</th>
+                                        <th style="width: 33.3% !important" data-field="desc">Contact</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="parentTable">
+                                    <tr ng-repeat="agentId in agentList| filter:searchAgentText"
+                                        ng-click="appendAgent(agentId)">
+                                        <td style="width: 33.3% !important;word-break: break-word;">
+                                            {{agentId.agentName}}
+                                        </td>
+                                        <td style="width: 33.3% !important;word-break: break-word;">
+                                            {{agentId.email}}
+                                        </td>
+                                        <td style="width: 33.3% !important;word-break: break-word;">
+                                            {{agentId.mobile}}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <select-item-modal></select-item-modal>
+    <sales-print></sales-print>
+    <restaurant-print></restaurant-print>
+
+</section>

@@ -1,0 +1,137 @@
+import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
+import {EmployeeService} from "../employee.service";
+import {State} from "../state";
+
+@Component({
+  selector: 'app-state-list',
+  templateUrl: './state-list.component.html',
+  styleUrls: ['./state-list.component.css']
+})
+export class StateListComponent implements OnInit {
+  // countryList: Observable<Country[]>;
+  state: State = new State();
+  public count=[];
+  public states=[];
+  public countryList=[];
+  ButtonStatus : String="InActive";
+  inactiveStatus :String ="Active";
+  clicked : Boolean = false;
+  firstPage :Boolean = true;
+  lastPage :Boolean = false;
+  prevPage :Boolean = false;
+  pageNo :number = 1;
+  noOfPages : number;
+  first : Boolean;
+  last : Boolean;
+  prev : Boolean;
+  next : Boolean;
+  page : String ='firstPage';
+  constructor(private employeeService: EmployeeService,
+              private router: Router) {}
+  ngOnInit() {
+    this.paginationList(this.page);
+    this.getCountryList();
+  }
+  getCountryList = function () {
+    this.employeeService.getAllCountryList().subscribe(data=> {
+      this.countryList = data.data;
+    })
+  };
+  paginationList(page){
+    switch (page){
+      case 'firstPage':
+        this.pageNo = 1;
+        break;
+      case 'lastPage':
+        this.pageNo = this.noOfPages;
+        break;
+      case 'nextPage':
+        this.pageNo = this.pageNo + 1;
+        break;
+      case 'prevPage':
+        this.pageNo = this.pageNo - 1;
+        break;
+      default:
+        this.pageNo=1;
+        this.firstPage = true;
+    }
+    this.employeeService.getStateList(this.inactiveStatus,"",(this.pageNo.toString())).subscribe(data=>
+    {
+      this.states = data.data;
+      // for(let cat of this.states) {
+      //   if (cat.status == 0) {
+      //     cat.status = "InActive";
+      //   } else {
+      //     cat.status = "Active";
+      //   }
+      // }
+      this.noOfPages=data.no_of_paginations;
+      if (this.noOfPages == 1||this.noOfPages==0) {
+        this.first = true;
+        this.last = true;
+        this.prev = true;
+        this.next = true;
+      }else if(this.pageNo == this.noOfPages){
+        this.first = false;
+        this.last = true;
+        this.prev = false;
+        this.next = true;
+      }else if(this.pageNo==1){
+        this.first = true;
+        this.last = false;
+        this.prev = true;
+        this.next = false;
+      }else if(this.pageNo < this.noOfPages){
+        this.first = false;
+        this.last = false;
+        this.prev = false;
+        this.next = false;
+      }
+    })
+  }
+
+
+  inactiveButton(){
+    if(this.clicked ==false) {
+      this.inactiveStatus = "InActive";
+      this.ButtonStatus = "Active";
+    }
+    else {
+      this.inactiveStatus = "Active";
+      this.ButtonStatus = "InActive";
+    }
+    this.clicked = !this.clicked;
+    this.paginationList('');
+  }
+
+  // updateState(id: number){
+  //   this.router.navigate(['update', id]);
+  // }
+
+  updateState(data){
+    this.state=data;
+    this.openModal(true);
+  }
+  private mdlSampleIsOpen : boolean = false;
+  private openModal(open : boolean) : void {
+    this.mdlSampleIsOpen = open;
+  }
+  private submitted: boolean;
+
+  onSubmit() {
+    this.submitted = true;
+    this.save();
+    this.openModal(false);
+  }
+
+  save() {
+    this.employeeService.createState(this.state)
+      .subscribe(data => console.log(data), error => console.log(error));
+    this.state = new State();
+    this.paginationList(this.page);
+  }
+
+
+
+}

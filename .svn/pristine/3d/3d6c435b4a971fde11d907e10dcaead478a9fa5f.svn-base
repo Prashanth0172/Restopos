@@ -1,0 +1,228 @@
+<style>
+    @media (min-width: 992px){
+        .col-md-2{
+            width:14.2222%;
+        }
+    }
+    .table .thead-dark th {
+        color: #fff !important;
+        background-color: #696969 !important;
+        border-color: #ecf0f5 !important;
+    }
+    .table td{
+        border:1px solid #696969 !important;
+    }
+    table>thead>tr>th {
+        padding: 4px !important;
+        background-color: #696969;
+        color: white;
+        font-size: 13px;
+    }
+</style>
+
+<section class="content-header">
+    <h1>
+        Item
+    </h1>
+
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="top-box">
+                <div class="col-md-2">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Search..." id="textinput" name="textinput"  type="text"
+                                   placeholder="Search Item" ng-model="itemSearchText"
+                                   ng-change="getPaginatedItemList(itemSearchText)">
+                            <datalist id="itemList1">
+                                <option ng-repeat="option in completeItemList | filter:itemSearchText | limitTo:5" value="{{option.itemName}}"></option>
+                            </datalist>
+                        </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="top-button-area">
+                        <div class="col-md-2 col-sm-4">
+                            <button type="button" class="btn btn-block btn-success" ng-click="addNewItemPopulate()">Add</button>
+                        </div>
+                        <div class="col-md-2 col-sm-4">
+                            <button type="button" class="btn btn-block btn-success" id="colButnw"  data-toggle="modal"
+                                    ng-model="inactiveStatus" data-target=".print-me"
+                                    ng-click="inactiveButton()">{{ButtonStatus}}</button>
+                        </div>
+                        <div class="col-md-2 col-sm-4">
+                            <button type="button" class="btn btn-block btn-success" ng-click="importItem()">Import</button>
+                        </div>
+                        <div class="col-md-2 col-sm-4">
+                            <button type="button" class="btn btn-block btn-success" ng-model="select" ng-click="selectAll()">{{Button}}</button>
+                        </div>
+                        <div class="col-md-2 col-sm-4">
+                            <button type="button" class="btn btn-block btn-success" ng-click="synchronize()">Synchronize</button>
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                            <a href="/hipos/itemExport?type=pdf">
+                                <div><button type="button" class="btn btn-success hi_btn">Pdf</button></div>
+                            </a>
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                            <a href="/hipos/itemExport?type=excel">
+                                <div><button type="button" class="btn btn-success hi_btn">Excel</button></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12 col-xs-12 customer-data">
+            <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
+                <thead>
+                <tr>
+                    <th>
+                    </th>
+                    <th>
+                        Item Code
+                    </th>
+                    <th>
+                        Item Name
+                    </th>
+                    <th>
+                        Available Qty
+                    </th>
+                    <th>
+                        Item Category
+                    </th>
+                    <th>
+                        Food Type
+                    </th>
+                    <th>
+                        Sales Price
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in itemList| filter:itemSearchText">
+                    <hidden {{item.itemId}}/>
+                    <td><input type="checkbox" ng-model="item.checkbox"> </td>
+                    <td>{{item.itemCode}}</td>
+                    <td class="word_break">{{item.itemName}}</td>
+                    <td>{{item.stock | number:4}}</td>
+                    <td>{{item.itemCategoryName}}</td>
+                    <td>{{item.foodTypeName}}</td>
+                    <td>{{item.salesPrice }}</td>
+                    <td><button type="button" class="btn btn-primary hi_btn"  ng-click="editItem(item)">Edit</button></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="col-sm-12 pagination_">
+
+                <div class="col-sm-12" style="float:right !important;">
+                    <button type="button" class="btn btn-default hi_btn" ng-class="{'diabled-class': first}"
+                            ng-disabled="first"
+                            ng-click="getPaginatedItemList('firstPage')" ng-model="first">First
+                    </button>
+                    <button type="button" class="btn btn-default hi_btn" ng-class="{'diabled-class': prev}"
+                            ng-disabled="prev"
+                            ng-click="getPaginatedItemList('prevPage')" ng-model="prev">Prev
+                    </button>
+                    <button type="button" class="btn btn-default hi_btn" name="next" ng-disabled="next"
+                            ng-click="getPaginatedItemList('nextPage')" value="next"
+                            ng-class="{'diabled-class': next}" ng-model="next">Next
+                    </button>
+                    <button type="button" class="btn btn-default hi_btn"
+                            ng-click="getPaginatedItemList('lastPage')" ng-class="{'diabled-class': last}"
+                            ng-disabled="last"
+                            ng-model="last">Last
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="add_new_country_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Add Country</h4>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="row" id="cus_step1">
+
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label">Name</label>
+                            <div class="col-sm-9">
+                                <input id="CountryName" name="CountryName"
+                                       ng-pattern="/[aA-zZ\s]$/"
+                                       type="text" placeholder="Customer  Email"
+                                       ng-model="CountryNameText" maxlength="125"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label">Status</label>
+                            <div class="col-sm-9">
+                                <select name="custStatus" id="custStatus" ng-model="StatusText" class="form-control" required>
+                                    <option value="">Select</option>
+                                    <option value="Active">Active</option>
+                                    <option value="InActive">InActive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-toggle="modal" ng-disabled="isDisabled"
+                        data-target=".print-me" ng-click="saveCountry('add_new_country_modal')">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="removeCountryDetails()">Close</button>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!--<form class="form-horizontal" id="countyDetails" method="post" ng-submit="saveCountryImport()">-->
+    <!--<div class="modal fade" tabindex="-1" id="import_Country" role="dialog" data-backdrop="static"-->
+         <!--aria-labelledby="mySmallModalLabel_1">-->
+        <!--<div class="modal-dialog modal-lg">-->
+            <!--<div class="modal-content">-->
+                <!--<div class="modal-header">-->
+                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
+                            <!--aria-hidden="true">&times;</span></button>-->
+                    <!--<h4 class="modal-title">Import Country</h4>-->
+                <!--</div>-->
+                <!--<a href="resource\ImportSheets\Country.xlsx" download>Download ExcelSheet</a>-->
+                <!--<div class="modal-body checkout-body">-->
+                    <!--<div class="col-md-6">-->
+                        <!--<div class="form-group">-->
+                            <!--<div class="col-xs-5">-->
+                                <!--<input type="file" name="myFile" id="myFile"/>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="modal-footer">-->
+                    <!--<button type="submit" class="btn btn-default" data-toggle="modal" ng-disabled="isDisabled">Save</button>-->
+                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</form>-->
+<add-new-item-modal></add-new-item-modal>

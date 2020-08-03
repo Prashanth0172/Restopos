@@ -1,0 +1,8 @@
+export class TablePos {
+  table_id: number;
+  table_name: string;
+  zone_id: string;
+  table_status: string;
+  min_capacity: string;
+  max_capacity: string;
+}

@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    .table>thead:first-child>tr:first-child>th {
+        height: 38px !important;
+    }
+</style>
+<body>
+<div class="container-fluid">
+    <div class="container cus_main_row">
+
+        <div class="row">
+            <h2 class="pos-header-new">
+                <div>Configuration</div>
+            </h2>
+        </div>
+        <div class="row inner_row_bg">
+            <div class="col-md-12" id="save_new_AccountSetup_modal">
+                <div class="panel">
+                    <div class="panel-body">
+                        <div class="col-md-6 col-md-offset-3 col-sm-offset-2 col-sm-8">
+                            <div class="form-horizontal ng-pristine ng-valid">
+                                <div class="form-group">
+
+                                    <label class="control-label col-lg-3 col-sm-4" for="">Cash Account :</label>
+                                    <div class="col-lg-9 col-sm-8" style="position:relative;">
+                                        <input type="hidden" ng-model="CashAccountIDText">
+                                        <input type="text"
+                                               class="form-control input-md"
+                                               placeholder="Select Account"
+                                               ng-model="account_name"
+                                               ng-click="getCashAccountList(accountSearchText)">
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3 col-sm-4" for="">Bank Account :</label>
+                                    <div class="col-lg-9 col-sm-8">
+                                        <input type="hidden" ng-model="BankAccountIDText">
+                                        <input type="text" class="form-control input-md"
+                                               placeholder="Select Account"
+                                               ng-model="BankAccountText"
+                                               ng-click="getBankAccountList(accountSearchText)"
+                                               style="width: 77%; display: inline;">
+
+                                        <a class="btn btn-default add_btn" ng-click="addNewbankPopulate()" style="display: inline;
+                                                  padding: 8px; background: dimgray; color: #fff;"><i class="fa fa-plus fa-fw"></i></a>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3 col-sm-4" for="">Unit Price:</label>
+                                    <div class="col-lg-9 col-sm-8">
+                                        <select ng-model="UnitPriceText" class="form-control">
+                                            <option value="Editable"> Editable
+                                            <option value="Non-editable"> Non-editable
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3 col-sm-4" for="">Discount:</label>
+                                    <div class="col-lg-9 col-sm-8">
+                                        <select ng-model="DiscountText" class="form-control">
+                                            <option value="Editable"> Editable
+                                            <option value="Non-editable"> Non-editable
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-show="DiscountText=='Editable'">
+                                    <label class="control-label col-lg-3 col-sm-4" for="">Discount Type:</label>
+                                    <div class="col-lg-9 col-sm-8">
+                                        <input type="radio" ng-model="discountType" value="itemWise">Item Wise
+                                        <input type="radio" ng-model="discountType" value="billWise">Bill Wise
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-show="discountType=='billWise'">
+                                    <label class="control-label col-lg-3 col-sm-4" for="">Tax Percent:</label>
+                                    <div class="col-lg-9 col-sm-8">
+                                        <input type="checkbox" ng-model="taxcheckbox">
+                                    </div>
+                                    <div class="col-lg-9 col-sm-8">
+                                        <select class="form-control input-md"
+                                                ng-model="taxid"
+                                                ng-options="tax.taxId as tax.taxName for tax in taxList">
+                                            <option value="">Select</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-show="DiscountText=='Editable'">
+                                    <label class="control-label col-lg-3 col-sm-4" for="">Sort Orders:</label>
+                                    <div class="col-lg-9 col-sm-8">
+                                        <input type="radio" ng-model="sortOrder" value="Asc">Asc
+                                        <input type="radio" ng-model="sortOrder" value="Desc">Desc
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3 col-sm-4" for="">PompOrder TimeOut :</label>
+                                    <div class="col-lg-9 col-sm-8" style="position:relative;">
+                                        <input type="text" maxlength="3"
+                                               class="form-control input-md"
+                                               placeholder="pompOrderTimeOut"
+                                               ng-model="pompOrderTimeOut">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3 col-sm-4" for="">Print Type:</label>
+                                    <div class="col-lg-9 col-sm-8">
+                                        <input type="radio" ng-model="PrintTypeText" value="normal">Normal (A4)
+                                        <input type="radio" ng-model="PrintTypeText" value="normalA5">Normal (A5)
+                                        <input type="radio" ng-model="PrintTypeText" value="pos">POS (3 Inch)
+                                        <br/>
+                                        <input type="radio" ng-model="PrintTypeText" value="normalwithshippaddr">NormalWithShippingAddress
+                                        <input type="radio" ng-model="PrintTypeText" value="printeddata">PrePrintedData
+                                        <input type="radio" ng-model="PrintTypeText" value="preprintedwithshippaddr">PrePrintedDataWithShippingAddress
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <fieldset data-ng-repeat="field in posPrinterModalList ">
+                                        <label class="control-label col-lg-3 col-sm-4" for="">POS Printer :</label>
+                                        <div class="col-lg-9 col-sm-8">
+                                            <select ng-model="field.posPrinter" class="form-control"
+                                                    ng-options="value as value for (key , value) in printerDeviceList"
+                                                    style="width: 25%; display: inline;">
+                                            </select>
+                                            ||
+                                            <select ng-model="field.user" class="form-control"
+                                                    ng-options="user.full_name as
+											user.full_name for user in userlist"  ng-disabled="$index == 0" style="width: 25%;display: inline;">
+                                            </select>
+                                            ||
+                                            <select ng-model="field.tableConfig" class="form-control"
+                                                    ng-options="table.tableconfigid as
+											table.configurationname for table in tableConfigurationList"  ng-disabled="$index == 0" style="width: 20%; display: inline">
+                                            </select>
+                                            <a class="btn btn-default add_btn" ng-click="addPosPrinterModel()" style="display: inline;
+                                            padding: 8px; background: dimgray; color: #fff; display: inline"><i class="fa fa-plus fa-fw"></i></a>
+
+                                            <a class="btn btn-default add_btn" ng-click="removePosPrinter($index)" style="display: inline;
+                                            padding: 8px; background: dimgray; color: #fff; display: inline"><i class="fa fa-minus fa-fw"></i></a>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3 col-sm-4" for="">Print Preview:</label>
+                                    <div class="col-lg-9 col-sm-8" ng-init="printPreview=No">
+                                        <input type="radio" ng-model="printPreview" value="Yes">Yes
+                                        <input type="radio" ng-model="printPreview" value="No">No
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3 col-sm-4" for="">Notification:</label>
+                                    <div class="col-lg-9 col-sm-8" ng-init="notification=No">
+                                        <input type="radio" ng-model="notification" value="Yes">Yes
+                                        <input type="radio" ng-model="notification" value="No">No
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3 col-sm-4" for="">Restaurant:</label>
+                                    <div class="col-lg-9 col-sm-8">
+                                        <input type="radio" ng-model="Restaurant"  value="DineIn" ng-init="Restaurant='dineIn'">Dine In
+                                        <input type="radio" ng-model="Restaurant" value="TakeAway">Take Away
+                                        <input type="radio" ng-model="Restaurant" value="Delivery">Delivery
+                                        <input type="radio" ng-model="Restaurant" value="onlineDelivery">Online Delivery
+                                        <input type="radio" ng-model="Restaurant" value="digiOrders">Digi Orders
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3 col-sm-4" for="">Cancelled KOT (Printer):</label>
+                                    <div class="col-lg-9 col-sm-8">
+                                        <input type="checkbox" ng-model="reportToReceipt" ng-init="reportToReceipt=true">Receipt Printer
+                                        <input type="checkbox" ng-model="reportToCategory" ng-init="reportToCategory=false">Category Printer
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3 col-sm-4" for="">Prompt KOT (Printer):</label>
+                                    <div class="col-lg-9 col-sm-8">
+                                        <input type="checkbox" ng-model="promptKOT" ng-init="promptKOT=false">Yes / No
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <fieldset data-ng-repeat="field in kotPrinterList track by $index">
+                                        <label class="control-label col-lg-3 col-sm-4" for="">Kot Printer :</label>
+                                        <div class="col-lg-9 col-sm-8">
+                                            <select ng-model="kotPrinterList[$index]" class="form-control"
+                                                    ng-options="value as value for (key , value) in printerDeviceList"
+                                                    style="width: 45%; display: inline;">
+                                            </select>
+                                            ||
+                                            <select ng-model="categoryList[$index]" class="form-control"
+                                                    ng-options="value.itemCategoryName as value.itemCategoryName for (key , value) in itemCategoryList"
+                                                    style="width: 25%; display: inline;" ng-disabled="$index == 0">
+                                            </select>
+
+
+                                            <a class="btn btn-default add_btn" ng-click="addKOT()" style="display: inline;
+                                            padding: 8px; background: dimgray; color: #fff;"><i class="fa fa-plus fa-fw"></i></a>
+
+                                            <a class="btn btn-default add_btn" ng-click="removeKOT($index)" style="display: inline;
+                                            padding: 8px; background: dimgray; color: #fff;"><i class="fa fa-minus fa-fw"></i></a>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3 col-sm-4" for="">A4 Printer</label>
+                                    <div class="col-lg-9 col-sm-8" style="position:relative;">
+                                        <select ng-model="cnfa4printer" class="form-control"
+                                                ng-options = "value as value for (key , value) in printerDeviceList">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <fieldset data-ng-repeat="field in kotPrinterModelList track by $index">
+                                        <label class="control-label col-lg-3 col-sm-4" for="">Printer Display :</label>
+                                        <div class="col-lg-9 col-sm-8">
+                                            <select ng-model="kotPrinterModelList[$index]" class="form-control"
+                                                    ng-options="value as value for (key , value) in printerDeviceList"
+                                                    style="width: 45%; display: inline;">
+                                            </select>
+                                            ||
+                                            <select ng-model="printModelList[$index]" class="form-control"
+                                                    style="width: 25%; display: inline;">
+                                                <option value="TVSRP3150"> TVS RP3150
+                                                <option value="EPSONTMT82"> EPSON TM T-82
+                                                <option value="GENERIC58MM"> GENERIC 58MM
+                                            </select>
+
+
+                                            <a class="btn btn-default add_btn" ng-click="addPrinterModel()" style="display: inline;
+                                            padding: 8px; background: dimgray; color: #fff;"><i class="fa fa-plus fa-fw"></i></a>
+
+                                            <a class="btn btn-default add_btn" ng-click="removePrinterModel($index)" style="display: inline;
+                                            padding: 8px; background: dimgray; color: #fff;"><i class="fa fa-minus fa-fw"></i></a>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3 col-sm-4" for="">Take Away Printer</label>
+                                    <div class="col-lg-9 col-sm-8" style="position:relative; width: 75%">
+                                        <select ng-model="mobilebillprinter" class="form-control"
+                                                ng-options = "value as value for (key , value) in printerDeviceList">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <fieldset data-ng-repeat="field in kotPrinterModelListMobile track by $index">
+                                        <label class="control-label col-lg-3 col-sm-4" for="">Printer Display Mobile:</label>
+                                        <div class="col-lg-9 col-sm-8">
+                                            <select ng-model="kotPrinterModelListMobile[$index]" class="form-control"
+                                                    ng-options="value as value for (key , value) in printerDeviceList"
+                                                    style="width: 45%; display: inline;">
+                                            </select>
+                                            ||
+                                            <select ng-model="printModelListMobile[$index]" class="form-control"
+                                                    style="width: 25%; display: inline;">
+                                                <option value="TVSRP3150"> TVS RP3150
+                                                <option value="EPSONTMT82"> EPSON TM T-82
+                                                <option value="GENERIC58MM"> GENERIC 58MM
+                                            </select>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-3 col-sm-4" for="">Printer Selection</label>
+                                    <div class="col-lg-9 col-sm-8" style="position:relative; width: 75%">
+                                        <input id="printerSelection" name="printerSelection"
+                                               type="text" placeholder="printerSelection" ng-click="openPrinterSelectionPage()"
+                                               ng-model="printerSelection1"
+                                               class="form-control input-md" autocomplete="off">
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-horizontal ng-pristine ng-valid">
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-6 pull-right">
+                                    <button type="submit" class="btn btn-default" data-toggle="modal" ng-disabled="isDisabled"
+                                            data-target=".print-me"
+                                            ng-click="saveAccountSetup('save_new_AccountSetup_modal')">Save
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-sm-12">
+                <div class="fixed-table-container">
+                    <div class="table_wrap fixed-table-container-inner">
+                        <div class="header-background"></div>
+                        <table data-toggle="table" data-cache="false" data-height="299" style="margin-bottom: 0;"
+                               class="hi_table table table-hover table-bordered table-striped table-fixed-header">
+                            <thead>
+                            <tr>
+                                <th data-field="cntryname">
+                                    <div class="th-inner">Cash Account</div>
+                                </th>
+                                <th data-field="cntryname">
+                                    <div class="th-inner">Bank Account</div>
+                                </th>
+                                <th data-field="cntryname">
+                                    <div class="th-inner">Unit Price</div>
+                                </th>
+                                <th data-field="cntryname">
+                                    <div class="th-inner">Discount</div>
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody id="parentTable">
+                            <tr ng-repeat="accountSetup in configurationList| filter:searchText">
+
+                                <td>{{accountSetup.cashAccountName}}</td>
+                                <td>{{accountSetup.bankAccountName}}</td>
+                                <td>{{accountSetup.unitPrice}}</td>
+                                <td>{{accountSetup.discount}}</td>
+                                <!--<td><a id="edit" ng-click="editConfiguratPopulate(bank)" class="edit"><i class="fa fa-pencil-square-o fa-fw orange"></i></a></td>-->
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade selectItem" tabindex="-1" id="selectAccount" role="dialog" data-backdrop="static"
+                 aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content checkout">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Select Account</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Search: <input class="form-control input-sm"
+                                                          ng-change="getCashAccountList(searchText)"
+                                                          ng-change-delay="300" ng-model="searchText"></label>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table_costomize itemlisttable four_table_info"
+                                               id="">
+                                            <thead>
+                                            <tr>
+                                                <th data-field="name">Account Code</th>
+                                                <th data-field="desc">Account Name</th>
+                                                <th data-field="desc">Upper Level Name</th>
+                                                <th data-field="desc">Account Type</th>
+                                                <!--<th data-field="desc">Item Category Name</th>-->
+                                            </tr>
+                                            </thead>
+                                            <tbody id="parentTable">
+                                            <tr ng-repeat="account in accountList| filter:searchText"
+                                                ng-click="showAcceptedNotificationList ? updateNotificationItemInList(account) : addAccount(account,$index);">
+                                                <td hidden>{{account.accountid}}</td>
+                                                <td>{{account.stringAccountCode}}</td>
+                                                <!--<td class="word_break">{{account.account_name}}</td>-->
+                                                <td>{{account.account_name}}</td>
+                                                <td>{{account.parentAccount_name}}</td>
+                                                <td>{{account.accountGroup}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade selectItem" tabindex="-1" id="selectAccount1" role="dialog" data-backdrop="static"
+                 aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content checkout">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true" ng-click="remove()">&times;</span></button>
+                            <h4 class="modal-title">Select Account</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Search: <input class="form-control input-sm"
+                                                          ng-keyup="$event.keyCode == 13 ? getBankAccountList(text) : null"
+                                                          ng-change-delay="300" ng-model="text"></label>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table_costomize itemlisttable four_table_info"
+                                               id="">
+                                            <thead>
+                                            <tr>
+                                                <th data-field="name">Account Code</th>
+                                                <th data-field="desc">Account Name</th>
+                                                <th data-field="desc">Upper Level Name</th>
+                                                <th data-field="desc">Account Type</th>
+                                                <!--<th data-field="desc">Item Category Name</th>-->
+                                            </tr>
+                                            </thead>
+                                            <tbody id="parentTable">
+                                            <tr ng-repeat="account in accountList| filter:searchText"
+                                                ng-click="showAcceptedNotificationList ? updateNotificationItemInList(account) : addAccount1(account,$index);">
+                                                <td hidden>{{account.accountid}}</td>
+                                                <td>{{account.stringAccountCode}}</td>
+                                                <!--<td class="word_break">{{account.account_name}}</td>-->
+                                                <td>{{account.account_name}}</td>
+                                                <td>{{account.parentAccount_name}}</td>
+                                                <td>{{account.accountGroup}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" ng-click="remove()" class="btn btn-default" data-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade ExchangeRate" tabindex="-1" id="add_new_Bank_modal" role="dialog"
+                 data-backdrop="static"
+                 aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content checkout">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 id="bank-title" class="modal-title">Add Bank</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <form name="addBank" class="form-horizontal">
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <label class="col-md-4 col-sm-4 control-label" for="AccountNo">Account
+                                                    No</label>
+                                                <div class="col-md-6 col-sm-6" style="position:relative;">
+                                                    <input id="accountNo" name="accountNo" alphanum-with-space
+                                                           minlength="5" maxlength="25"
+                                                           type="text" placeholder="Account No"
+                                                           ng-model="accountNoText"
+                                                           ng-blur="hideAutoComplete()"
+                                                           class="form-control input-md" autocomplete="off" required>
+                                                    <span style="color:red" ng-show="addBank.AccountNo.$error.pattern">Minimum length should be 5 Digits</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 col-sm-4 control-label" for="">Bank Name</label>
+                                                <div class="col-md-6 col-sm-6" style="position:relative;">
+                                                    <input id="bankName" name="bankName" maxlength="25"
+                                                           allowpattern="[a-z]"
+                                                           type="text" placeholder="Bank Name"
+                                                           ng-model="bankNameText"
+                                                           ng-model-options="{ debounce: 1000 }"
+                                                           ng-blur="hideAutoComplete()"
+                                                           class="form-control input-md" autocomplete="off" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 col-sm-4 control-label" for="BranchName">Branch
+                                                    Name</label>
+                                                <div class="col-md-6 col-sm-6" style="position:relative;">
+                                                    <input id="branchName" name="branchName" maxlength="125"
+                                                           allowpattern="[a-z]"
+                                                           type="text" placeholder="Branch Name"
+                                                           ng-model="BranchNameText"
+                                                           ng-model-options="{ debounce: 1000 }"
+                                                           ng-blur="hideAutoComplete()"
+                                                           class="form-control input-md" autocomplete="off" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-4 col-sm-4 control-label"
+                                                       for="Address">Address</label>
+                                                <div class="col-md-6 col-sm-6" style="position:relative;">
+                        <textarea id="Address" name="Address" maxlength="255"
+                                  allowpattern="[a-z]"
+                                  type="text" placeholder="Address"
+                                  ng-model="AddressText"
+                                  ng-model-options="{ debounce: 1000 }"
+                                  ng-blur="hideAutoComplete()"
+                                  class="form-control input-md"> </textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-4 col-sm-4 control-label" for="PhoneNo">Phone
+                                                    No</label>
+                                                <div class="col-md-6 col-sm-6" style="position:relative;">
+                                                    <input id="PhoneNo" name="PhoneNo"
+                                                           type="text" placeholder="Phone No"
+                                                           ng-model="PhoneNoText" Num-with-space
+                                                           maxlength="10" ng-minlength="10"
+                                                           class="form-control input-md" autocomplete="off" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 col-sm-4 control-label" for="Email">Email</label>
+                                                <div class="col-md-6 col-sm-6" style="position:relative;">
+                                                    <input id="Email" name="Email"
+                                                           type="text" placeholder="Email"
+                                                           ng-model="EmailText"
+                                                           ng-pattern="word"
+                                                           ng-blur="hideAutoComplete()"
+                                                           class="form-control input-md" autocomplete="off" required>
+                                                    <p class="error" ng-show="addBank.Email.$error.pattern">Enter Valid
+                                                        MailID</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-4 col-sm-4 control-label" for="IFSCCode">IFSC
+                                                    Code</label>
+                                                <div class="col-md-6 col-sm-6" style="position:relative;">
+                                                    <input id="IFSCCode" name="IFSCCode"
+                                                           allowpattern="[a-z]"
+                                                           type="text" placeholder="IFSC Code"
+                                                           ng-model="IFSCCodeText" maxlength="20"
+                                                           ng-model-options="{ debounce: 1000 }"
+                                                           ng-blur="hideAutoComplete()"
+                                                           class="form-control input-md" autocomplete="off" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 col-sm-4 control-label" for="">Status</label>
+                                                <div class="col-md-6 col-sm-6" >
+                                                    <select name="configStatusText" id="configStatusText" ng-model="configStatusText" class="form-control input-md" required>
+                                                        <option value="Active">Active</option>
+                                                        <option value="InActive">InActive</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-default" data-toggle="modal"
+                                    data-target=".print-me" ng-click="saveNewBank()">Save
+                            </button>
+                            <button type="button" class="btn btn-default" ng-click="removeBankDetails()"
+                                    data-dismiss="modal">Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade selectItem" tabindex="-1" id="receiptModal" role="dialog" data-backdrop="static"
+                 aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content checkout">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Select Receipt Model</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6"><div style=" height: 450px; overflow: auto; "><div id="modal1"><table style="width: 240px;"><tbody><tr><td><table cellpadding="0" cellspacing="0" style="width:100%; line-height: 1.1;"><tbody><tr><td colspan="12" style="text-align: center; text-transform: uppercase; font-size: 16px;"> <strong>hiaccounts</strong></td></tr><tr><td colspan="3">&nbsp;</td></tr><tr><td colspan="4" style=" font-size: 13px !important;"> <span style="color:#000">Gst Reg No</span></td><td>:</td><td colspan="3" align="left" style=" font-size: 13px !important;"> 444444444444444</td></tr><tr><td colspan="4" style=" font-size: 13px !important;"> Date</td><td>:</td><td colspan="3" align="left" style=" font-size: 13px !important;"> 15/06/2018</td></tr><tr><td colspan="4" style=" font-size: 13px !important;"> <span style="color:#000">Tax Invoice No.</span></td><td>:</td><td colspan="3" align="left" style=" font-size: 13px !important;"> DSINV00135</td></tr><tr><td style=" padding:0px 0px 11px 0px; vertical-align: top; font-size: 13px !important;" colspan="4"> Customer Name</td><td>:</td><td colspan="3" align="left" style=" font-size: 13px !important;"> Cash Customer</td></tr></tbody></table><table cellpadding="0" cellspacing="0" style="width: 100%; margin-top: 2px;"><thead style="font-size:13px !important; border-top: 1px dashed;border-bottom: 1px dashed;"><tr><th style="text-align: left; width: 90px;" valign="top"> Item Desc</th><th style="text-align: center; width: 35px;" valign="top">Qty</th><th style="text-align: center; width: 35px;" valign="top">MRP</th><th style="text-align: center; width: 35px;" valign="top">Rate</th><th style="text-align: center; width: 35px;" valign="top">Total</th></tr></thead><tbody id="parentTable" style="font-size:9px;"><tr><td style="word-break:break-all; width: 90px; font-size: 9px !important; white-space:nowrap; overflow:hidden; display: inline-block;" valign="top"> SWEET LASSI<p >SWEET LASSI</p></td><td style="text-align: center; width: 35px; font-size: 9px !important" valign="top"> 1</td><td style="text-align: center; width: 35px; font-size: 9px !important" valign="top">28.57</td><td style="text-align: center; width: 35px; font-size: 9px !important" valign="top">28.57</td><td style="text-align: center; width: 35px; font-size: 9px !important" valign="top"> 28.55</td></tr><tr><td style="word-break:break-all; width: 90px; font-size: 9px !important; white-space:nowrap; overflow:hidden; display: inline-block;" valign="top"> BANANA LASSI<p>BANANA LASSI</p></td><td style="text-align: center; width: 35px; font-size: 9px !important" valign="top"> 1</td><td style="text-align: center; width: 35px; font-size: 9px !important" valign="top">30.00</td><td style="text-align: center; width: 35px; font-size: 9px !important" valign="top">30.00</td><td style="text-align: center; width: 35px; font-size:9px !important" valign="top"> 30.00</td></tr><tr><td colspan="7" style="border-bottom: 1px dashed #000; line-height: 0px; padding-bottom: 0px;"> &nbsp;</td></tr></tbody></table><table cellpadding="0" cellspacing="0" style="width:100%;"><tbody><tr><td style=" font-size: 12px !important;"> Item Count</td><td align="right" style=" font-size: 12px !important;"> 2</td></tr><tr><td style=" font-size: 12px !important;"> Amt(Ex)</td><td align="right" style=" font-size: 12px !important;"> 58.55</td></tr><tr><td style=" font-size: 12px !important;"> Discount Amount</td><td align="right" style=" font-size: 12px !important;"> 0.00</td></tr><tr><td style=" font-size: 12px !important;"> Cess</td><td align="right" style=" font-size: 13px !important;"> 0</td></tr><tr><td style=" font-size: 12px !important;"> GST</td><td align="right" style=" font-size: 13px !important;"> 3</td></tr><tr></tr><tr ng-show="roundingStatus==true"><td style=" font-size: 12px !important;"> Rounding Adjustment</td><td align="right" style=" font-size: 12px !important;"> 0.00</td></tr></tbody></table><div><div><table cellpadding="0" cellspacing="0" style="width:100%;"><tbody><tr><td colspan="5" style="border-bottom: 1px dashed #000; font-size: 13px!important; line-height: 0px; padding-bottom: 0px;"> &nbsp;</td></tr><tr><td style=" font-size: 13px !important;"> Amount To be paid</td><td align="right" style=" font-size: 13px !important ; font-weight: bold !important" colspan="3"> 62.00</td></tr><tr><td colspan="5" style="border-bottom: 1px dashed #000; font-size: 13px!important; line-height: 0px; padding-bottom: 0px;"> &nbsp;</td></tr><tr><td style="padding-top: 2px;text-align: left;padding-bottom: 0px; font-size: 13px!important;" colspan="2"><b> PayMode: </b></td></tr><tr><td style="padding-top: 0px; font-size: 13px!important;" colspan="2"><b> Cash: </b></td><td colspan="1" style="text-align: right; padding-top: 0px; font-size: 13px!important;"> 62.00</td></tr><tr><td colspan="2" style="font-weight: 900; font-size: 13px!important;"> <b> Card Amount: </b></td><td colspan="1" style="text-align: right; font-size: 13px!important;"> 0.00</td></tr><tr><th style="text-align: left; font-size: 13px!important; width: 124px; font-weight: normal;" valign="top" colspan="3">Transaction No</th></tr><tr><td style=" font-size: 13px!important; word-break:break-all; `valign:top; width: 101px; padding-left: 23px; font-weight: normal;" colspan="3"></td></tr></tbody></table></div></div><table cellpadding="0" cellspacing="0" style="width: 100%;"><tbody id="parentTable"><tr><td colspan="2" style=" font-size: 13px!important; font-weight: 900;"> <b> Voucher: </b></td></tr><tr><td colspan="2" style=" font-size: 13px!important; font-weight: 900;"> <b> Voucher No: </b></td></tr><tr><td colspan="2" style=" font-size: 13px!important; font-weight: 900;"> <b> Voucher Amount: </b></td></tr></tbody></table><table cellpadding="0" cellspacing="0" style="width: 100%;"><tbody id="parentTable"><tr><td style="font-size: 13px !important; " ng-show="printData.siData.amountReturned> '0'"><b>Amount Returned</b></td><td style="font-size: 13px!important;" ng-show="printData.siData.amountReturned < '0'"><b>Balance:</b></td><td align="right" style=" font-size: 13px !important;"> 0.00</td></tr><tr><td colspan="5" style="border-bottom: 1px dashed #000; font-size: 13px!important; line-height: 0px; padding-bottom: 0px;"> &nbsp;</td></tr></tbody></table><table cellpadding="0" cellspacing="0" style="width:100%;"><tbody><tr><td style="font-size: 11px!important;">GST</td><td style="font-size: 11px!important;">Taxable Amt</td><td style="font-size: 11px !important;"> CGST</td><td style="font-size: 11px!important;"> SGST</td><td style="font-size: 11px!important;">Gst Amt</td></tr><tr><td colspan="5" style="border-bottom: 1px dashed #000; font-size: 13px!important; line-height: 0px; padding-bottom: 0px;"> &nbsp;</td></tr><tr><td style="font-size: 11px!important;">5%</td><td style="font-size: 11px!important;">58.55</td><td style="font-size: 11px!important;"> 0</td><td style="font-size: 11px!important;"> 0</td><td style="font-size: 11px!important;">0.00</td></tr><tr><td colspan="5" style="border-bottom: 1px dashed #000; font-size: 13px!important; line-height: 0px; padding-bottom: 0px;"> &nbsp;</td></tr><tr><td style="font-size: 13px!important;">Total:</td><td style="font-size: 13px!important;">58.55</td><td style="font-size: 13px!important;"> 1.50</td><td style="font-size: 13px!important;"> 1.50</td><td style="font-size: 13px!important;"> 3.00</td></tr></tbody></table><div><div><table></table></div></div><table cellpadding="0" cellspacing="0" style="width: 100%"><tbody><tr><td style="font-size: 13px!important;" valign="top"></td></tr><tr><td style="font-size: 13px!important;" valign="top"> Printed</td><td style="font-size: 13px!important;" valign="top">:</td><td style="font-size: 13px!important;" valign="top"> 15/06/2018</td></tr><tr><td style="font-size: 13px!important;" valign="top"> Salesperson</td><td style="padding: 0 5px; font-size: 13px!important;"> :</td><td style="font-size: 13px!important;" valign="top"> admin</td></tr><tr><td colspan="4" style="text-align: center">&nbsp;</td></tr><tr><td colspan="4" style="text-align: center"> No Bargain,No Refund</td></tr><tr><td colspan="4" style="text-align: center">Thank You visit again!!!</td></tr></tbody></table><table cellpadding="0" cellspacing="0" style="width:100%;"><tbody><tr><td colspan="3">&nbsp;</td></tr><tr><td colspan="3" valign="top" align="center" style="text-align: center; font-size: 13px!important;"></td></tr></tbody></table></td></tr></tbody></table></div></div><div style=" display: flex; justify-content: center; ">Bill Model 1  <input type="radio" ng-model="billSelect" value="bill1"></div></div>
+                                <div class="col-md-6"><div style=" height: 450px; overflow: auto; "><div id="modal2"> <div style="width: 320px;"> <div> <div id="printablearea_lessi1"> <div class="row" style="width: 240px; padding: 0px;"> <div class="col-sm-12 col-md-12" style="width: 240px; padding: 0px;"> <div> <table cellpadding="0" cellspacing="0" class="res_head_info" style="width: 240px;"> <tbody> <tr> <td style=" padding: 0px; height: 0px; font-weight: 400; text-align: center; font-size: 18px; margin: 0px; "> <h2>KUNDAN KUMAR</h2> </td></tr><tr class="" style=""> <td style=" padding: 0px; height: 0px;text-align: center; font-size: 18px;"> GSTIN : 444444444444444 </td></tr><tr class=""> <td style=" padding: 0px; height: 0px; display: table-cell; font-size: 14px; text-align: center; line-height: 10px; " class="ng-binding"> Date :01/06/2018 </td></tr><tr> <td style=" padding: 0px; height: 0px; display: table-cell; font-size: 14px; text-align: center; line-height: 14px; " class="ng-binding"> Invoice No :DSINV00032 </td></tr><tr> <td style=" padding: 0px; height: 0px; font-weight: 400; display: table-cell; "> <h4 class="ng-binding">Table :31</h4> </td></tr><tr> <td style="padding: 0px; height: 0px; display: table-cell; font-size:14px; text-align: center; line-height: 0px; ">**********************************</td></tr></tbody> </table> <table cellpadding="0" cellspacing="0" style="width: 240px;" class="res_item_table" id="itemlisttable"> <thead> <tr> <th style="padding: 0px; height: 0px; width: 200px; text-align: left; font-size:12px">ItemName</th> <th style="padding: 0px; height: 0px; width: 60px; display: table-cell; text-align: center; font-size:12px;">Qty</th> <th style="padding: 0px; height: 0px; width: 100px; display: table-cell; text-align: right; font-size:12px">Amount</th> </tr></thead> <tbody id="parentTable"> <tr> <td colspan="3" style="border-bottom: 1px dashed #000; padding: 0px; height: 0px; line-height: 0px; display: table-cell; "> </td></tr><tr style=""> <td style="word-break:break-all;text-align: left; width: 200px; padding: 0px; font-size: 12px; margin-left: 12px; display: table-cell;">SWEET LASSI </td><td style="width: 35px; padding: 0px; height: 0px; font-size: 12px; display: table-cell; text-align: center;"> 1 </td><td style="width: 60px; padding: 0px; font-size: 12px; display: table-cell;text-align: right;">45.00 </td></tr><tr> <td style="word-break:break-all;text-align: left; width: 200px; padding: 0px; font-size: 12px; margin-left: 12px; display: table-cell;">Mango LASSI </td><td style="width: 35px; padding: 0px; height: 0px; font-size: 12px; display: table-cell; text-align: center;"> 1 </td><td style="width: 60px; padding: 0px; font-size: 12px; display: table-cell;text-align: right;">60.00 </td></tr><tr> <td colspan="3" style="border-bottom: 1px dashed #000; padding: 0px; height: 0px; line-height: 3px;"> </td></tr></tbody> </table> <table cellpadding="0" cellspacing="0" style="width: 240px;"> <tbody> <tr> <td> </td><td> </td><td> </td></tr><tr> <td style="width: 200px; padding: 0px; height: 0px; text-align: left; display: table-cell;font-size:14px">Total Bill </td><td style="width: 10px; font-size:14px; text-align:left;">:</td><td style="width:50px; text-align: center;text-align: right;font-size:14px">105.00</td></tr><tr> <td style="width: 200px; text-align: left; font-size:14px">GST </td><td style="width:10px; display: table-cell;font-size:14px;text-align:left;">:</td><td style="width: 50px; text-align: center; font-size:14px;text-align: right;">4.77</td></tr><tr> <td style="width: 200px; text-align: left; font-size:14px;font-weight:bold">Payable Amount</td><td style="width: 10px; display: table-cell; font-size:14px;text-align:left;">:</td><td style="width: 50px; text-align: center; font-size:14px;text-align: right;">105.00</td></tr></tbody> </table> <table cellpadding="0" cellspacing="0" class="message_info" style="width:240px;"> <tbody> <tr> <td colspan="4">***********************************************</td></tr><tr> <td style="width: 120px; margin-left: 15px; display: table-cell; font-size:14px;">Payment Type :</td><td style="width: 30px; font-size:14px; display: table-cell !important;" class="">Cash</td></tr><tr> <td> </td><td> </td></tr><tr> <td> </td><td> </td></tr><tr> <td colspan="4" style="text-align: center; font-size:14px; display: table-cell;">Thank you...! Visit Again</td></tr><tr> <td colspan="4" style="text-align: center; font-size:14px; display: table-cell;">Designed & Powered by Hiaccounts</td></tr></tbody> </table> </div><div class="page-break" style="display: block; page-break-before: always;"></div></div></div></div></div></div></div></div><div style=" display: flex; justify-content: center; ">Bill Model 2  <input type="radio" ng-model="billSelect" value="bill2"></div></div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade ExchangeRate" tabindex="-1" id="add_new_PrinterSelection_modal" role="dialog" data-backdrop="static"
+                 aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content checkout">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 id = "order-title" class="modal-title">Select Fields To Get On Printer</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <form class="form-horizontal" >
+                                        <fieldset>
+                                            <h4  class="modal-title">Company Details:</h4>
+                                            <!--<div class="form-group">-->
+                                            <!--<label class="control-label col-lg-3 col-sm-4" for="">Company Name:</label>-->
+                                            <!--<div class="col-lg-9 col-sm-8" ng-init="printer.companyName='No'">-->
+                                            <!--<input type="radio" ng-model="printer.companyName" value="Yes">Yes-->
+                                            <!--<input type="radio" ng-model="printer.companyName" value="No">No-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-3 col-sm-4" for="">Company Name Font Size:</label>
+                                                <div class="col-lg-9 col-sm-8" ng-init="printer.font='2'" >
+                                                    <input type="radio" ng-model="printer.font" value="2">2
+                                                    <input type="radio" ng-model="printer.font" value="3">3
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label  class="control-label col-lg-3 col-sm-4" for="">Company
+                                                    Description</label>
+                                                <div class="col-lg-9 col-sm-8">
+                                                    <input id="cmpnydesc" name="cmpnydesc"
+                                                           type="text" placeholder="Company Description"
+                                                           ng-model="printer.companyDescription"
+                                                           class="form-control input-md" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-3 col-sm-4" for="">GSTIN:</label>
+                                                <div class="col-lg-9 col-sm-8" ng-init="printer.gstn='Yes'" >
+                                                    <input type="radio" ng-model="printer.gstn" value="Yes">Yes
+                                                    <input type="radio" ng-model="printer.gstn" value="No">No
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-3 col-sm-4" for="">Company Email:</label>
+                                                <div class="col-lg-9 col-sm-8" ng-init="printer.companyEmail='Yes'" >
+                                                    <input type="radio" ng-model="printer.companyEmail" value="Yes">Yes
+                                                    <input type="radio" ng-model="printer.companyEmail" value="No">No
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-3 col-sm-4" for="">Phone:</label>
+                                                <div class="col-lg-9 col-sm-8" ng-init="printer.phone='Yes'" >
+                                                    <input type="radio" ng-model="printer.phone" value="Yes">Yes
+                                                    <input type="radio" ng-model="printer.phone" value="No">No
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-3 col-sm-4" for="">Address:</label>
+                                                <div class="col-lg-9 col-sm-8" ng-init="printer.address='Yes'">
+                                                    <input type="radio" ng-model="printer.address" value="Yes">Yes
+                                                    <input type="radio" ng-model="printer.address" value="No">No
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-3 col-sm-4" for="">Pincode:</label>
+                                                <div class="col-lg-9 col-sm-8" ng-init="printer.pincode='Yes'">
+                                                    <input type="radio" ng-model="printer.pincode" value="Yes">Yes
+                                                    <input type="radio" ng-model="printer.pincode" value="No">No
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-3 col-sm-4" for="">Invoice No:</label>
+                                                <div class="col-lg-9 col-sm-8" ng-init="printer.invoiceNo='Yes'">
+                                                    <input type="radio" ng-model="printer.invoiceNo" value="Yes">Yes
+                                                    <input type="radio" ng-model="printer.invoiceNo" value="No">No
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-3 col-sm-4" for="">Date:</label>
+                                                <div class="col-lg-9 col-sm-8" ng-init="printer.date='Yes'">
+                                                    <input type="radio" ng-model="printer.date" value="Yes">Yes
+                                                    <input type="radio" ng-model="printer.date" value="No">No
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-3 col-sm-4" for="">Steward:</label>
+                                                <div class="col-lg-9 col-sm-8" ng-init="printer.steward='Yes'">
+                                                    <input type="radio" ng-model="printer.steward" value="Yes">Yes
+                                                    <input type="radio" ng-model="printer.steward" value="No">No
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-3 col-sm-4" for="">Pax:</label>
+                                                <div class="col-lg-9 col-sm-8" ng-init="printer.pax='Yes'">
+                                                    <input type="radio" ng-model="printer.pax" value="Yes">Yes
+                                                    <input type="radio" ng-model="printer.pax" value="No">No
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-3 col-sm-4" for="">Table:</label>
+                                                <div class="col-lg-9 col-sm-8" ng-init="printer.table='Yes'">
+                                                    <input type="radio" ng-model="printer.table" value="Yes">Yes
+                                                    <input type="radio" ng-model="printer.table" value="No">No
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-3 col-sm-4" for="">Token No:</label>
+                                                <div class="col-lg-9 col-sm-8" ng-init="printer.tokenNo='Yes'">
+                                                    <input type="radio" ng-model="printer.tokenNo" value="Yes">Yes
+                                                    <input type="radio" ng-model="printer.tokenNo" value="No">No
+                                                </div>
+                                            </div>
+
+                                            <h4 class="modal-title">Order Details:</h4>
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-3 col-sm-4" for="">Agent:</label>
+                                                <div class="col-lg-9 col-sm-8" ng-init="printer.agent='Yes'">
+                                                    <input type="radio" ng-model="printer.agent" value="Yes">Yes
+                                                    <input type="radio" ng-model="printer.agent" value="No">No
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-3 col-sm-4" for="">OrderId:</label>
+                                                <div class="col-lg-9 col-sm-8" ng-init="printer.orderId='Yes'">
+                                                    <input type="radio" ng-model="printer.orderId" value="Yes">Yes
+                                                    <input type="radio" ng-model="printer.orderId" value="No">No
+                                                </div>
+                                            </div>
+                                            <h4  class="modal-title">Customer Details:</h4>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-3 col-sm-4" for="">Name:</label>
+                                                <div class="col-lg-9 col-sm-8" ng-init="printer.customerName='Yes'">
+                                                    <input type="radio" ng-model="printer.customerName" value="Yes">Yes
+                                                    <input type="radio" ng-model="printer.customerName" value="No">No
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-3 col-sm-4" for="">Phone:</label>
+                                                <div class="col-lg-9 col-sm-8" ng-init="printer.customerPhone='Yes'">
+                                                    <input type="radio" ng-model="printer.customerPhone" value="Yes">Yes
+                                                    <input type="radio" ng-model="printer.customerPhone" value="No">No
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-3 col-sm-4" for="">Address:</label>
+                                                <div class="col-lg-9 col-sm-8" ng-init="printer.customerAddress='Yes'">
+                                                    <input type="radio" ng-model="printer.customerAddress" value="Yes">Yes
+                                                    <input type="radio" ng-model="printer.customerAddress" value="No">No
+                                                </div>
+                                            </div>
+                                            <!--<div class="form-group">-->
+                                            <!--<label class="control-label col-lg-3 col-sm-4" for="">GSTIN:</label>-->
+                                            <!--<div class="col-lg-9 col-sm-8" ng-init="printer.customerGstn='Yes'">-->
+                                            <!--<input type="radio" ng-model="printer.customerGstn" value="Yes">Yes-->
+                                            <!--<input type="radio" ng-model="printer.customerGstn" value="No">No-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="form-group">-->
+                                            <!--<label class="control-label col-lg-3 col-sm-4" for="">Email:</label>-->
+                                            <!--<div class="col-lg-9 col-sm-8" ng-init="printer.customerEmail='Yes'">-->
+                                            <!--<input type="radio" ng-model="printer.customerEmail" value="Yes">Yes-->
+                                            <!--<input type="radio" ng-model="printer.customerEmail" value="No">No-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+
+                                            <div class="form-group">
+                                                <label  class="control-label col-lg-3 col-sm-4" for="">Footer Value</label>
+                                                <input type="checkbox" ng-model="checkbox">Yes
+                                                <div class="col-lg-9 col-sm-8" style="position: relative;">
+                                                    <input id="footerText" name="footerText"
+                                                           type="text" placeholder="Footer Text"
+                                                           ng-model="printer.footerText" ng-disabled="!checkbox"
+                                                           class="form-control input-md"  autocomplete="off">
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-default" data-toggle="modal"
+                                    data-target=".print-me"  ng-click="savePrinterSelection()">Save
+                            </button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+</body>
+</html>

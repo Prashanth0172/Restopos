@@ -1,0 +1,32 @@
+package com.hyva.restopos.rest.Mapper;
+
+import com.hyva.restopos.rest.entities.TablesPos;
+import com.hyva.restopos.rest.pojo.TablesPosPojo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class TablesPosMapper {
+
+    public static TablesPos MapTablesPosPojoToEntity(TablesPosPojo tablesPosPojo){
+        TablesPos tablesPos = new TablesPos();
+        tablesPos.setTableid(tablesPosPojo.getTable_id());
+        tablesPos.setTableName(tablesPosPojo.getTable_name());
+        tablesPos.setStatus(tablesPosPojo.getTable_status());
+        tablesPos.setTableConfig(tablesPosPojo.getZone_id());
+        return tablesPos;
+    }
+
+    public static List<TablesPosPojo> mapEntityToPojo(List<TablesPos> List) {
+        List<TablesPosPojo> list = new ArrayList<>();
+        for (TablesPos config : List) {
+            TablesPosPojo tableConfigPojo = new TablesPosPojo();
+            tableConfigPojo.setTable_id(config.getTableid());
+            tableConfigPojo.setTable_name(config.getTableName());
+            tableConfigPojo.setTable_status(config.getStatus());
+            tableConfigPojo.setZone_id(config.getTableConfig());
+            list.add(tableConfigPojo);
+        }
+        return list;
+    }
+}

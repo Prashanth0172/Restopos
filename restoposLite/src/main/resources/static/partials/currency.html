@@ -1,0 +1,229 @@
+
+<style>
+
+    .table .thead-dark th {
+        color: #fff !important;
+        background-color: #696969 !important;
+        border-color: #ecf0f5 !important;
+    }
+    .table td{
+        border:1px solid #696969 !important;
+    }
+    table>thead>tr>th {
+        padding: 4px !important;
+        background-color: #696969;
+        color: white;
+        font-size: 13px;
+    }
+</style>
+
+
+<section class="content-header">
+    <h1>
+        Currency
+    </h1>
+
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="top-box">
+                <div class="col-md-2">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="search..." id="textinput" name="textinput"  type="text"
+                                   placeholder="Search Currency" ng-model="searchText"
+                                   ng-change="getPaginatedCurrencyList(searchText)">
+
+                        </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="top-button-area">
+                        <div class="col-md-2 col-sm-4">
+                            <button type="button" class="btn btn-block btn-success" ng-click="addNewCurrency()">Add</button>
+                        </div>
+                        <div class="col-md-2 col-sm-4">
+                            <button type="button" class="btn btn-block btn-success" id="colButnw"  data-toggle="modal"
+                                    ng-model="inactiveStatus" data-target=".print-me"
+                                    ng-click="inactiveButton()">{{ButtonStatus}}</button>
+                        </div>
+                        <div class="col-md-2 col-sm-4">
+                            <button type="button" class="btn btn-block btn-success" ng-click="importPopup()">Import</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12 col-xs-12 customer-data">
+            <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
+                <thead>
+                <tr>
+                    <th>
+                        Currency Name
+                    </th>
+                    <th>
+                        Currency Code
+                    </th>
+                    <th>
+                        Currency Symbol
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+
+
+                </thead>
+                <tbody>
+                <tr ng-repeat="currency in currencyList|filter:searchText">
+                    <td>{{currency.currencyName}}</td>
+                    <td>{{currency.currencyCode}}</td>
+                    <td>{{currency.currencySymbol}}</td>
+                    <td>{{currency.status}}</td>
+                    <td><button type="button" class="btn btn-primary hi_btn"  ng-click="editCurrency(currency)">Edit</button></td>
+                    <!--<button type="button" class="btn btn-primary hi_btn"  ng-click="deletecustomer(customer.customerId)">Delete</button></td>-->
+                </tr>
+                </tbody>
+            </table>
+            <div class="col-sm-12 pagination_">
+
+                <div class="col-sm-12" style="float:right !important;">
+                    <button type="button" class="btn btn-default hi_btn" ng-class="{'diabled-class': first}"
+                            ng-disabled="first"
+                            ng-click="getPaginatedCurrencyList('firstPage')" ng-model="first">First
+                    </button>
+                    <button type="button" class="btn btn-default hi_btn" ng-class="{'diabled-class': prev}"
+                            ng-disabled="prev"
+                            ng-click="getPaginatedCurrencyList('prevPage')" ng-model="prev">Prev
+                    </button>
+                    <button type="button" class="btn btn-default hi_btn" name="next" ng-disabled="next"
+                            ng-click="getPaginatedCurrencyList('nextPage')" value="next"
+                            ng-class="{'diabled-class': next}" ng-model="next">Next
+                    </button>
+                    <button type="button" class="btn btn-default hi_btn"
+                            ng-click="getPaginatedCurrencyList('lastPage')" ng-class="{'diabled-class': last}"
+                            ng-disabled="last"
+                            ng-model="last">Last
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="add_new_Currency_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 id="currency-title">Add Currency</h4>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="row" id="cus_step1">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Currency Name<span style="color: red">*</span></label>
+                            <div class="col-sm-9">
+                                <input id="CurrencyName" name="CurrencyName" alpha-with-space
+                                       ng-pattern="/[aA-zZ\s]$/"
+                                       type="text" placeholder="CurrencyName"
+                                       ng-model="CurrrencyNameText" maxlength="40"
+                                       class="form-control input-md" autocomplete="off" required>
+                                <p class="error" ng-show="form.CurrencyName.$error.pattern">Alphabets
+                                    only, please.</p>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Currency Code<span style="color: red">*</span></label>
+                            <div class="col-sm-9">
+                                <input id="CurrencyCode" name="CurrencyCode" alpha-with-space
+                                       ng-pattern="/[aA-zZ\s]$/"
+                                       type="text" placeholder="CurrencyCode"
+                                       ng-model="CurrrencyCodeText" maxlength="40"
+                                       class="form-control input-md" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Currency Symbol</label>
+
+                            <div class="col-sm-9">
+                                <input id="CurrencySymbol" name="CurrencySymbol" alpha-with-space
+                                       ng-pattern="/[aA-zZ\s]$/"
+                                       type="text" placeholder="CurrencySymbol"
+                                       ng-model="CurrrencySymbolText" maxlength="40"
+                                       class="form-control input-md" autocomplete="off" required></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Description</label>
+                            <div class="col-sm-9">
+                                <input id="CurrencyDescription" name="CurrencyDescription" alpha-with-space
+                                       ng-pattern="/[aA-zZ\s]$/"
+                                       type="text" placeholder="CurrencyDescription"
+                                       ng-model="CurrrencyDescriptionText" maxlength="40"
+                                       searchText class="form-control input-md" autocomplete="off" required></div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label">Status</label>
+                            <div class="col-sm-9">
+                                <select name="custStatus" id="StatusText" ng-model="StatusText" class="form-control" required>
+                                    <option value="Active">Active</option>
+                                    <option value="InActive">InActive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-toggle="modal" ng-disabled="isDisabled"
+                        data-target=".print-me" ng-click="saveCurrency('add_new_Currency_modal')">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="removeCurrencyDetails()">Close</button>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<form class="form-horizontal" id="currencyDetails" method="post" ng-submit="saveCurrencyImport()">
+    <div class="modal fade" tabindex="-1" id="import_currency" role="dialog" data-backdrop="static"
+         aria-labelledby="mySmallModalLabel_1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Import Currency </h4>
+                </div>
+                <a href="resource\ImportSheets\Currency.xlsx" download>Download ExcelSheet</a>
+                <div class="modal-body checkout-body">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-xs-5">
+                                <input type="file" name="myFile"
+                                       id="myFile"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default" data-toggle="modal" ng-disabled="isDisabled">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

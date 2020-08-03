@@ -1,0 +1,11 @@
+export class City {
+   id:number;
+   name:string;
+  stateName:String;
+  state_id:number;
+  countryName:String;
+   country_id:number;
+   Restaurant_id:string;
+   location_connect_id:string;
+   status:string;
+}

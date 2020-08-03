@@ -1,0 +1,15 @@
+package com.hyva.restopos.rest.pojo;
+
+import lombok.Data;
+
+@Data
+public class CategoryPojo {
+    private Long itemCategoryId;
+    private String itemCategoryName;
+    private String code;
+    private String itemCategoryDesc;
+    private String status;
+    private String image;
+    private String Restaurant_id;
+    private String location_connect_id;
+}

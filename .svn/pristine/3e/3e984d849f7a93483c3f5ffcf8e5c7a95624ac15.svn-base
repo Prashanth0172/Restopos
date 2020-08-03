@@ -1,0 +1,123 @@
+<div class="panel panel-primary" style="margin-top: -116px;margin-left: 195px;">
+  <div class="panel-heading">
+    <h2>Item List</h2>
+  </div>
+  <div class="panel-body">
+    <button type="button" id="btnOpen" class="btn btn-primary" (click)="openModal(true)">Add</button>
+    <button style="margin-left: 10px" id="btnActive" class="btn btn-primary" (click)="inactiveButton()">{{ButtonStatus}}</button>
+
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>ItemName</th>
+        <th>SalesPrice</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of itemss ">
+        <td>{{item.itemName}}</td>
+        <td>{{item.salesPrice}}</td>
+        <td>{{item.itemStatus}}</td>
+        <td>
+          <!--<button (click)="deleteAgent(item.id)" class="btn btn-danger">Delete</button>-->
+          <button (click)="updateItem(item)" class="btn btn-info" style="margin-left: 10px">Edit</button>
+        </td>
+      </tr>
+      </tbody>
+      <div class="form-group">
+        <div class="col-sm-12 col-md-12 pagination_" style="margin-top: 0px;">
+
+          <button type="button" [disabled]="first" (click)="paginationList('firstPage')" >First
+          </button>
+          <button type="button" [disabled]="prev" (click)="paginationList('prevPage')" >Prev
+          </button>
+          <button type="button"  [disabled]="next" (click)="paginationList('nextPage')">Next
+          </button>
+          <button type="button" [disabled]="last" (click)="paginationList('lastPage')">Last
+          </button>
+        </div>
+      </div>
+    </table>
+  </div>
+</div>
+<div id="mdlSample" class="modal fade" role="dialog" [ngStyle]="{'display': mdlSampleIsOpen ? 'block' : 'none', 'opacity': 1}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="country-title">Add Item</h4>
+      </div>
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="form-control" id="itemName" required [(ngModel)]="Item.itemName" name="name">
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea type="text" class="form-control" id="ItemDesc" required [(ngModel)]="Item.ItemDesc" name="ItemDesc">
+      </textarea>
+      </div>
+      <div class="form-group">
+        <label>Item Category</label>
+        <select name="menu_category_id" [(ngModel)]="Item.menu_category_id">
+          <option *ngFor="let category of categoryList" [value]="category.itemCategoryId">
+            {{category.itemCategoryName}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Shift</label>
+        <select name="mealtime_id" [(ngModel)]="Item.mealtime_id">
+          <option *ngFor="let shift of shiftList" [value]="shift.mealtime_id">
+            {{shift.mealtime_name}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="taxpercent">Tax</label>
+        <input type="text" class="form-control" id="taxpercent" required [(ngModel)]="Item.taxpercent" name="description"/>
+        <label class="col-sm-2 col-xs-1" style="padding-right:0; text-align:right;"><input type="checkbox" [(ngModel)]="Item.taxtype" style="margin-top: 13px;margin-left: 42px;width: 40px;height: 31px;"></label>
+      </div>
+      <!--<input type="checkbox" [checked]="Item.taxpercent" (change)="changeStatus(record.id,$event)">-->
+      <!--<div class="form-group">-->
+        <!--<label class="col-sm-3 col-xs-1 control-label">Tax</label>-->
+        <!--<label class="col-sm-2 col-xs-1" style="padding-right:0; text-align:right;"><input type="checkbox" ng-model="taxtype" style=" margin-top: 51px;margin-left: 47px;"></label>-->
+        <!--<div class="col-sm-7 col-xs-12">-->
+          <!--<input class="form-control input-md"-->
+                 <!--num-with-out-space-->
+                 <!--ng-model="itemTaxPercentage">-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <div class="form-group">
+        <label for="itemType">FoodType</label>
+        <select class="form-control" id="itemType" required [(ngModel)]="Item.itemType" name="status">
+          <option value="Veg">Veg</option>
+          <option value="NonVeg">Non Veg</option>
+          <option value="MixedEgg">Mixed Egg</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select class="form-control" id="itemStatus" required [(ngModel)]="Item.itemStatus" name="itemStatus">
+          <option value="Active">Active</option>
+          <option value="InActive">InActive</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="menu_price">Price</label>
+        <input type="text" class="form-control" id="price" required [(ngModel)]="Item.menu_price" name="description"/>
+      </div>
+      <div class="modal-footer">
+        <button id="submit" type="button" class="btn btn-default" data-toggle="modal" ng-disabled="isDisabled"
+                data-target=".print-me" (click)="onSubmit('add_new_country_modal')">Save</button>
+        <button type="button" id="btnOpen1" class="btn btn-primary" (click)="openModal(false)">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+

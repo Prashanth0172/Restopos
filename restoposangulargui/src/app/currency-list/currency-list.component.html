@@ -1,0 +1,99 @@
+<div class="panel panel-primary" style="margin-top: -116px;margin-left: 195px;">
+  <div class="panel-heading">
+    <h2>Currency List</h2>
+  </div>
+  <div class="panel-body">
+    <button type="button" id="btnOpen" class="btn btn-primary" (click)="openModal(true)">Add</button>
+    <button style="margin-left: 10px" id="btnActive" class="btn btn-primary" (click)="inactiveButton()">{{ButtonStatus}}</button>
+    <!--<button class="nav-item">-->
+      <!--<button (click)="inactiveButton()">{{ButtonStatus}}</button>-->
+    <!--</button>-->
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Country</th>
+        <th>CurrencyName</th>
+        <th>CurrencyCode</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+
+      <tr *ngFor="let currency of currencies">
+        <td>{{currency.country_name}}</td>
+        <td>{{currency.currency_name}}</td>
+        <td>{{currency.currency_code}}</td>
+        <td>{{currency.currency_status}}</td>
+        <td>
+          <button (click)="updateCurrency(currency)" class="btn btn-info" style="margin-left: 10px">Edit</button>
+        </td>
+      </tr>
+      </tbody>
+      <div class="form-group">
+        <div class="col-sm-12 col-md-12 pagination_" style="margin-top: 0px;">
+
+          <button type="button" [disabled]="first" (click)="paginationList('firstPage')">First
+          </button>
+          <button type="button" [disabled]="prev" (click)="paginationList('prevPage')" >Prev
+          </button>
+          <button type="button" [disabled]="next" (click)="paginationList('nextPage')">Next
+          </button>
+          <button type="button" [disabled]="last" (click)="paginationList('lastPage')">Last
+          </button>
+        </div>
+      </div>
+    </table>
+  </div>
+</div>
+<div id="mdlSample" class="modal fade" role="dialog" [ngStyle]="{'display': mdlSampleIsOpen ? 'block' : 'none', 'opacity': 1}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="country-title">Add Currency</h4>
+      </div>
+      <div class="form-group ">
+        <label class="col-md-4 control-label">
+          Country </label>
+        <div class="col-md-6"
+             style="position:relative;">
+          <select name="country_id" [(ngModel)]="Currency.country_id">
+            <option *ngFor="let country of countryList" [value]="country.country_id">
+              {{country.country_name}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="CurrencyName">CurrencyName</label>
+        <input type="text" class="form-control" id="CurrencyName" required [(ngModel)]="Currency.currency_name" name="currency_name">
+      </div>
+      <div class="form-group">
+        <label for="CurrencyCode">CurrencyCode</label>
+        <input type="text" class="form-control" id="CurrencyCode" required [(ngModel)]="Currency.currency_code" name="currency_code">
+      </div>
+      <div class="form-group">
+        <label for="CurrencySymbol">CurrencySymbol</label>
+        <textarea type="text" class="form-control" id="CurrencySymbol" required [(ngModel)]="Currency.currency_symbol" name="currency_symbol">
+      </textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="Status">Status</label>
+        <select class="form-control" id="status" required [(ngModel)]="Currency.currency_status" name="currency_status">
+          <option value="1">Active</option>
+          <option value="0">InActive</option>
+        </select>
+      </div>
+
+      <div class="modal-footer">
+        <button id="submit" type="button" class="btn btn-default" data-toggle="modal" ng-disabled="isDisabled"
+                data-target=".print-me" (click)="onSubmit('add_new_country_modal')">Save</button>
+        <button type="button" id="btnOpen1" class="btn btn-primary" (click)="openModal(false)">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+

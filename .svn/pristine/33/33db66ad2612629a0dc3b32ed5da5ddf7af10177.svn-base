@@ -1,0 +1,59 @@
+package com.hyva.restopos.rest.Mapper;
+
+import com.hyva.restopos.rest.entities.Item;
+import com.hyva.restopos.rest.pojo.ItemPojo;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ItemMapper {
+
+    public static Item mapPojoToEntity(ItemPojo itemPojo){
+        Item item = new Item();
+        item.setItemName(itemPojo.getItemName());
+        item.setMenu_price(itemPojo.getMenu_price());
+        item.setItemId(itemPojo.getMenu_id());
+        item.setItemtype(itemPojo.getItemType());
+        if(itemPojo.getStock_qty()!=null) {
+            item.setStock(itemPojo.getStock_qty());
+        }
+        if(itemPojo.getImage()!=null) {
+            item.setImageFile(itemPojo.getImage());
+        }
+        item.setItemStatus(itemPojo.getItemStatus());
+        item.setCategoryId(itemPojo.getMenu_category_id());
+        item.setShiftId(itemPojo.getMealtime_id());
+        item.setItemDesc(itemPojo.getMenu_description());
+        item.setMenu_category_id(itemPojo.getMenu_category_id());
+        item.setMealtime_id(itemPojo.getMealtime_id());
+        item.setTaxpercent(itemPojo.getTaxpercent());
+        if(itemPojo.getTaxtype() == "true"){
+            item.setTaxtype("Inclusive");
+        }else{
+            item.setTaxtype("Exclusive");
+        }
+        return item;
+    }
+
+    public static List<ItemPojo> mapItemEntityToPojo(List<Item> List) {
+        List<ItemPojo> list = new ArrayList<>();
+        for (Item config : List) {
+            ItemPojo itemPojo = new ItemPojo();
+            itemPojo.setMenu_id(config.getItemId());
+            itemPojo.setItemName(config.getItemName());
+            itemPojo.setMenu_description(config.getItemDesc());
+            itemPojo.setItemStatus(config.getItemStatus());
+            itemPojo.setItemType(config.getItemtype());
+            itemPojo.setImage(config.getImageFile());
+            itemPojo.setMenu_price(config.getMenu_price());
+            itemPojo.setMenu_category_id(config.getMenu_category_id());
+            itemPojo.setMealtime_id(config.getMealtime_id());
+            itemPojo.setTaxpercent(config.getTaxpercent());
+            itemPojo.setTaxtype(config.getTaxtype());
+            itemPojo.setMealtime_id(config.getMealtime_id());
+            itemPojo.setMenu_price(config.getMenu_price());
+            list.add(itemPojo);
+        }
+        return list;
+    }
+
+}

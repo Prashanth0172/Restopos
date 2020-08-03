@@ -1,0 +1,245 @@
+<div class="modal fade" id="addCustomer">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 id="customer-title">Add Customer</h4>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="tab-pane fade in active" id="cus_step1">
+                    <div class="form-group">
+                        <input type="hidden" ng-model="notificationFlag">
+                        <input type="hidden" ng-model="fromRegNo">
+                        <input type="hidden" ng-model="toRegNo">
+                        <input type="hidden" ng-model="notification_id">
+                        <input type="hidden" ng-model="transaction_id">
+                        <label for="" class="col-sm-3 control-label">Customer Name </label>
+
+                        <div class="col-sm-9">
+                            <input class="form-control"  id="CustomerName" name="CustomerName"
+                                   allowpattern="[a-z]" maxlength="125"
+                                   type="text" placeholder="Customer  Name"
+                                   ng-model="customerNameText"
+                                   ng-change="searchCustomerName(customerNameText,Hi_Conn_company_Name)"
+                                   ng-blur="hideAutoComplete()" autocomplete="off" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label">GSTIN</label>
+
+                        <div class="col-sm-9">
+                            <input id="GSTIN" name="GSTIN"  maxlength="15" minlength="15"
+                                   ng-readonly="operation === 'Return'" alphanum-with-space
+                                   placeholder="GSTIN" ng-maxlength="maxlength"
+                                   ng-model="GSTINText"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label">Email</label>
+
+                        <div class="col-sm-9">
+                            <input id="CustomerEmail" name="CustomerEmail"
+
+                                   ng-readonly="operation === 'Return'"
+                                   type="text" placeholder="Customer  Email"
+                                   ng-model="customerEmailText"
+                                   class="form-control" ng-model="email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label">Contact</label>
+
+                        <div class="col-sm-9">
+                            <input id="CustomerContact" name="CustomerContact"
+                                   ng-blur="toFixedTwo(customerContactText)"
+                                   two-digits-dec
+                                   ng-pattern="contactNo1"
+                                   ng-readonly="operation === 'Return'"
+                                   type="text" placeholder="Customer  Contact"
+                                   ng-model="customerContactText"
+                                   class="form-control" required maxlength="15" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label">Address</label>
+
+                        <div class="col-sm-9">
+                            <textarea id="CustomerAddress" name="CustomerAddress" maxlength="255"
+                                      ng-readonly="operation === 'Return'"
+                                      type="text" placeholder="Customer  Address"
+                                      ng-model="customerAddressText"
+                                      class="form-control" required>
+                                                </textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label">Pincode</label>
+
+                        <div class="col-sm-9">
+                            <input id="pincode" name="CustomerPincode" maxlength="255"
+                                   ng-readonly="operation === 'Return'"
+                                   type="text" placeholder="Pincode"
+                                   ng-model="pincode"
+                                   class="form-control" required>
+                        </div>
+                    </div>
+
+                    </div>
+                    <a class="btn btn-default next" href="javascript:void(0)"    style="color: #050505 !important;" ng-click="next_wizard_cust()" data-toggle="tab" data-step="2">More</a>
+
+                    <!--</div>-->
+
+                    <div class="tab-pane fade" id="cus_step2">
+
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label">Person Incharge</label>
+
+                        <div class="col-sm-9">
+                            <input id="personIncharge" name="personIncharge"  maxlength="125"
+                                   ng-pattern="/[aA-zZ\s]$/" alpha-with-space
+                                   type="text" placeholder="PersonIncharge Name"
+                                   ng-model="personInchargeText"
+                                   class="form-control" required>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label">Country</label>
+
+                        <div class="col-sm-9">
+                            <select id="country" name="country"
+                                    ng-change="countryState(selectedCountry)"
+                                    ng-model="selectedCountry"
+                                    ng-options="country.countryId as country.countryName for country in countryList"
+                                    class="form-control">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label">State</label>
+
+                        <div class="col-sm-9">
+                            <select id="state" name="stateName"
+                                    ng-model="selectedState"
+                                    ng-options="state.stateId as state.stateName for state in stateList"
+                                    class="form-control">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label">Currency</label>
+
+                        <div class="col-sm-9">
+                            <select id="currency" name="currency"
+                                    ng-model="selectedCurrency"
+                                    ng-options="currency.currencyId as currency.currencyName for currency in currencyList"
+                                    class="form-control">
+                                <option value="">Select</option>
+                            </select>
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label">Status</label>
+
+                        <div class="col-sm-9">
+                            <select name="custStatus" id="custStatus" ng-model="custStatusText" class="form-control" required>
+                                <option value="Active">Active</option>
+                                <option value="InActive">InActive</option>
+                            </select>
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label">PAN No</label>
+
+                        <div class="col-sm-9">
+                            <input id="panNumber" name="panNumber" alphanum-with-space
+                                   type="text" placeholder="PAN Number"
+                                   ng-model="panNumberText"
+                                   onblur="this.value = this.value.replace(/[^a-zA-Z 0-9\n\r.]+/g, '')"
+                                   onkeyup="this.value = this.value.replace(/[^a-zA-Z 0-9\n\r.]+/g, '');"
+                                   class="form-control" required maxlength="10">
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label">IFSC</label>
+
+                        <div class="col-sm-9">
+                            <input id="IFSC" name="IFSC" alphanum-with-space
+                                   type="text" placeholder="IFSC"
+                                   ng-model="IFSCText"
+                                   class="form-control" required>
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label">UIN</label>
+
+                        <div class="col-sm-9">
+                            <input id="UIN" name="UIN"
+                                   type="text" placeholder="UIN" maxlength="15"
+                                   ng-model="UINText"
+                                   class="form-control" required>
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label">Website</label>
+
+                        <div class="col-sm-9">
+                            <input id="website" name="website"
+                                   type="text" placeholder="Website"
+                                   ng-model="websiteText"
+                                   class="form-control" required>
+
+
+                        </div>
+                    </div>
+
+                        <a class="btn btn-default back"  href="javascript:void(0)" style="color: #050505 !important;" ng-click="back_wizard_cust()" data-toggle="tab" data-step="2">Less</a>
+
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-toggle="modal" ng-disabled="isDisabled"
+                        data-target=".print-me" ng-click="saveCustomer('addCustomer')">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="removeCustomerDetails()">Close</button>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+

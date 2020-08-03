@@ -1,0 +1,200 @@
+package com.hyva.restopos.rest.pojo;
+
+import lombok.Data;
+
+import javax.persistence.Temporal;
+import java.math.BigDecimal;
+import java.util.Date;
+
+@Data
+public class PaymentVoucherPojo {
+    private Long paymentVoucherId;
+    private String name;
+    private String code;
+    private String type;
+    private String discount;
+    private String min_total;
+    private String redemptions;
+    private String customer_redemptions;
+    private String order_restriction;
+    private String validity;
+    private String description;
+    private String status;
+    private String date_added;
+    private String fixed_date;
+    private String fixed_from_time;
+    private String fixed_to_time;
+    private String period_start_date;
+    private String period_end_date;
+    private String recurring_every;
+    private String recurring_from_time;
+    private String recurring_to_time;
+
+    public Long getPaymentVoucherId() {
+        return paymentVoucherId;
+    }
+
+    public void setPaymentVoucherId(Long paymentVoucherId) {
+        this.paymentVoucherId = paymentVoucherId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
+    }
+
+    public String getMin_total() {
+        return min_total;
+    }
+
+    public void setMin_total(String min_total) {
+        this.min_total = min_total;
+    }
+
+    public String getRedemptions() {
+        return redemptions;
+    }
+
+    public void setRedemptions(String redemptions) {
+        this.redemptions = redemptions;
+    }
+
+    public String getCustomer_redemptions() {
+        return customer_redemptions;
+    }
+
+    public void setCustomer_redemptions(String customer_redemptions) {
+        this.customer_redemptions = customer_redemptions;
+    }
+
+    public String getOrder_restriction() {
+        return order_restriction;
+    }
+
+    public void setOrder_restriction(String order_restriction) {
+        this.order_restriction = order_restriction;
+    }
+
+    public String getValidity() {
+        return validity;
+    }
+
+    public void setValidity(String validity) {
+        this.validity = validity;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDate_added() {
+        return date_added;
+    }
+
+    public void setDate_added(String date_added) {
+        this.date_added = date_added;
+    }
+
+    public String getFixed_date() {
+        return fixed_date;
+    }
+
+    public void setFixed_date(String fixed_date) {
+        this.fixed_date = fixed_date;
+    }
+
+    public String getFixed_from_time() {
+        return fixed_from_time;
+    }
+
+    public void setFixed_from_time(String fixed_from_time) {
+        this.fixed_from_time = fixed_from_time;
+    }
+
+    public String getFixed_to_time() {
+        return fixed_to_time;
+    }
+
+    public void setFixed_to_time(String fixed_to_time) {
+        this.fixed_to_time = fixed_to_time;
+    }
+
+    public String getPeriod_start_date() {
+        return period_start_date;
+    }
+
+    public void setPeriod_start_date(String period_start_date) {
+        this.period_start_date = period_start_date;
+    }
+
+    public String getPeriod_end_date() {
+        return period_end_date;
+    }
+
+    public void setPeriod_end_date(String period_end_date) {
+        this.period_end_date = period_end_date;
+    }
+
+    public String getRecurring_every() {
+        return recurring_every;
+    }
+
+    public void setRecurring_every(String recurring_every) {
+        this.recurring_every = recurring_every;
+    }
+
+    public String getRecurring_from_time() {
+        return recurring_from_time;
+    }
+
+    public void setRecurring_from_time(String recurring_from_time) {
+        this.recurring_from_time = recurring_from_time;
+    }
+
+    public String getRecurring_to_time() {
+        return recurring_to_time;
+    }
+
+    public void setRecurring_to_time(String recurring_to_time) {
+        this.recurring_to_time = recurring_to_time;
+    }
+}

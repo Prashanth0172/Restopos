@@ -1,0 +1,138 @@
+<link href="https://cdn.datatables.net/buttons/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.datatables.net/responsive/css/responsive.dataTables.min.css" type="text/css">
+<link href="src/assets/plugins/datatables/responsive.bootstrap4.min.css" type="text/css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/src/assets/plugins/datatables/responsive.bootstrap4.min.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/plugins/datatables/buttons.bootstrap4.min.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/plugins/datatables/dataTables.bootstrap4.min.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/css/icons.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/css/style.css"/>
+<div class="topnav">
+  <a class="active" ></a>
+  <!--<a href="#news">News</a>-->
+  <!--<a href="#contact">Contact</a>-->
+  <!--<a href="#about">About</a>-->
+</div>
+<aside id="side" class="main-sidebar">
+  <section class="sidebar">
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="menu" routerLinkActive="active" onclick="submit()">Dashboard</a>
+        </li>
+            <li class="nav-item">
+        <a class="nav-link" routerLink="menu" routerLinkActive="active" onclick="submit()">Restaurant</a>
+            </li>
+        <div class="dropdown">
+          <a class="nav-link" routerLink="menu" routerLinkActive="active" onclick="submit()">Token</a>
+
+          <div class="dropdown-content">
+        <!--<li class="nav-item">-->
+          <!--<a class="nav-link" routerLink="menu" routerLinkActive="active" onclick="submit()">Token</a>-->
+        <!--</li>-->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="menu" routerLinkActive="active" onclick="submit()">KitchenToken</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="menu" routerLinkActive="active" onclick="submit()">WaiterToken</a>
+        </li></div></div>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="menu" routerLinkActive="active" onclick="submit()">Master</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="menu" routerLinkActive="active" onclick="submit()">CompanyInfo</a>
+        </li>
+           </ul>
+        </div>
+
+
+  <!--</section>-->
+    <!--<li class="nav-item">-->
+        <!--<a routerLink="employees" class="nav-link" routerLinkActive="active">Employee</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+      <!--<a routerLink="kitchens" class="nav-link" routerLinkActive="active">Kitchen</a>-->
+    <!--</li>-->
+
+    <!--<li class="nav-item">-->
+      <!--<a routerLink="shifts" class="nav-link" routerLinkActive="active">Shift</a>-->
+    <!--</li>-->
+    <!--&lt;!&ndash;<li class="nav-item">&ndash;&gt;-->
+      <!--&lt;!&ndash;<a routerLink="countrylist" class="nav-link" routerLinkActive="active">Country</a>&ndash;&gt;-->
+    <!--&lt;!&ndash;</li>&ndash;&gt;-->
+    <!--<li class="nav-item">-->
+      <!--<a routerLink="customer" class="nav-link" routerLinkActive="active">Customer</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+      <!--<a routerLink="tablePos" class="nav-link" routerLinkActive="active">Table</a>-->
+    <!--</li>-->
+
+    <!--<li class="nav-item">-->
+      <!--<a routerLink="deliveryArea" class="nav-link" routerLinkActive="active">DeliveryArea</a>-->
+    <!--</li>-->
+
+    <!--<li class="nav-item">-->
+      <!--<a routerLink="currency" class="nav-link" routerLinkActive="active">Currency</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+      <!--<a routerLink="categories" class="nav-link" routerLinkActive="active">Category</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+      <!--<a routerLink="country" class="nav-link" routerLinkActive="active">Country</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+      <!--<a routerLink="state" class="nav-link" routerLinkActive="active">State</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+      <!--<a routerLink="city" class="nav-link" routerLinkActive="active">City</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+      <!--<a routerLink="agent" class="nav-link" routerLinkActive="active">Agent</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+      <!--<a routerLink="discount" class="nav-link" routerLinkActive="active">Discount</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+      <!--<a routerLink="item" class="nav-link" routerLinkActive="active">Item</a>-->
+    <!--</li>-->
+
+    <!--<li class="nav-item">-->
+      <!--<a routerLink="tablezone" class="nav-link" routerLinkActive="active">TableZone</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+      <!--<a routerLink="paymentmethod" class="nav-link" routerLinkActive="active">PaymentMethod</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+      <!--<a routerLink="paymentVoucher" class="nav-link" routerLinkActive="active">PaymentVoucher</a>-->
+    <!--</li>-->
+  <!--</ul>-->
+<!--</nav>-->
+
+
+
+<!--<footer class="footer">-->
+  <!--<div class="container">-->
+      <!--<span>All Rights Reserved 2019 @RestoposeatingGUI</span>-->
+  <!--</div>-->
+<!--</footer>-->
+
+
+
+
+
+<!--<div class="sidebar">-->
+  <!--<nav class="sidebar-nav">-->
+    <!--<ul class="nav">-->
+      <!--&lt;!&ndash;<li class="nav-title">Nav Title</li>&ndash;&gt;-->
+      <!--<li class="nav-item">-->
+        <!--<a class="nav-icon cui-speedometer" routerLink="menu" routerLinkActive="active" onclick="submit()">Masters</a>-->
+      <!--</li>-->
+
+    <!--</ul></nav></div>-->
+
+
+
+<router-outlet></router-outlet>

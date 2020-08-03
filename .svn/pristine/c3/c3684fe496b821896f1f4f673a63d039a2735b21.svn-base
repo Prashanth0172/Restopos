@@ -1,0 +1,1718 @@
+<style type="text/css">
+    .top-button-area{
+        margin:10px 0px;
+    }
+    .top-button-area1{
+        margin:10px 0px;
+        float: right;
+        margin-top: -25px;
+    }
+    .top-box{
+        border: 1px solid #dadada;
+        padding: 5px 0px;
+        margin: 0px;
+        height: 70px;
+    }
+    .top-box1{
+        border: 1px solid #dadada;
+        padding: 10px 10px;
+        margin: 0px;
+        height: 205px;
+    }
+    .top-box3{
+
+        padding: 5px 0px;
+        margin: 0px;
+        height: 70px;
+    }
+    .form-group {
+        margin-bottom: 0px;
+    }
+    .content{
+        min-height: 0px;
+        padding: 0px;
+    }
+    .btn-default{
+        background-color: yellowgreen;
+        color: #fff;
+        border-color: #ddd;
+        margin: 0px 2px;
+        padding: 4px 7px;
+        margin-top: -5px;
+    }
+    .fa-fw{
+        font-size: 10px;
+    }
+    .btn{
+        padding: 6px 9px;
+    }
+    .btn-block {
+        display: block;
+        width: auto;
+    }
+    .din-in{
+        margin-left: -22px;
+    }
+    .del{
+        margin-left: -11px;
+    }
+    .on-del{
+        margin-left: -28px;
+    }
+    .pl-ms-btn{
+        display: inline-flex;
+        padding: 0px 0px;
+    }
+    .no-pad1{
+        padding: 1px!important;
+    }
+    .no-pad2{
+        padding: 0px;
+    }
+    .item-cat-top {
+        width: 100%;
+        white-space: nowrap;
+        overflow-x: auto;
+
+    }
+    .cat-box ul{
+        padding-left: 8px;
+    }
+    .cat-box ul li {
+        margin-bottom: 5px;
+        display: inline-block;
+        width: 125px !important;
+        padding: 5px !important;
+        transition: 0.5s;
+        background-color: dimgray;
+        cursor: pointer;
+        margin-left: 5px;
+
+    }
+    .cat-box a {
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+    }
+    .cat-box h3 {
+        font-size: 15px;
+        margin-top: 10px;
+    }
+
+    .item-box {
+        background-color: #fff;
+        height: 200px;
+        margin-top: 20px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+    .no_pad{
+        padding:0px !important;
+    }
+
+    .item-cat {
+        margin-top: 10px;
+        background-color: #000;
+        width: 100px;
+        height: 100px;
+        color: white;
+    }
+
+    .top-button-area button{
+        width: 100% !important;
+        font-size: 11px !important;
+    }
+    .content button{
+        display: inline-block;
+    }
+    .top-cal2 .form-control {
+        background: transparent !important;
+        border: none !important;
+        box-sizing: none !important;
+    }
+    .top-cal2 .table-bordered>tbody>tr>td{
+        border: 1px solid #696969 !important;
+        padding:10px 3px !important;
+    }
+    .input-group {
+        width: 100%;
+    }
+
+    @media only screen and (max-width: 1024px) {
+        .top-button-area button{
+            width: 100% !important;
+            font-size: 12px !important;
+            margin-bottom: 10px;
+        }
+    }
+    @media only screen and (max-width: 768px) {
+        .top-box1{
+            height: 325px;
+        }
+        .top-button-area1{
+            margin-top: 10px;
+        }
+        .top-button-area{
+            margin-top:25px;
+        }
+        .no-pad{
+            padding: 0px 15px!important;
+        }
+        .form-group {
+            margin-bottom: 5px;
+        }
+        .btn-block{
+            width: 100%;
+        }
+        .no-pad1{
+            padding: 12px 2px!important;
+        }
+        .del{
+            margin-left: 0px;
+        }
+    }
+    @media only screen and (max-width: 767px) {
+
+        .top-button-area{
+            margin-top:17px;
+        }
+        .dataTables_wrapper{
+            margin-top: 0px;
+        }
+        .form-group {
+            margin-bottom: 5px;
+        }
+        .no-pad{
+            padding: 0px 15px!important;
+        }
+
+        .no-pad1{
+            padding: 12px 2px!important;
+        }
+        .btn{
+            font-size: 14px;
+        }
+        .form-control{
+            margin-bottom: 10px!important;
+        }
+        .btn-block{
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .item-cat{
+            width: 80px;
+            height: 80px;
+        }
+        .item-box{
+            height: 284px;
+        }
+        .mob_pad{
+            padding:0px !important;
+        }
+        .top-button-area button{
+            font-size: 14px !important;
+        }
+    }
+</style>
+
+
+<!-- Content Header (Page header) -->
+
+
+<!-- Main content -->
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="top-box3">
+                <div class="col-md-10 col-lg-4 col-sm-12">
+                    <div class="top-button-area">
+                        <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 mob_pad" ng-show="userAccessRights.restTable">
+                            <input list="tableList" name="tableList"
+                                   id="iDtableSearchText"
+                                   ng-model="tableSearchText" readonly
+                                   ng-disabled="user_access_rights.restTable==false||table"
+                                   ng-change="appendTableSelected(tableSearchText)"
+                                   ng-model-options='{ debounce: 1000 }'
+                                   class="form-control "/>
+                            <datalist id="tableList">
+                                <option ng-repeat="option in completeTableList | filter:tableSearchText | limitTo:5"
+                                        value="{{option.tableName}}"></option>
+                            </datalist>
+                        </div>
+                        <div class="col-lg-6 col-md-3 col-sm-6 col-xs-12 mob_pad" ng-show="userAccessRights.restWaiter">
+                            <input type="text" list="employeeList" ng-model="waiterSearchText"
+                                   id="iDemployeeSearchText"
+                                   ng-change="appendEmployeeSelected(waiterSearchText)"
+                                   ng-disabled="user_access_rights.restWaiter==false||waiter"
+                                   ng-model-options="{debounce: 1000}"
+                                   class="form-control input-md"
+                                   ng-readonly="makeEmployeeSearchTextReadonly"/>
+                            <datalist id="employeeList">
+                                <option ng-repeat="option in employeeList | filter:waiterSearchText | limitTo:5"
+                                        value="{{option.employeeName}}"></option>
+                            </datalist>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-12 col-sm-12">
+                    <div class="top-button-area">
+                        <div class="col-lg-2 col-md-1 col-sm-4 col-xs-12 no-pad1" ng-show="userAccessRights.restDineIn">
+                            <button type="button" ng-click="orderType('DineIn')" title="Dine In(Alt+N)" class="btn btn-block btn-danger">DINE IN</button>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 no-pad1" ng-show="userAccessRights.restTakeaway">
+                            <button type="button" ng-click="orderType('TakeAway')" title="Take Away(Alt+U)" class="btn btn-block btn-danger">TAKE AWAY</button>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 no-pad1" ng-show="userAccessRights.restDelivery">
+                            <button type="button" ng-click="orderType('Delivery')"
+                                    title="Delivery(Alt+D)" class="btn btn-block btn-danger">DELIVERY</button>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 no-pad1" ng-show="userAccessRights.restOnlineDelivery">
+                            <button type="button" ng-click="orderType('OnlineDelivery')" class="btn btn-block btn-danger">ONLINE DELIVERY</button>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 no-pad1" ng-show="userAccessRights.restDigiOrders">
+                            <button type="button" ng-click="orderType('digiorders')" class="btn btn-block btn-danger">DIGI ORDERS</button>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 no-pad1" ng-show="userAccessRights.restTableReservation">
+                            <button type="button" ng-click="openTableReservation('tableReserve')" class="btn btn-block btn-danger">TABLE RESERVATION</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<section class="content">
+    <div class="row" style="margin:0px;">
+        <div class="col-lg-8 col-md-8 col-xs-12">
+            <div class="row" style="margin:0px;">
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12" ng-show="userAccessRights.restCustomer">
+                    <input type="text" list="customerList" ng-model="customerContactText"
+                           ng-change="appendCustomerSelected(customerContactText,'number')"
+                           id="rest_cust_contact_text"
+                           ng-model-options="{debounce: 1500}"
+                           class="form-control input-md"
+                           style="border-radius: 0px; border: 1px solid green !important; text-align: center;"/>
+                    <datalist id="customerList">
+                        <option ng-repeat="option in customerList | filter:customerContactText| limitTo:5"
+                                value="{{option.phoneNumber}}"></option>
+                    </datalist>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 no_pad" ng-show="userAccessRights.restCustomer">
+                    <input type="text" list="customerTotalList" ng-model="customerSearchText"
+                           id="customerSearchText"
+                           ng-change="appendCustomerSelected(customerSearchText,'name')"
+                           ng-model-options="{debounce: 2000}"
+                           ng-disabled="user_access_rights.restAppendCustomer==false"
+                           class="form-control input-md" style="width:70%; display:inline-block;"/>
+                    <datalist id="customerTotalList">
+                        <option ng-repeat="option in customerList | filter:customerSearchText | limitTo:5"
+                                value="{{option.customerName}}"></option>
+                    </datalist>
+                    <a href="" ng-click="addCustomer()" class="btn btn-default add_btn "><i class="fa fa-plus fa-fw"></i></a>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-5 col-xs-12" style="padding:0px;" ng-show="userAccessRights.restItemSearch">
+                    <input type="text" list="itemList1" ng-model="itemSearchText"
+                           id="iDitemSearchText"
+                           ng-disabled="user_access_rights.restItemSearch==false"
+                           ng-keyup="$event.keyCode == 13 ? getItemInfoOnSearchText(itemSearchText) : null;test($event.keyCode)"
+                           class="form-control input-md" style="width:60%; display:inline-block;"/>
+                    <datalist id="itemList1">
+                        <option ng-repeat="option in itemList | filter:itemSearchText | limitTo:5"
+                                value="{{option.itemCode}} {{option.itemName}}"></option>
+                    </datalist>
+                    <a href=""  ng-click="addNewItemPopulate()" class="btn btn-default add_btn "><i class="fa fa-plus fa-fw"></i></a>
+                    <a href="" ng-click="removeSelectedItems()" class="btn btn-default add_btn "><i class="fa fa-minus fa-fw"></i></a>
+                </div>
+
+
+                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 no-pad2" ng-show="userAccessRights.restAgent">
+                    <div class="input-group date">
+                        <input type="text" list="agentList" ng-model="agentSearchText"
+                               id="iDagentSearchText" placeholder="Agent Name"
+                               ng-change="appendAgentSelected(agentSearchText)"
+                               ng-disabled="user_access_rights.restAgent==false"
+                               ng-model-options="{debounce: 1000}"
+                               class="form-control input-md"
+                               ng-readonly="makeAgentReadonly"/>
+                        <datalist id="agentList">
+                            <option ng-repeat="option in agentList | filter:agentSearchText | limitTo:5"
+                                    value="{{option.agentName}}"></option>
+                        </datalist>
+                    </div>
+                </div>
+                <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12 no-pad2" ng-show="userAccessRights.restPax">
+                    <div class="input-group date">
+                        <input type="text" ng-model="pax" placeholder="Pax" num-with-space class="form-control">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="top-cal2" style="padding: 10px;overflow-x:auto;height: 250px; width: 100%;">
+                <table class="table table-striped table-bordered nowrap" style="width:100%;">
+                    <thead style="background-color: #696969;color: #fff;width: 100%;  vertical-align: top; font-size: 11px;">
+                    <tr>
+                        <th>
+
+                        </th>
+                        <th>Item
+
+                        </th>
+                        <th>Desc
+
+                        </th>
+                        <th>Unit Price
+
+                        </th>
+                        <th>Quantity
+
+                        </th>
+                        <th>GST Tax
+
+                        </th>
+                        <th>Disc Config Amt
+
+                        </th>
+                        <th>Discount
+
+                        </th>
+                        <th>Total Inc Tax
+
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody style="">
+                    <tr ng-repeat="item in selectedItemsList|orderBy:'$index':true">
+                        <td><input type="checkbox"
+                                   ng-model="selectedItemListRemoval[item.id]"></td>
+                        <td><input style="word-break:break-all;font-size: 11px; width: 100px;"
+                                   type="text"
+                                   class="form-control" ng-value="item.itemName"
+                                   title={{item.itemName}} readonly required/></td>
+                        <td><input style="word-break:break-all;font-size: 11px;"
+                                   type="text"
+                                   class="form-control"
+                                   ng-value="item.itemDescription"
+                                   ng-model="item.itemDescription"
+                                   ng-click="updateitemDescription(item)"
+                                   ng-change="updateKitchenOrder(item)" required/></td>
+                        <td><input id="unitPrice_{{item.id}}" type="text" style="word-break:break-all;font-size: 11px; width: 60px;"
+                                   limit-to="10"
+                                   ng-change="onEditPrice(item)" format
+                                   name="unitPrice_{{$index}}"
+                                   ng-blur="toFixedTwo(item.unitPrice)"
+                                   ng-readonly="userRights.unitPriceEditable == false"
+                                   ng-click="getSelectedTexElement($event)"
+                                   ng-focus="getSelectedTexElement(item.id, 'unitPrice')"
+                                   class="form-control input-md"
+                                   ng-model="item.unitPrice" required
+                                   ng-model-options='{ debounce: 1000 }'/></td>
+                        <td><input id="qty_{{item.itemId}}" type="text"
+                                   ng-change="validateCredentials(item)"
+                                   name="qty_{{item.itemId}}"
+                                   ng-blur="toFixedTwo(item.qty)"
+                                   ng-click="getSelectedTexElement($event)"
+                                   ng-focus="getSelectedTexElement($index, 'qty')"
+                                   class="form-control input-md"
+                                   limit-to="10"
+                                   ng-model="item.qty"
+                                   ng-model-options='{ debounce: 1000 }'
+                                   required/></td>
+                        <td><input type="text" class="form-control input-md"
+                                   name="gstItemTax_{{item.id}}"
+                                   readonly
+                                   ng-model="item.gstItemTax"
+                                   limit-to="10" required/></td>
+                        <td><input type="text"
+                                   class="form-control input-md word_break"
+                                   name="discountConfigAmt_{{$index}}"
+                                   ng-readonly="discountType === 'billWise'||userRights.discount == false"
+                                   ng-change="configDiscount(item.discountConfigAmt,item,$index,'Config');updatesimplifiedTax();"
+                                   limit-to="8" min="0"
+                                   ng-model-options="{debounce: 1000}"
+                                   ng-model="item.discountConfigAmt"
+                                   step="0.01" required/></td>
+                        <td><input type="text"
+                                   class="form-control input-md word_break"
+                                   name="discountAmt_{{$index}}"
+                                   ng-readonly="discountType === 'billWise'||userRights.discount == false"
+                                   ng-change="configDiscount(item.discountConfigAmt,item,$index,'Amt');updatesimplifiedTax();"
+                                   limit-to="8" min="0"
+                                   ng-model-options="{debounce: 1000}"
+                                   ng-model="item.discountAmt"
+                                   step="0.01" two-digits-dec required/></td>
+                        <td><input type="text" class="form-control input-md"
+                                   name="amtexclusivetax_{{item.id}}"
+                                   readonly
+                                   ng-model="item.amtinclusivetax"
+                                   limit-to="10" required/></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+            <div class=" top-cal2" style="padding: 10px;">
+                <table class="table table-striped table-bordered nowrap" style="width: 100%;text-align:center;line-height: 30px;font-size: 16px;">
+                    <tr>
+                        <td><span style="color: red;font-size: 18px;font-weight: bold;">QtyCount</span> :<span style="color: #000;font-size: 18px;font-weight: bold;">{{itemCount|number:0}}</span></td>
+                        <td><span style="color: red;font-size: 18px;font-weight: bold;">Total</span> :<span style="color: #000;font-size: 18px;font-weight: bold;">{{totalAmtExamt|number:2}}</span></td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <table class="table table-striped table-bordered" style="width: 100%;">
+                                <tr>
+                                    <td><div class="form-group">
+                                        <label for="email">Voucher:{{couponNameText}}</label>
+                                        <button style="text-align: right" ng-show="couponNameText" ng-click="removeVoucher()">X</button>
+                                        <input id="disAmtInPer" maxlength="5" type="text"
+                                               class="form-control" ng-change="updatePayable(disAmtInPer)"
+                                               ng-model="disAmtInPer"
+                                               ng-disabled="user_access_rights.restDiscount==false"
+                                               ng-readonly="discountType == 'itemWise'||userRights.discount == false||(couponNameText!=''&&couponNameText!=null)"
+                                               ng-model-options="{debounce: 1000}"
+                                               required/>
+                                    </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table class="table table-striped table-bordered nowrap" style="width: 100%;">
+                                <tr>
+                                    <td>Exc Tax</td>
+                                    <td>{{totalAmtEx|number:2}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Tax</td>
+                                    <td>{{totalTaxAmt|number:2}}</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-xs-12">
+            <div class="item-cat-top">
+                <div class="cat-box">
+
+                    <ul>
+                        <li ng-repeat="itemCategory in itemCategoryNames"><a  ng-click="getItemsOnCategory(itemCategory)"><h3>{{itemCategory.itemCategoryName}}</h3></a></li>
+
+                    </ul>
+                    <!--<ul>
+                        <li ng-repeat="itemCategory in itemCategoryNames" ng-click="getItemsOnCategory(itemCategory)">
+                            <a href="#"><h3>{{itemCategory.itemCategoryName}}</h3></a>
+                        </li>
+                    </ul>-->
+                </div>
+            </div>
+            <div class="item-box">
+                <div class="col-md-4 col-sm-4 col-xs-4" ng-repeat="item in itemListBasedonCategory">
+                    <a ng-click="addItemToMainTable(item)">
+                        <div class="item-cat">
+                            {{item.itemName}}
+                        </div>
+                        <div><img style="width:40px;"
+                                  src="{{item.imageFile}}"></div>
+                    </a>
+                </div>
+            </div>
+            <td>
+            </td>
+            <table class="table table-striped table-bordered" style="width: 100%;">
+                <tr>
+                    <td><span style="color: red;font-size: 18px;font-weight: bold;">Grand Total</span></td>
+                    <td><span style="color: #000;font-size: 18px;font-weight: bold;">{{totalCheckOutamt|number:2}}</span></td>
+                </tr>
+                <tr>
+                    <td>Payment</td>
+                    <td>
+                        <label class="radio-inline"><input type="radio" ng-model="paymentMethodType" ng-click="setPaymentType()" value="cash">Cash</label>
+                        <!--<label class="radio-inline"><input type="radio" value="online">Online</label>-->
+                        <label class="radio-inline"><input type="radio" value="other"
+                                                           ng-model="paymentMethodType"
+                                                           title="Other(Alt+O)"
+                                                           ng-disabled="freeMeal === true"
+                                                           ng-click="openSettlePayment(false)">Other</label>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <p><input type="checkbox" ng-click="setDiscount()" ng-model="freeMeal">Free Meal
+                            <input id="text" type="text" ng-disabled="discountType == 'itemWise'"
+                                   ng-model="coupon" style="vertical-align: middle; margin-top: 0;width: 90px;">
+                            <button id="text" type="button"
+                                    style="vertical-align: middle; margin-top: 0;" ng-disabled="discountType == 'itemWise'" ng-click="applyvalue(coupon)" class="btn btn-success">Apply</button>
+                            <button ng-show="userAccessRights.restOffers" class="btn btn-success" id="text" type="button" ng-disabled="discountType == 'itemWise'||userRights.discount == false"
+                                     ng-model="coupon" style="vertical-align: middle; margin-top: 0;" ng-click="openOffersPage()">Offers</button></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div  ng-show="freeMeal== true">
+                            <input type="text" placeholder="Memo" class="form-control"
+                                   ng-model="memo"
+                                   id="memo"
+                                   style="width:100%; border-radius:0px; border:1px solid green; height:30px;">
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="row" style="margin:0px;">
+        <div class="col-lg-12 col-md-12">
+            <button type="button" class="btn btn-block btn-danger" style="margin-top: 5px;" ng-hide="notificationFlag==true || userAccessRights.restSavePrint==false" ng-click="openSettlePayment(true,'savePrint')">Save & Print</button>
+            <button type="button" class="btn btn-block btn-danger" ng-hide="notificationFlag==true || userAccessRights.restSave==false" ng-click="openSettlePayment(true,'save');">Save</button>
+            <button type="button" class="btn btn-block btn-danger" ng-click="openSettlePayment(true,'save','sms');" ng-hide="notificationFlag==true && userAccessRights.restSaveSms==false">Save & Sms</button>
+            <button type="button" class="btn btn-block btn-danger" ng-click="getCustomerBill();" ng-hide="notificationFlag==true || userAccessRights.restCustomerBill==false">Customer Bill</button>
+            <button type="button" class="btn btn-block btn-danger" ng-hide="notificationFlag==true || userAccessRights.restClearall==false" ng-click="scissor()">Clear All</button>
+            <button type="button" class="btn btn-block btn-warning" ng-click="showSplitTablePopUp()" ng-hide="notificationFlag==true || userAccessRights.restSplitbill==false">Split Bill</button>
+            <button type="button" class="btn btn-block btn-warning" ng-click="changeTablePopup()" ng-show="notificationFlag==false && userAccessRights.restChangeTable==true">Change Table</button>
+            <button type="button" class="btn btn-block btn-warning" ng-click="mergeTablePopup()" ng-show="notificationFlag==false&&userAccessRights.restMergeTable==true">Merge Table</button>
+            <button type="button" class="btn btn-block btn-warning" ng-click="getDuplicateInvoiceList()" ng-show="notificationFlag==false&&userAccessRights.restPrintList==true">Print List</button>
+            <input type="checkbox" ng-model="defaultType"name="">
+            <button type="button" class="btn btn-block btn-warning" style="margin-top: 5px;" ng-click="getDailyReport(defaultType)" ng-hide="notificationFlag!=false || userAccessRights.restDailyReport==false">Daily Report</button>
+            <input type="checkbox" ng-model="duplicatePrint" ng-show="orderToKitchenBuffer.length != 0">
+            <button type="button" class="btn btn-block btn-warning" style="margin-top: 5px;" ng-if="orderToKitchenBuffer.length != 0" ng-click="placeOrdersTOKOT(defaultType)">Place Order</button>
+        </div>
+    </div>
+</section>
+<add-customer-modal></add-customer-modal>
+<add-new-item-modal></add-new-item-modal>
+<add-description-modal></add-description-modal>
+<payment-modal-restaurant></payment-modal-restaurant>
+<sales-print></sales-print>
+<restaurant-print></restaurant-print>
+<div class="modal fade" tabindex="-1" id="description_popup" role="dialog" data-backdrop="static"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md" style="width:350px !important;">
+        <div class="modal-content checkout">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Term</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-md-3 col-lg-3 control-label">Description</label>
+                                    <textarea name="Description"
+                                              ng-model="description" maxlength="125"
+                                              style="max-height: 120px !important;"> </textarea>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default" data-toggle="modal"
+                            data-target=".print-me" ng-model="setupId" ng-click="saveFormsetupDescription(desc)">Save
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade selectEmployee" tabindex="-1" id="selectToTableForMerge" role="dialog" data-backdrop="static"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content checkout">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Select Table</h4>
+            </div>
+            <div class="modal-body" style="height: 460px; overflow-y: scroll;">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <label>Search: <input class="form-control input-sm" ng-change="getEmployeeList(searchText)"
+                                              ng-change-delay="300" ng-model="searchText" maxlength="255"></label>
+                        <div class="table-responsive">
+                            <table class="table table-striped table_costomize employeelisttable" id="">
+                                <thead>
+                                <tr>
+                                    <th data-field="name" style="width:48px !important;"></th>
+                                    <th data-field="desc" style="width:500px;">Table Name</th>
+                                </tr>
+                                </thead>
+                                <tbody id="parentTable">
+                                <tr ng-repeat="table in merge">
+                                    <td style='width: 48px !important;'>
+                                        <input type="checkbox" ng-model="table.checkbox">
+                                    </td>
+                                    <td style="width:500px;">{{table.tableName}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="saveMergeToTableFields()" data-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade selectEmployee" tabindex="-1" id="selectFromTableToMerge" role="dialog" data-backdrop="static"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content checkout">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Select From  Table</h4>
+            </div>
+            <div class="modal-body" style="height: 460px; overflow-y: scroll;">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12" >
+                        <label>Search: <input class="form-control input-sm"
+                                              ng-change="mergeTablePopup(searchText)"
+                                              ng-change-delay="300"
+                                              ng-model="searchText">
+                            <div class="table-responsive">
+                                <table class="table table-striped table_costomize employeelisttable" >
+                                    <thead>
+                                    <tr>
+                                        <!--<th data-field="name" style="width:48px !important;"></th>-->
+                                        <th data-field="desc" style="width:564px;">Table Name</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody id="parentTable">
+                                    <tr ng-repeat="table in merge|filter:searchText" ng-click="selectedFromTable(table)">
+                                        <td style="width:564px;"  >{{table.tableName}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="saveMergeFromTableFields()" data-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade selectEmployee" tabindex="-1" id="selectOffersPage" role="dialog" data-backdrop="static"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content checkout">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Select Offer</h4>
+            </div>
+            <div class="modal-body" style="height: 460px; overflow-y: scroll;">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <!--<label>Search: <input class="form-control input-sm"-->
+                        <!--ng-change="mergeTablePopup(searchText)"-->
+                        <!--ng-change-delay="300"-->
+                        <!--ng-model="searchText">-->
+                        <div class="table-responsive">
+                            <table class="table table-striped table_costomize employeelisttable" >
+                                <thead >
+                                <tr>
+                                    <th data-field="desc" style="width: 200px;">Coupon</th>
+                                    <th data-field="desc" style="width:200px;">Value</th>
+                                    <th data-field="desc" style="width:135px;"></th>
+
+                                </tr>
+                                </thead>
+                                <tbody id="parentTable">
+                                <tr ng-repeat="coupon in getCouponList">
+                                    <td style="width:200px;">{{coupon.vocherCode}}</td>
+                                    <td style="width:200px;">{{coupon.maxDiscount}}</td>
+                                    <td style="width:135px;"><button ng-click="selectedCoupon(coupon)">Apply</button></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="saveMergeFromTableFields()" data-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade selectEmployee" tabindex="-1" id="openUserCredentials" role="dialog" data-backdrop="static"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content checkout">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h4 class="modal-title">Enter Credentials</h4>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 col-md-3 col-lg-3 control-label">User Name</label>
+                <!--<div class="col-md-6" style="position:relative;">-->
+                <input id="userName" name="userName"  maxlength="125"
+                       ng-pattern="/[aA-zZ\s]$/" alpha-with-space
+                       type="text" placeholder="User Name"
+                       ng-model="userNameText"
+                       class="form-control input-md" required>
+                <div class="help-block text-left" ng-show="loginForm.password.$touched && loginForm.password.$invalid">
+                    Username should not be empty.
+                </div>
+                <!--</div>-->
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="">Password</label>
+                <!--<div class="col-md-6" style="position:relative;">-->
+                <input id="userPswd" name="userPswd"  maxlength="125"
+                       type="password" placeholder="Password"
+                       ng-model="pswdText"
+                       class="form-control input-md" required>
+                <div class="help-block text-left" ng-show="loginForm.password.$touched && loginForm.password.$invalid">
+                    Your password must have a minimum length of 6 characters.
+                </div>
+                <!--</div>-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="savelogin()" data-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade selectEmployee" tabindex="-1" id="openUserCredentialsForQty" role="dialog" data-backdrop="static"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content checkout">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h4 class="modal-title">Enter Credentials</h4>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 col-md-3 col-lg-3 control-label">User Name</label>
+                <!--<div class="col-md-6" style="position:relative;">-->
+                <input id="userName" name="userName"  maxlength="125"
+                       ng-pattern="/[aA-zZ\s]$/" alpha-with-space
+                       type="text" placeholder="User Name"
+                       ng-model="userNameText"
+                       class="form-control input-md" required>
+                <div class="help-block text-left" ng-show="loginForm.password.$touched && loginForm.password.$invalid">
+                    Username should not be empty.
+                </div>
+                <!--</div>-->
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="">Password</label>
+                <!--<div class="col-md-6" style="position:relative;">-->
+                <input id="userPswd" name="userPswd"  maxlength="125"
+                       type="password" placeholder="Password"
+                       ng-model="pswdText"
+                       class="form-control input-md" required>
+                <div class="help-block text-left" ng-show="loginForm.password.$touched && loginForm.password.$invalid">
+                    Your password must have a minimum length of 6 characters.
+                </div>
+                <!--</div>-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="savecredentialsForQty()" data-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-default" ng-click="savecredentialsForQty()" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade ExchangeRate" tabindex="-1" id="add_new_picked_modal" role="dialog" data-backdrop="static"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content checkout">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 id="cust-notif" class="modal-title"></h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <form class="form-horizontal" name="mail">
+                            <fieldset>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 col-sm-4 control-label" for="">order id</label>
+                                    <div class="col-md-6 col-sm-6" style="position:relative;">
+                                        <input id="orderid" name="orderid"
+                                               type="text" readonly
+                                               ng-model="orderid"
+                                               class="form-control input-md" autocomplete="off">
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 col-sm-4 control-label" for="">rider_name<sup>*</sup></label>
+                                    <div class="col-md-6 col-sm-6" style="position:relative;">
+                                        <input id="ridername" name="ridername"
+                                               type="text"
+                                               ng-model="ridername"
+                                               class="form-control input-md" autocomplete="off">
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 col-sm-4 control-label" for="">rider_phone_number<sup>*</sup></label>
+                                    <div class="col-md-6 col-sm-6" style="position:relative;">
+                                        <input id="phonenumber" name="phonenumber"
+                                               type="text"
+                                               ng-model="phonenumber"
+                                               class="form-control input-md" autocomplete="off">
+
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" ng-show="type=='pickup'">
+                <button type="submit" class="btn btn-default" data-toggle="modal"
+                        data-target=".print-me" ng-click="savepickedup(token)">submit pickup
+                </button>
+                <button type="button" class="btn btn-default" ng-click="removenotif()" data-dismiss="modal">Close
+                </button>
+            </div>
+            <div class="modal-footer" ng-show="type=='delivery'">
+                <button type="submit" class="btn btn-default" data-toggle="modal"
+                        data-target=".print-me" ng-click="saveasiandelivery(token)">submit assign
+                </button>
+                <button type="button" class="btn btn-default" ng-click="removenotif()" data-dismiss="modal">Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" id="description_popup_For_Cancel_Kot" role="dialog" data-backdrop="static"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md" style="width:350px !important;">
+        <div class="modal-content checkout">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h4 class="modal-title">Term</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-md-3 col-lg-3 control-label">Description</label>
+                                    <textarea name="Description"
+                                              ng-model="description" maxlength="125"
+                                              style="max-height: 120px !important;"> </textarea>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="col-md-12">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-md-3 col-lg-3 control-label">Phone</label>
+                                    <input name="phone" type="text" num-with-out-space
+                                           ng-model="phone" readonly maxlength="10"
+                                           style="max-height: 120px !important;">
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer" ng-show="descriptionType=='kot'||descriptionType=='clearAllKot'">
+                <button type="submit" class="btn btn-default" data-toggle="modal"
+                        data-target=".print-me" ng-model="setupId" ng-click="saveDescriptionForKot(desc)">Save
+                </button>
+            </div>
+            <div class="modal-footer" ng-show="descriptionType=='cancel'">
+                <button type="submit" class="btn btn-default" data-toggle="modal"
+                        data-target=".print-me" ng-model="setupId" ng-click="saveDescriptionForCancel()">Save
+                </button>
+                <button type="button" class="btn btn-default" ng-click="removeDescription()" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<div class="modal fade  bs-check" tabindex="-1" id="PosInvoiceDuplicatePrint" role="dialog"
+     data-backdrop="static"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md" style="width: 1033px;">
+        <div class="modal-content checkout">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="hideButton()"
+                        aria-label="Close">
+                    <span aria-hidden="true" ng-click="remove()">&times;</span></button>
+                <h4 class="modal-title"> Restaurant Invoices</h4>
+            </div>
+            <div class="modal-body checkout-body">
+                <div class="modal-body" style="    width: 1033px; padding: 0px 33px 0px 0px;">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="display: block; margin: 0;">Search: </label>
+                                    <input class="form-control input-sm"
+                                           style="width: 25%; display: inline-block; height: 34px;"
+                                           ng-keyup="$event.keyCode == 13 ? getDuplicateInvoiceList(text) : null"
+                                           ng-model="text">
+                                    <table class="table table-striped table_costomize eight_table_info"
+                                           id="saleslisttable">
+                                        <thead>
+                                        <tr>
+                                            <th data-field="name" style="width: 15% !important;">Form No
+                                            </th>
+                                            <th data-field="name" style="width: 15% !important;">Customer
+                                                Name
+                                            </th>
+                                            <!--<th data-field="name" style="width: 10% !important;">Location-->
+                                            <!--Name-->
+                                            <!--</th>-->
+                                            <th data-field="name" style="width: 10% !important;">Total
+                                                Amount
+                                            </th>
+                                            <th data-field="name" style="width: 10% !important;">Edit</th>
+                                            <th data-field="name" style="width: 10% !important;">Post</th>
+                                            <th data-field="name" style="width: 10% !important;">Cancel
+                                                Draft
+                                            </th>
+                                            <th data-field="name" style="width: 10% !important;">Cancel
+                                                Invoice
+                                            </th>
+                                            <th data-field="name" style="width: 10% !important;"> Print</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="parentTable">
+                                        <tr ng-repeat="s in posSalesList | filter:searchText">
+                                            <td style="width: 15% !important;">{{s.formNo}}</td>
+                                            <td style="width: 15% !important;">{{s.customerName}}</td>
+                                            <!--<td style="width: 10% !important;">{{s.inventoryLocation}}</td>-->
+                                            <td style="width: 10% !important;">{{s.amount}}</td>
+                                            <td style="width: 10% !important;"
+                                                ng-if="s.piStatus == 'Draft'"><a type="button"
+                                                                                 data-toggle="tooltip"
+                                                                                 ng-readonly="piStatus === 'Draft'"
+                                                                                 ng-click="getEditSalesInvoice(s.formNo)"
+                                                                                 title="Edit"><img
+                                                    src="resource/posimages/icons/edit.PNG"></a></td>
+                                            <td style="width: 10% !important;"
+                                                ng-if="s.piStatus == 'Prepared'"><a type="text"
+                                                                                    data-toggle="tooltip"
+                                                                                    title="Yes"></a>Posted
+                                            </td>
+                                            <td style="width: 10% !important;"
+                                                ng-if="s.piStatus == 'Draft'"><a type="button"
+                                                                                 data-toggle="tooltip"
+                                                                                 ng-readonly="piStatus === 'Draft'"
+                                                                                 ng-click="postSalesInvoice(s.formNo,$index)"
+                                                                                 title="Posting"><img
+                                                    src="resource/posimages/icons/cal_icon_2.png"></a></td>
+                                            <td style="width: 10% !important;"
+                                                ng-if="s.piStatus == 'Prepared'"><a type="text"
+                                                                                    data-toggle="tooltip"
+                                                                                    title="Yes"></a>Yes
+                                            </td>
+                                            <td style="width: 10% !important;"
+                                                ng-if="s.piStatus == 'Draft'"><a type="button"
+                                                                                 data-toggle="tooltip"
+                                                                                 ng-click="cancelDraftInvoice(s.id)"
+                                                                                 title="Return Selected Item"><img
+                                                    src="resource/posimages/icons/1.png"/></a></td>
+                                            <td style="width: 10% !important;"
+                                                ng-if="s.piStatus == 'Prepared'"><a type="text"
+                                                                                    data-toggle="tooltip"
+                                                                                    title="Yes"></a>Invoiced
+                                            </td>
+                                            <td style="width: 10% !important;"
+                                                ng-if="s.piStatus == 'Draft'"><a type="text"
+                                                                                 data-toggle="tooltip"
+                                                                                 title="Yes"></a>Draft
+                                            </td>
+                                            <td style="width: 10% !important;"
+                                                ng-if="s.piStatus == 'Prepared'"><a type="button"
+                                                                                    data-toggle="tooltip"
+                                                                                    ng-click="cancelInvoice(s)"
+                                                                                    title="Return Selected Item"><img
+                                                    src="resource/posimages/icons/1.png"/></a></td>
+                                            <td style="width: 10% !important;"><a type="button"
+                                                                                  data-toggle="tooltip"
+                                                                                  ng-click="duplicateRSIPrint(s.formNo)"
+                                                                                  title="Print"><img
+                                                    src="resource/posimages/icons/cal_icon_1.png"></a></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" ng-click="remove()" class="btn btn-default" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade  bs-check" tabindex="-1" id="place_order" role="dialog" data-backdrop="static"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md" style="width: 1033px;">
+        <div class="modal-content checkout">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="hideButton()"
+                        aria-label="Close">
+                    <span aria-hidden="true" ng-click="remove()">&times;</span></button>
+                <h4 class="modal-title"> Place Order</h4>
+            </div>
+            <div class="modal-body checkout-body">
+                <div class="modal-body" style="    width: 1033px; padding: 0px 33px 0px 0px;">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label style="display: block; margin: 0;">Search: </label>
+                                    <table class="table table-striped table_costomize eight_table_info"
+                                           id="saleslisttable">
+                                        <thead>
+                                        <tr>
+                                            <th data-field="name" style="width: 15% !important;">Customer
+                                                Name
+                                            </th>
+                                            <th data-field="name" style="width: 15% !important;">Table
+                                                Name
+                                            </th>
+                                            <th data-field="name" style="width: 10% !important;">Order Id
+                                            </th>
+                                            <th data-field="name" style="width: 13% !important;">Restaurant
+                                                OrderId
+                                            </th>
+                                            <th data-field="name" style="width: 10% !important;">Agent
+                                                Name
+                                            </th>
+                                            <th data-field="name" style="width: 10% !important;">Rider</th>
+                                            <th data-field="name" style="width: 10% !important;">Pick Up
+                                            </th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody id="parentTable">
+                                        <tr ng-repeat="token in placeorderList">
+                                            <td style="width: 15% !important;">{{token.customerName}}</td>
+                                            <!--<td style="width: 15% !important;">{{token.tableName}}</td>-->
+                                            <td style="width: 10% !important;">{{token.id}}</td>
+                                            <td style="width: 10% !important;">{{token.orderNo}}</td>
+                                            <td style="width: 10% !important;">{{token.agentName}}</td>
+                                            <td>
+                                                <button type="button" ng-click="assign('delivery',token)"
+                                                        class="btn btn-default" data-dismiss="modal">Assign
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button type="button" ng-click="pickup('pickup',token)"
+                                                        class="btn btn-default" data-dismiss="modal">Pick up
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" ng-click="remove()" class="btn btn-default" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade printreceipt" tabindex="-1" id="print_dailyReport" role="dialog"
+     data-backdrop="static" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-lg" style="width: 250px;">
+        <div class="modal-content checkout">
+            <div id="print_div_dailyReport" class="panel-body" class="mini-print-wrapper"
+                 style=" width: 230px; height: 300px;">
+                <style>
+
+                    td span {
+                        line-height: 28px;
+                    }
+
+                    .res_head_info tr td {
+                        text-align: center;
+                        height: 17px;
+                        font-size: 15px;
+                    }
+
+                    .res_head_info tr td h2 {
+                        margin: 0px;
+                        font-size: 23px;
+                    }
+
+                    #print_div_dailyReport tr {
+                        display: table-row;
+                    }
+
+                    #print_div_dailyReport td, #print_div_dailyReport th {
+                        display: table-cell;
+                    }
+
+                    #print_div_dailyReport tbody, #print_div_dailyReport thead {
+                        display: table-row-group;
+                    }
+
+                    td span, .res_head_info td {
+                        line-height: 17px !important;
+                    }
+
+                    .res_item_table th {
+                        padding: 5px 0px;
+                        text-align: center;
+                    }
+
+                    .res_item_table td {
+                        padding: 5px 0px;
+                        text-align: center;
+                    }
+
+                    td.ng-hide, tr.ng-hide {
+                        display: none !important;
+                    }
+
+                    td, th {
+                        font-family: "Arial Narrow", Arial, sans-serif;
+                    }
+
+                    .table-responsive {
+                        min-height: .01%;
+                        overflow-x: inherit !important;
+                    }
+                </style>
+                <div class="row" style="width: 200px; padding: 0px;">
+                    <div class="col-sm-12 col-md-12" style="width: 200px; padding: 0px;">
+                        <div class="table-responsive">
+                            <table cellpadding="0" cellspacing="0" class="res_head_info"
+                                   style="width: 223px;">
+                                <tr ng-show="printData4.logo">
+                                    <td><img style="width:40px;height:40px;"
+                                             src="{{printData4.logo}}"></td>
+                                </tr>
+                                <tr>
+                                    <td style=" padding: 0px; height: 0px; ">
+                                        <h2>{{printData4.companyName}}</h2>
+                                    </td>
+                                </tr>
+                                <tr ng-show="printData4.phone">
+                                    <td style=" padding: 0px; height: 0px; ">
+                                        Phone : {{printData4.phone}}
+                                    </td>
+                                </tr>
+                                <tr ng-show="printData4.companyNo">
+                                    <td style=" padding: 0px; height: 0px; ">
+                                        GSTIN : {{printData4.companyNo}}
+                                    </td>
+                                </tr>
+                                <tr ng-show="printData4.date">
+                                    <td style=" padding: 0px; height: 0px; ">
+                                        Date :{{printData4.date | date: 'dd/MM/yyyy'}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style=" border-top: 1px dashed #000; padding: 0px; height: 0px; ">
+                                        **********************************
+                                    </td>
+                                </tr>
+
+                            </table>
+                            <table cellpadding="0" cellspacing="0" style="width: 200px;"
+                                   class="res_item_table" id="itemlisttable">
+                                <thead>
+                                <tr>
+                                    <th style="padding: 0px;  height: 0px; width: 130px">Item Name</th>
+                                    <th style="padding: 0px;  height: 0px; width: 35px">Qty</th>
+                                    <th style="padding: 0px;  height: 0px; width: 60px">Amount</th>
+                                </tr>
+                                </thead>
+                                <tbody id="parentTable">
+                                <tr ng-repeat-start="(key, value) in dailyReportList">
+                                <tr ng-hide="key=='Discount'||key=='Service Charge'||key=='Rounding Off'||key=='Payment'||key=='Total Amount'">
+                                    <td colspan="3"
+                                        style="text-align: left; width: 100px; padding: 0px; font-size: 14px;">
+                                        {{key}}
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="item in value">
+                                    <td style="word-break:break-all;text-align: left; width: 100px; padding: 0px; font-size: 10px;padding-left:10px;">
+                                        {{item.itemName}}
+                                    </td>
+                                    <td style="width: 35px;  padding: 0px; height: 0px; font-size: 10px;">
+                                        {{item.QtySold}}
+                                    </td>
+                                    <td style="width: 60px;  padding: 0px; font-size: 10px;"
+                                        ng-init="updateTotals(item.total)"> {{item.totalAmtReceived | number: 2}}{{item.total | number : 2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: right;"> {{}}</td>
+                                </tr>
+                                <tr ng-repeat-end></tr>
+                                <tr>
+                                    <td colspan="3"
+                                        style="border-bottom: 1px dashed #000; padding: 0px; height: 0px; line-height: 3px;">
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: right;"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <table cellpadding="0" cellspacing="0" style="width: 200px;">
+                                <tr ng-if="dailyReportList['Discount']>0">
+                                    <td style="width: 100px; padding: 0px;  height: 0px; text-align: right;">
+                                        Total Discount
+                                    </td>
+                                    <td style="width: 10px;">:</td>
+                                    <td style="width:50px; text-align: center;">
+                                        {{dailyReportList['Discount']|number:2}}
+                                    </td>
+                                </tr>
+                                <tr ng-if="dailyReportList['Service Charge']>0">
+                                    <td style="width: 100px; padding: 0px;  height: 0px; text-align: right;">
+                                        {{serviceChargeName}}
+                                    </td>
+                                    <td style="width: 10px;">:</td>
+                                    <td style="width:50px; text-align: center;">{{dailyReportList['Service Charge']|number:2}}
+                                    </td>
+                                </tr>
+                                <tr ng-if="dailyReportList['Rounding Off']">
+                                    <td style="width: 100px; padding: 0px;  height: 0px; text-align: right;">
+                                        Rounding Off
+                                    </td>
+                                    <td style="width: 30px;">:</td>
+                                    <td style="width:50px; text-align: center;"
+                                        ng-if="dailyReportList['Rounding Off']<0">
+                                        {{dailyReportList['Rounding Off']|positive|number:2}}
+                                    </td>
+                                    <td style="width:50px; text-align: center;"
+                                        ng-if="dailyReportList['Rounding Off']>0">
+                                        -{{dailyReportList['Rounding Off']|number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 100px; padding: 0px;  height: 0px; text-align: right;">
+                                        Total Bill
+                                    </td>
+                                    <td style="width: 10px;">:</td>
+                                    <td style="width:50px; text-align: center;">{{dailyReportList['Total Amount']|number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"
+                                        style="border-bottom: 1px dashed #000; padding: 0px; height: 0px; line-height: 3px;">
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table cellpadding="0" cellspacing="0" style="width: 200px;">
+
+                                <tr>Payment Type:</tr>
+                                <tr ng-repeat="(key, value) in dailyReportList['Payment']" ng-if="value>0">
+                                    <td style="width: 100px; padding: 0px;  height: 0px; text-align: right;"
+                                        ng-if="value>0">{{key}}
+                                    </td>
+                                    <td style="width: 30px;" ng-if="value>0">:</td>
+                                    <td colspan="1" ng-if="value>0" style="width:50px; text-align: center;">
+                                        {{value|number:2}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"
+                                        style="border-bottom: 1px dashed #000; padding: 0px; height: 0px; line-height: 3px;">
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="btn4" ng-click="printDiv4('print_div_dailyReport')"
+                        class="btn btn-default">Print
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade splitTablePopUp" tabindex="-1" id="splitTablePopUp" role="dialog"
+     data-backdrop="static" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content checkout">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="panel-body" style="min-height: 400px;">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped table_costomize hi_table six_table_info"
+                                   id="splitTable1">
+                                <thead>
+                                <tr>
+                                    <th style="font-size: 12px !important;">Item</th>
+                                    <th style="font-size: 12px !important;">Unit Price</th>
+                                    <th style="font-size: 12px !important;">Quantity</th>
+                                    <th style="font-size: 12px !important;">GST Tax Amt</th>
+                                    <th style="font-size: 12px !important;">Total Amount Ex Tax</th>
+                                    <th style="font-size: 12px !important;">Total Amount IncTax</th>
+
+                                </tr>
+                                </thead>
+                                <tbody id="parentTable" style="height: 318px;">
+                                <tr ng-repeat="item in splitTable1List"
+                                    ng-class="{'selected':$index === splitTable1SelRow}"
+                                    ng-click="setSplitTable1ClickedRow($index)"
+                                    ng-dblclick="splitTable1DoubleClickAction(item,$index)"
+                                    sglclick="splitTable1SingleClickAction({{item}})">
+                                    <td style="word-break:break-all;color: #333; padding: 17px 10px; font-size: 12px !important;">
+                                        {{item.itemName}}
+                                    </td>
+                                    <td>
+                                        <input type="text" name="unitPrice_{{$index}}"
+                                               id="unitPrice_{{$index}}"
+                                               class="form-control input-md"
+                                               style="font-size: 12px !important;"
+                                               ng-value="{{item.unitPrice|number:2}}"
+                                               ng-model="item.unitPrice" readonly>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="qty_{{$index}}" id="qty_{{$index}}"
+                                               class="form-control input-md"
+                                               style="font-size: 12px !important;"
+                                               ng-blur="toFixedTwo(item.qty)"
+                                               ng-model="item.qty" readonly/>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control input-md"
+                                               name="gstItemTax_{{$index}}"
+                                               ng-model="item.gstItemTax"
+                                               style="font-size: 12px !important;"
+                                               readonly/>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control input-md"
+                                               name="amtexclusivetax_{{$index}}"
+                                               ng-model="item.amtexclusivetax"
+                                               style="font-size: 12px !important;"
+                                               readonly/>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control input-md"
+                                               name="amtinclusivetax_{{$index}}"
+                                               ng-model="item.amtinclusivetax"
+                                               style="font-size: 12px !important;"
+                                               readonly/>
+                                    </td>
+
+
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-striped table_costomize hi_table six_table_info"
+                                   id="splitTable2">
+                                <thead>
+                                <tr>
+                                    <th style="font-size: 12px !important;">Item</th>
+                                    <th style="font-size: 12px !important;">Unit Price</th>
+                                    <th style="font-size: 12px !important;">Quantity</th>
+                                    <th style="font-size: 12px !important;">GST Tax Amt</th>
+                                    <th style="font-size: 12px !important;">Total Amount Ex Tax</th>
+                                    <th style="font-size: 12px !important;">Total Amount IncTax</th>
+                                </tr>
+                                </thead>
+                                <tbody id="parentTable">
+                                <tr ng-repeat="item in splitTable2List"
+                                    ng-class="{'selected':$index == splitTable2SelRow}"
+                                    ng-click="setSplitTable2ClickedRow($index)"
+                                    ng-dblclick="splitTable2DoubleClickAction(item)"
+                                    sglclick="splitTable2SingleClickAction({{item}})">
+                                    <td style="word-break:break-all;color: #333; padding: 17px 10px; font-size: 12px !important;">
+                                        {{item.itemName}}
+                                    </td>
+                                    <td>
+                                        <input type="text" name="unitPrice_{{$index}}"
+                                               class="form-control input-md"
+                                               style="font-size: 12px !important;"
+                                               ng-model="item.unitPrice" readonly>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="qty_{{$index}}"
+                                               class="form-control input-md"
+                                               style="font-size: 12px !important;"
+                                               ng-model="item.qty" readonly/>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control input-md"
+                                               name="gstItemTax_{{$index}}"
+                                               ng-model="item.gstItemTax"
+                                               style="font-size: 12px !important;"
+                                               readonly/>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control input-md"
+                                               name="amtexclusivetax_{{$index}}"
+                                               ng-model="item.amtexclusivetax"
+                                               style="font-size: 12px !important;"
+                                               readonly/>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control input-md"
+                                               name="amtinclusivetax_{{$index}}"
+                                               ng-model="item.amtinclusivetax"
+                                               style="font-size: 12px !important;"
+                                               readonly/>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"
+                        ng-click="setClickedRow( - 1); resetSplitPopUp()">Cancel
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"
+                        ng-click="setClickedRow( - 1); openSplitSelectpayment()">Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="changeTablePopUp" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Change Table</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <label>From Table</label>
+                            <select type="text" ng-model="fromTableSearchText" ng-change="ChangeTables(fromTableSearchText,'fromTable')"
+                                    ng-options="table as table.tableName for table in fromTableList"
+                                    class="form-control input-md">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <label>To Table</label>
+                            <select type="text" ng-model="toTableSearchText" ng-change="ChangeTables(toTableSearchText,'toTable')"
+                                    ng-options="table as table.tableName for table in toTableList"
+                                    class="form-control input-md">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="changeTable()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="mergeTablePopUp" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Merge Table</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <label>Main Table</label>
+                            <input type="text"  ng-model="fromTabl" ng-click="getMergeFromTableList()"
+                                   class="form-control input-md"/>
+                            <datalist id="tableList">
+                                <option ng-repeat="option in completeTableList | filter:tableSearchText"
+                                        value="{{option.tableName}}"></option>
+                            </datalist>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <label>Merge Tables</label>
+                            <input type="text"  ng-model="toTabl" readonly ng-click="getMergeToTableList()"
+                                   class="form-control input-md"/>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="saveMergeTable()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade printreceipt" tabindex="-1" id="paymentsOnline" role="dialog" data-backdrop="static"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-lg" style="width: 600px;">
+        <div class="modal-content checkout">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <style>
+                .loader {
+                    border: 16px solid #f3f3f3;
+                    border-radius: 50%;
+                    border-top: 16px solid #3498db;
+                    width: 120px;
+                    height: 120px;
+                    -webkit-animation: spin 2s linear infinite; /* Safari */
+                    animation: spin 2s linear infinite;
+                }
+
+                /* Safari */
+                @-webkit-keyframes spin {
+                    0% { -webkit-transform: rotate(0deg); }
+                    100% { -webkit-transform: rotate(360deg); }
+                }
+
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            </style>
+            </head>
+            <body>
+          <div ng-show="payStatus === 'initiated'" >
+            <h2>Payment is Initiating please wait....</h2>
+
+            <div class="loader" ng-show="payStatus === 'initiated'"></div>
+          </div>
+
+            </body>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade printreceipt" tabindex="-1" id="warningpopup" role="dialog" data-backdrop="static"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-lg" style="width: 600px;">
+        <div class="modal-content checkout">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+
+            </head>
+            <body>
+            <div ng-show="payStatus === 'failure'">
+                <h2>Payment Failed!!!</h2>
+                <img id="warningImg" src="resource/images/warning.png" width="200" height="200">
+            </div>
+            <div ng-show="payStatus === 'success'">
+                <h2>Payment Success</h2>
+                <img id="successImg" src="resource/images/successpay.png" width="200" height="200">
+            </div>
+            </body>
+            <button ng-show="payStatus === 'failure' && AIRPAYPAYMENT === true" type="button" class="btn btn-secondary" ng-click="swipeInvMethod('multiPayment','savePrint','Re-Initiate')" data-dismiss="modal">Re-Initiate Pay</button>
+            <button ng-show="payStatus === 'failure' && INVPAYMENT === true" type="button" class="btn btn-secondary" ng-click="onlineInvMethod('multiPayment','savePrint','Re-Initiate')" data-dismiss="modal">Re-Initiate Pay</button>
+            <button ng-show="payStatus === 'failure'" type="button" class="btn btn-primary" ng-click="closeAirPayment()">Select Another Payment method</button>
+        </div>
+    </div>
+</div>
+<div class="modal fade printreceipt" tabindex="-1" id="SuccessOnline" role="dialog" data-backdrop="static"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-lg" style="width: 600px;">
+        <div class="modal-content checkout">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            </head>
+            <body>
+            <div ng-show="payStatus === 'success'">
+                <h2>Payment Success</h2>
+                <img id="successImg" src="resource/images/successpay.png" width="200" height="200">
+            </div>
+            </body>
+            <button ng-show="payStatus === 'FAIL' || payStatus === 'success'" type="button" class="btn btn-primary">Select Another Payment method</button>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade printreceipt" tabindex="-1" id="selectQty" role="dialog" data-backdrop="static"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-lg" style="width: 320px;">
+        <div class="modal-content checkout">
+
+            <div id="printSummaryBill_PrintableArea" class="panel-body" class="mini-print-wrapper">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button><h4>Select Qty</h4>
+                <div>
+                    <div>
+                        <label>Qty: <select id="itemBrandId"
+                                            style="width: 82px;padding: 0 25px"
+                                            ng-change="splitTable1DoubleClickAction(item,index)"
+                                            ng-model="splitQty"
+                                            ng-options="number for number in numberList">
+                        </select>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /.content -->

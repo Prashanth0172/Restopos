@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+
+<style>
+
+    .accordion-label {
+        position: relative;
+        text-align: center;
+    }
+
+    .glyphicon {
+        left: 35px;
+        top: 45%;
+        color: @brand-primary;
+    }
+
+    .collapse-feature-list ul li {
+        list-style-type: none;
+    }
+
+    #left {
+        float: left;
+        text-align: left;
+        padding-right: 10px;
+    }
+
+    #right {
+        text-align: right;
+        padding-left: 10px;
+    }
+
+</style>
+
+<div class="container-fluid">
+    <div class="container cus_main_row">
+        <div class="row">
+            <h2 class="pos-header-new">
+                <div>BALANCE SHEET</div>
+            </h2>
+        </div>
+
+        <div class="row inner_row_bg">
+            <div class="col-md-12 col-sm-12">
+                <div class="panel">
+                    <div class="panel-body">
+                        <div class="col-md-12 col-sm-12">
+
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <!--<div class="col-md-3 col-sm-6">-->
+                                            <!--<p style="margin: 0;">Date</p>-->
+                                            <!--<p class="input-group">-->
+                                                <!--<input type="text" class="form-control" uib-datepicker-popup="{{format}}"-->
+                                                       <!--ng-model="dt"-->
+                                                       <!--is-open="popup1.opened" datepicker-options="dateOptions"-->
+                                                       <!--ng-required="true" readonly style="height: 35px;"-->
+                                                       <!--close-text="Close" alt-input-formats="altInputFormats"/>-->
+                                                <!--<span class="input-group-btn">-->
+                                     <!--<button type="button" class="btn btn-default" ng-click="open1()"><i-->
+                                             <!--class="glyphicon glyphicon-calendar"></i></button>-->
+                                <!--</span>-->
+                                            <!--</p>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="col-md-3 col-sm-6">-->
+                                            <!--<p style="margin: 0;">To</p>-->
+                                            <!--<p class="input-group">-->
+                                                <!--<input type="text" class="form-control" uib-datepicker-popup="{{format}}"-->
+                                                       <!--ng-model="dt1"-->
+                                                       <!--is-open="popup2.opened" datepicker-options="dateOptions"-->
+                                                       <!--ng-required="true" readonly style="height: 35px;"-->
+                                                       <!--close-text="Close" alt-input-formats="altInputFormats"/>-->
+                                                <!--<span class="input-group-btn">-->
+                                     <!--<button type="button" class="btn btn-default" ng-click="open2()"><i-->
+                                             <!--class="glyphicon glyphicon-calendar"></i></button>-->
+                                <!--</span>-->
+                                            <!--</p>-->
+                                        <!--</div>-->
+
+                                        <div class="col-md-3 col-sm-3">
+                                            <p style="margin: 0;">&nbsp;</p>
+                                            <span class="custom-dropdown custom-dropdown--white">
+                                <select ng-model="type" class="form-control">
+                                    <option value=""> Select Type</option>
+                                    <option value="level2"> Level2</option>
+                                    <option value="level3"> Level3</option>
+                                </select>
+                            </span>
+                                        </div>
+
+                                        <!--<div class="col-md-3">-->
+                                            <!--<p style="margin: 0;">Inventory Location:</p>-->
+                                            <!--<span class="custom-dropdown custom-dropdown&#45;&#45;white">-->
+                        <!--<select id="fromLocation" name="fromLocation"-->
+                                <!--ng-readonly="operation === 'Return'"-->
+                                <!--ng-model="fromLocation"-->
+                                <!--ng-options="cmpyinvLoc.inventoryLocationId as cmpyinvLoc.inventoryLocationName for cmpyinvLoc in inventoryLocationList"-->
+                                <!--ng-disabled="user_access_rights.salesInvLoc==false"-->
+                                <!--class="form-control input-md">-->
+                            <!--<option value="">Select</option>-->
+                            <!--<option value="">All</option>-->
+                        <!--</select>-->
+                     <!--</span>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="col-md-offset-8 col-md-4 col-sm-3" style="margin-top: 15px;">-->
+
+                                            <!--<div class="col-md-4">-->
+                                                <!--<button type="button" class="btn btn-default hi_btn"-->
+                                                        <!--ng-click="getprofitList(dt,dt1)">View-->
+                                                <!--</button>-->
+                                            <!--</div>-->
+
+                                            <!--<div class="col-md-4">-->
+                                                <!--<a href="/reports/finance/downloadPLExcelSheet?type={{exportsType}}&dt2={{dt| date:'yyyy-MM-dd'}}&dt1={{dt1| date:'yyyy-MM-dd'}}">-->
+                                                    <!--<button type="button" class="btn btn-default hi_btn">EXCEL</button>-->
+                                                <!--</a>-->
+                                            <!--</div>-->
+
+                                            <!--<div class="col-md-4">-->
+                                                <!--<a href="/reports/finance/downloadPLPdf?type={{exportsType}}&dt2={{dt| date:'yyyy-MM-dd'}}&dt1={{dt1| date:'yyyy-MM-dd'}}">-->
+                                                    <!--<button type="button" class="btn btn-default hi_btn">PDF</button>-->
+                                                <!--</a>-->
+                                            <!--</div>-->
+
+                                        <!--</div>-->
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-body">
+                        <table class="export-table hi_table report_table_info report_double_table_info table table-bordered"
+                               id="overview-table" style="margin-left: 0; max-width: 100%; border: 1px solid #ddd;">
+
+                            <table>
+                                <td>
+                                    <table class="table_center">
+                                        <tr>
+                                            <td class="text-center"><h4>Profit & Loss</h4></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center"><h4>{{companyDetails.branchName}}</h4></td>
+                                        </tr>
+                                        <!--<tr>-->
+                                            <!--<td class="text-center"><h4>{{dt | date:'dd/MM/yyyy' }} -  {{dt1 | date:'dd/MM/yyyy'}}</h4></td>-->
+                                        <!--</tr>-->
+                                    </table>
+                                </td>
+
+
+                                <div class="container">
+                                    <table class="table table-bordered" id="overview-table">
+                                        <!--<div id="body-3">-->
+                                            <!--<tr data-toggle="collapse" data-target="#text-3" class="accordion-toggle collapsed"-->
+                                                <!--aria-expanded="false">-->
+                                                <!--<td scope="row" class="accordion-label" style="width: 100%">-->
+                                                      <!--<tr data-toggle="collapse" data-target="#text-11{{$index}}"-->
+                                                          <!--class="accordion-toggle collapsed"-->
+                                                          <!--ng-repeat="val in accountMasterList">-->
+                                                          <!--<td id="left" style="margin-left: 100px">{{val.accountname}}</td>-->
+                                                          <!--<td id="right">{{val.totalAmt|number:2}}</td>-->
+                                                      <!--</tr>-->
+                                                <!--</td>-->
+                                            <!--</tr>-->
+                                            <!--<tr>-->
+                                                <!--<td colspan="4" style="width: 100%">-->
+                                                    <!--<div ng-show="type">-->
+                                                        <!--<table class="sub_menu_acc">-->
+                                                            <!--<tr ng-repeat-start="val in accountMasterList">-->
+                                                            <!--<tr data-toggle="collapse" data-target="#text-11{{$index}}"-->
+                                                                <!--class="accordion-toggle collapsed"-->
+                                                                <!--ng-repeat-start="val2 in val.secondChatOfAccountDtoList">-->
+                                                                <!--<td id="left" style="margin-left: 100px">{{val2.accountname}}</td>-->
+                                                                <!--<td id="right">{{val2.totalAmt|number:2}}</td>-->
+
+                                                            <!--<tr data-toggle="collapse" data-target="#text-11{{$index}}"-->
+                                                                <!--class="accordion-toggle collapsed" ng-repeat="val1 in val.thirdChatOfAccountDtoList"-->
+                                                                <!--ng-show="type=='level3'">-->
+                                                            <!--<td id="left" style="margin-left: 100px">{{val1.accountname}}</td>-->
+                                                            <!--<td id="right">{{val1.totalAmt|number:2}}</td>-->
+                                                            <!--</tr>-->
+                                                            <!--<tr ng-repeat-end></tr>-->
+                                                            <!--<tr ng-repeat-end></tr>-->
+                                                        <!--</table>-->
+                                                    <!--</div>-->
+                                                <!--</td>-->
+                                            <!--</tr>-->
+                                        <!--</div>-->
+                                        <div id="body-1">
+                                            <tr data-toggle="collapse" data-target="#text-1" class="accordion-toggle collapsed">
+                                                <td scope="row" class="accordion-label" style="width: 100%">
+                                                    <div>
+                                                        <table class="sub_menu_acc">
+                                                            <tr data-toggle="collapse" data-target="#text-11{{$index}}"
+                                                                class="accordion-toggle collapsed"
+                                                                ng-repeat-start="val in accountMasterList">
+                                                                <td id="left" style="margin-left: 100px">{{val.accountname}}</td>
+                                                                <td id="right">{{val.totalAmt|number:2}}</td>
+                                                            <tr data-toggle="collapse" data-target="#text-11{{$index}}"
+                                                                class="accordion-toggle collapsed" ng-repeat="val1 in val.secondChatOfAccountDtoList"
+                                                                ng-show="type">
+                                                                <td id="left" style="margin-left: 200px">{{val1.accountname}}</td>
+                                                                <td id="center" style="margin-right: 150px">{{val1.totalAmt|number:2}}</td>
+                                                            </tr>
+
+                                                            <tr data-toggle="collapse" data-target="#text-11{{$index}}"
+                                                                class="accordion-toggle collapsed" ng-repeat="val2 in val.thirdChatOfAccountDtoList"
+                                                                ng-show="type=='level3'">
+                                                                <td id="left" style="margin-left: 200px">{{val2.accountname}}</td>
+                                                                <td id="center" style="margin-right: 150px">
+                                                                    {{val2.totalAmt|number:2}}
+                                                                </td>
+                                                            <tr ng-repeat-end></tr>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </div>
+                                    </table>
+                                </div>
+                            </table>
+                        </table>
+                    </div>
+
+                    <!--<p align="right">-->
+                        <!--<a href="#!/reportfinancialstatement"><i class="btn btn-default hi_btn" style="float: right;">Go Back</i></a>-->
+                    <!--</p>-->
+
+                </div>
+
+            </div>
+        </div>
+
+        <script>
+            count = 0;
+            $(document).on("click", ".accordion-toggle", function () {
+                bef_attId = $(this).attr("data-target");
+                if ($('tr[class="accordion-toggle"].list').not('.collapsed').length > 1) {
+                    $('tr[class="accordion-toggle"].list').not('.collapsed').each(function () {
+                        if ($(this).attr("data-target") !== bef_attId) {
+                            var id = $(this).attr("data-target").substr(1);
+                            var element = document.getElementById($('#' + id + ' div > ul> li').attr('id'));
+                            //angular.element( element ).scope().$destroy();
+                        }
+                    });
+                }
+                if ($(this).find(".glyphicon").hasClass('glyphicon-minus-sign')) {
+                    $(this).find(".glyphicon").removeClass('glyphicon-minus-sign').addClass('glyphicon');
+                } else if ($(this).find(".glyphicon").hasClass('glyphicon')) {
+                    $(this).find(".glyphicon").removeClass('glyphicon').addClass('glyphicon-minus-sign');
+                }
+                //    $(this).siblings('tr[class="accordion-toggle"].list').not('.collapsed').click();
+            });
+        </script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+package com.hyva.restopos.rest.Mapper;
+
+import com.hyva.restopos.rest.entities.Category;
+import com.hyva.restopos.rest.pojo.CategoryPojo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CategoryMapper {
+
+    public static Category mapPojoToEntity (CategoryPojo categoryPojo){
+        Category category = new Category();
+        category.setItemCategoryId(categoryPojo.getItemCategoryId());
+        category.setCode(categoryPojo.getCode());
+        category.setItemCategoryName(categoryPojo.getItemCategoryName());
+        category.setItemCategoryDesc(categoryPojo.getItemCategoryDesc());
+        category.setImage(categoryPojo.getImage());
+        category.setStatus(categoryPojo.getStatus());
+        return category;
+    }
+
+    public static List<CategoryPojo> mapEntityToPojo(List<Category> List) {
+        List<CategoryPojo> list = new ArrayList<>();
+        for (Category config : List) {
+            CategoryPojo categoryPojo = new CategoryPojo();
+            categoryPojo.setItemCategoryId(config.getItemCategoryId());
+            categoryPojo.setCode(config.getCode());
+            categoryPojo.setItemCategoryDesc(config.getItemCategoryDesc());
+            categoryPojo.setImage(config.getImage());
+            categoryPojo.setStatus(config.getStatus());
+            categoryPojo.setItemCategoryName(config.getItemCategoryName());
+            list.add(categoryPojo);
+        }
+        return list;
+    }
+
+}

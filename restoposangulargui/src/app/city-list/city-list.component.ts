@@ -1,0 +1,149 @@
+import { Component, OnInit } from '@angular/core';
+import {Observable} from "rxjs/index";
+import {Router} from "@angular/router";
+import {EmployeeService} from "../employee.service";
+import {City} from "../city";
+import {State} from "../state";
+
+@Component({
+  selector: 'app-city-list',
+  templateUrl: './city-list.component.html',
+  styleUrls: ['./city-list.component.css']
+})
+export class CityListComponent implements OnInit {
+
+  // city: Observable<City[]>;
+  city: City = new City();
+  public cities=[];
+  public countryList=[];
+  public states=[];
+  ButtonStatus : String="InActive";
+  inactiveStatus :String ="1";
+  clicked : Boolean = false;
+  firstPage :Boolean = true;
+  lastPage :Boolean = false;
+  prevPage :Boolean = false;
+  pageNo :number = 1;
+  noOfPages : number;
+  first : Boolean;
+  last : Boolean;
+  prev : Boolean;
+  next : Boolean;
+  page : String ='firstPage';
+  constructor(private employeeService: EmployeeService,
+              private router: Router) {}
+
+
+  ngOnInit() {
+    this.paginationList(this.page);
+    this.getCountryList();
+    this.getStateList();
+  }
+  getCountryList = function () {
+    this.employeeService.getAllCountryList().subscribe(data=> {
+      this.countryList = data.data;
+    })
+  };
+  getStateList = function () {
+    this.employeeService.getAllStateList().subscribe(data=> {
+      this.states = data.data;
+    })
+  };
+
+  paginationList(page){
+    switch (page){
+      case 'firstPage':
+        this.pageNo = 1;
+        break;
+      case 'lastPage':
+        this.pageNo = this.noOfPages;
+        break;
+      case 'nextPage':
+        this.pageNo = this.pageNo + 1;
+        break;
+      case 'prevPage':
+        this.pageNo = this.pageNo - 1;
+        break;
+      default:
+        this.pageNo=1;
+        this.firstPage = true;
+    }
+    this.employeeService.getCityList(this.inactiveStatus,"",(this.pageNo.toString())).subscribe(data=>
+    {
+      this.cities = data.data;
+      for(let cat of this.cities) {
+        if (cat.status == 0) {
+          cat.status = "InActive";
+        } else {
+          cat.status = "Active";
+        }
+      }
+      this.noOfPages=data.no_of_paginations;
+      if (this.noOfPages == 1||this.noOfPages==0) {
+        this.first = true;
+        this.last = true;
+        this.prev = true;
+        this.next = true;
+      }else if(this.pageNo == this.noOfPages){
+        this.first = false;
+        this.last = true;
+        this.prev = false;
+        this.next = true;
+      }else if(this.pageNo==1){
+        this.first = true;
+        this.last = false;
+        this.prev = true;
+        this.next = false;
+      }else if(this.pageNo < this.noOfPages){
+        this.first = false;
+        this.last = false;
+        this.prev = false;
+        this.next = false;
+      }
+    })
+  }
+
+
+
+  inactiveButton(){
+    if(this.clicked ==false) {
+      this.inactiveStatus = "0";
+      this.ButtonStatus = "Active";
+    }
+    else {
+      this.inactiveStatus = "1";
+      this.ButtonStatus = "InActive";
+    }
+    this.clicked = !this.clicked;
+    this.paginationList('');
+  }
+
+  updateCity(data){
+    this.city=data;
+    if (data.status == "Active") {
+      data.status = "1";
+    } else {
+      data.status = "0";
+    }
+    this.openModal(true);
+  }
+  private mdlSampleIsOpen : boolean = false;
+  private openModal(open : boolean) : void {
+    this.mdlSampleIsOpen = open;
+  }
+  private submitted: boolean;
+
+  onSubmit() {
+    this.submitted = true;
+    this.save();
+    this.openModal(false);
+  }
+
+  save() {
+    this.employeeService.createCity(this.city)
+      .subscribe(data => console.log(data), error => console.log(error));
+    this.city = new City();
+    this.paginationList(this.page);
+  }
+
+}

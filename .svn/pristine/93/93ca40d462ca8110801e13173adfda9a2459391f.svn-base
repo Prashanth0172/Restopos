@@ -1,0 +1,57 @@
+package com.hyva.restopos.rest.Mapper;
+
+import com.hyva.restopos.rest.entities.PaymentVoucher;
+import com.hyva.restopos.rest.pojo.PaymentVoucherPojo;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+public class VoucherMapper {
+
+    public static PaymentVoucher MapPojoToEntity(PaymentVoucherPojo paymentVoucherPojo)throws Exception{
+        PaymentVoucher paymentVoucher = new PaymentVoucher();
+        paymentVoucher.setVouId(paymentVoucherPojo.getPaymentVoucherId());
+        paymentVoucher.setVocherCode(paymentVoucherPojo.getCode());
+        paymentVoucher.setStatus(paymentVoucherPojo.getStatus());
+        paymentVoucher.setName(paymentVoucherPojo.getName());
+        paymentVoucher.setDescription(paymentVoucherPojo.getDescription());
+        paymentVoucher.setValidity(paymentVoucherPojo.getValidity());
+        paymentVoucher.setDiscountType(paymentVoucherPojo.getType());
+        paymentVoucher.setDiscountAmount(String.valueOf(paymentVoucherPojo.getDiscount()));
+//        paymentVoucher.setMaxDiscount(paymentVoucherPojo.getm());
+//        SimpleDateFormat sfmtDate = new SimpleDateFormat("yyyy-MM-dd");
+//        paymentVoucher.setFromDate(sfmtDate.parse(paymentVoucherPojo.getFromDate()));
+//        paymentVoucher.setToDate(sfmtDate.parse(paymentVoucherPojo.getToDate()));
+        paymentVoucher.setMinBill(String.valueOf(paymentVoucherPojo.getMin_total()));
+//        paymentVoucher.setNoOfTimesValid(paymentVoucherPojo.getn());
+//        paymentVoucher.setDefaultVoucher(paymentVoucherPojo.getDefaultVoucher());
+        return paymentVoucher;
+    }
+
+    public static List<PaymentVoucherPojo> mapEntityToPojo(List<PaymentVoucher> List) {
+        List<PaymentVoucherPojo> list = new ArrayList<>();
+        for (PaymentVoucher voucher : List) {
+            PaymentVoucherPojo paymentVoucherPojo = new PaymentVoucherPojo();
+            paymentVoucherPojo.setPaymentVoucherId(voucher.getVouId());
+            paymentVoucherPojo.setCode(voucher.getVocherCode());
+            paymentVoucherPojo.setStatus(voucher.getStatus());
+            paymentVoucherPojo.setName(voucher.getName());
+            paymentVoucherPojo.setValidity(voucher.getValidity());
+//          paymentVoucherPojo.setDescription(voucher.getDescription());
+//              SimpleDateFormat sfmtDate = new SimpleDateFormat("yyyy-MM-dd");
+//            paymentVoucherPojo.setFixed_date(sfmtDate.format(voucher.getFromDate()));
+//            paymentVoucherPojo.setf(sfmtDate.format(voucher.getToDate()));
+            paymentVoucherPojo.setType(voucher.getDiscountType());
+//            paymentVoucherPojo.setMaxDiscount(voucher.getMaxDiscount());
+            paymentVoucherPojo.setDiscount(voucher.getDiscountAmount());
+//            paymentVoucherPojo.setMinBill(voucher.getMinBill());
+//            paymentVoucherPojo.setDefaultVoucher(voucher.getDefaultVoucher());
+//            paymentVoucherPojo.setNoOfTimesValid(voucher.getNoOfTimesValid());
+            list.add(paymentVoucherPojo);
+        }
+        return list;
+    }
+
+
+}

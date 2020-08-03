@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    .rep_list_info .custom_info {
+        margin: 15px 0px;
+        text-align: center;
+        border: 1px solid #ccc;
+        background: #fff;
+        padding: 20px 10px;
+        height: 136px;
+    }
+    .rep_list_info .custom_info img{
+        width: 30%;
+    }
+    .rep_info {
+        text-align: center;
+        color: #333;
+        font-weight: bold;
+    }
+    .pos-header-new {
+        border-top: 30px solid #f0ad4e;
+        border-right: 25px solid transparent;
+        color: black;
+        margin: 0;
+        float: left;
+        height: 0;
+        line-height: 24px;
+        padding: 0 35px 0 10px;
+        text-transform: uppercase;
+        -moz-transition: border-bottom-color .4s ease;
+        -o-transition: border-bottom-color .4s ease;
+        -webkit-transition: border-bottom-color .4s ease;
+        transition: border-bottom-color .4s ease;
+        min-width: 202px;
+    }
+    .pos-header-new > div, .pos-header-double > div {
+        margin-top: -25px;
+    }
+</style>
+
+<body>
+<div class="container-fluid" style="width: 100%;">
+    <div class="container-fluid cus_main_row">
+
+        <div class="row">
+            <h2 class="pos-header-new">
+                <div>Reports</div>
+
+            </h2>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-3 col-sm-6 rep_list_info" ng-show="userAccessRights.restaurantInvReg">
+                <a href="#!/restaurantInvoiceListing">
+                    <div class="custom_info">
+                        <i class="fa fa-university fa-5x" aria-hidden="true"></i>
+                        <!--<img src="partials/images/salesinvoicelisting.png">-->
+                        <div class="rep_info">Restaurant Invoice Register</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info" ng-show="userAccessRights.monthEndReport">
+                <a href="#!/monthendReport">
+                    <div class="custom_info">
+                        <i class="fa fa-map-o fa-5x" aria-hidden="true"></i>
+                        <!--<img src="partials/images/inventorycounttype.jpg">-->
+                        <div class="rep_info">Month End Report</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info" ng-show="userAccessRights.itemSalesReport">
+                <a href="#!/itemSalesReport">
+                    <div class="custom_info">
+                        <i class="fa fa-life-ring fa-5x" aria-hidden="true"></i>
+                        <!--<img src="partials/images/itemcommissionlisting.png">-->
+                        <div class="rep_info"> Item Sales Report</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info" ng-show="userAccessRights.shiftReport">
+                <a href="#!/shiftReport">
+                    <div class="custom_info">
+                        <i class="fa fa-random fa-5x" aria-hidden="true"></i>
+                        <!--<img src="partials/images/inventorylocationinv.png">-->
+                        <div class="rep_info">Shift Report</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info" ng-show="userAccessRights.cancelledItemReg">
+                <a href="#!/cancelledItemReport">
+                    <div class="custom_info">
+                        <i class="fa fa-ban fa-5x" aria-hidden="true"></i>
+                        <!--<img src="partials/images/itemcommissionlisting.png">-->
+                        <div class="rep_info">Cancelled Item Report</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info" ng-show="userAccessRights.freeMealReport">
+                <a href="#!/freeMealReport">
+                    <div class="custom_info">
+                        <i class="fa fa-cutlery fa-5x" aria-hidden="true"></i>
+                        <!--<img src="partials/images/itemcountadjust.png">-->
+                        <div class="rep_info">Free Meal Report</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info" ng-show="userAccessRights.discountReport">
+                <a href="#!/discountReport">
+                    <div class="custom_info">
+                        <i class="fa fa-sort-numeric-desc fa-5x" aria-hidden="true"></i>
+                        <!--<img src="partials/images/itemcommission.png">-->
+                        <div class="rep_info">Discount Report</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info" ng-show="userAccessRights.tableWiseReport">
+                <a href="#!/tableWiseReport">
+                    <div class="custom_info">
+                        <i class="fa fa-table fa-5x" aria-hidden="true"></i>
+                        <!--<img src="partials/images/paymentreport.png">-->
+                        <div class="rep_info">TableWise Report</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-3 col-sm-6 rep_list_info" ng-show="userAccessRights.agentReport">
+                <a href="#!/agentReport">
+                    <div class="custom_info">
+                        <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
+                        <!--<img src="partials/images/agentlisting.png">-->
+                        <div class="rep_info">Agent Report</div>
+                    </div>
+                </a>
+            </div>
+            <!--<div class="col-md-3 col-sm-6 rep_list_info">-->
+                <!--<a href="#!/dayEndinvoice">-->
+                    <!--<div class="custom_info">-->
+                        <!--<img src="partials/images/purchasepricinginv.png">-->
+                        <!--<div class="rep_info">DayEnd Invoice Register</div>-->
+                    <!--</div>-->
+                <!--</a>-->
+            <!--</div>-->
+
+            <div class="col-md-3 col-sm-6 rep_list_info" ng-show="userAccessRights.cancelledInv">
+                <a href="#!/cancelledsalesinvoice">
+                    <div class="custom_info">
+                        <i class="fa fa-window-close fa-5x" aria-hidden="true"></i>
+                        <!--<img src="partials/images/cancelledsalesinvoice.png">-->
+                        <div class="rep_info">Cancelled Invoice</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info" ng-show="userAccessRights.dayEndReport">
+                <a href="#!/dayendreport">
+                    <div class="custom_info">
+                        <i class="fa fa-sun-o fa-5x" aria-hidden="true"></i>
+                        <!--<img src="partials/images/product.png">-->
+                        <div class="rep_info">DAY END REPORT</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info" ng-show="userAccessRights.onlineInvReport">
+                <a href="#!/onlineInvoiceListing">
+                    <div class="custom_info">
+                        <i class="fa fa-list fa-5x" aria-hidden="true"></i>
+                        <!--<img src="partials/images/product.png">-->
+                        <div class="rep_info">Online Invoice Listing</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info" ng-show="userAccessRights.waiterReport">
+                <a href="#!/waiterReport">
+                    <div class="custom_info">
+                        <i class="fa fa-user-o fa-5x" aria-hidden="true"></i>
+                        <!--<img src="partials/images/product.png">-->
+                        <div class="rep_info">Waiter Report</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

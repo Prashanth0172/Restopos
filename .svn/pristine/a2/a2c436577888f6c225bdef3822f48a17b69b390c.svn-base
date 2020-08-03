@@ -1,0 +1,52 @@
+package com.hyva.restopos.rest.Mapper;
+
+import com.hyva.restopos.rest.entities.*;
+import com.hyva.restopos.rest.pojo.CustomerPojo;
+import com.hyva.restopos.rest.pojo.SalesListResponsePojo;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Created by hinext04 on 29/7/19.
+ */
+public class ReportMapper {
+    public static List<CustomerPojo> mapCustomerEntityToPojo(List<Customer> customerList) {
+        return customerList.stream().map(customer ->
+                new CustomerPojo(customer.getCustomerId(), customer.getFirstName(), customer.getTelephone())
+
+        ).collect(Collectors.toList());
+    }
+    public static List<SalesListResponsePojo> mapSalesInvoiceEntityToPojo(List<SalesInvoice> salesInvoices) {
+
+
+        return salesInvoices.stream().map(salesInvoice ->
+                new SalesListResponsePojo(salesInvoice.getSIId(), salesInvoice.getSINo(), salesInvoice.getSIDate())
+
+        ).collect(Collectors.toList());
+    }
+    public static List<SalesListResponsePojo> mapPaymentDetailsEntityToPojo(List<PaymentMethod> paymentMethods) {
+
+
+        return paymentMethods.stream().map(paymentMethod ->
+                new SalesListResponsePojo(paymentMethod.getPaymentmethodId(), paymentMethod.getPaymentmethodName(), null)
+
+        ).collect(Collectors.toList());
+    }
+    public static List<SalesListResponsePojo> mapPaymentVoucherEntityToPojo(List<PaymentVoucher> paymentVouchers) {
+
+
+        return paymentVouchers.stream().map(paymentMethod ->
+                new SalesListResponsePojo(paymentMethod.getVouId(), paymentMethod.getVocherCode(), null)
+
+        ).collect(Collectors.toList());
+    }
+    public static List<SalesListResponsePojo> mapTableEntityToPojo(List<TablesPos> tablesPos) {
+
+
+        return tablesPos.stream().map(table ->
+                new SalesListResponsePojo(table.getTableid(), table.getTableName(), null)
+
+        ).collect(Collectors.toList());
+    }
+}

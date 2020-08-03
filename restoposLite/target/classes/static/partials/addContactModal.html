@@ -1,0 +1,219 @@
+<div class="modal fade" id="add_new_contact_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 id="contact-title">Add Contact</h4>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="row" id="cus_step1">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Contact Name<span style="color: red">*</span></label>
+                            <div class="col-sm-9">
+                                <input id="ContactName" name="ContactName"
+                                       type="text" placeholder="ContactName"
+                                       ng-model="contactNameText"
+                                       alpha-with-space
+                                       ng-pattern="/[aA-zZ\s]$/"
+                                       class="form-control input-md" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">GSTN<span style="color: red">*</span></label>
+                            <div class="col-sm-9">
+                                <input id="GSTIN" name="GSTIN" alphanum-with-space
+                                       ng-readonly="operation === 'Return'"
+                                       placeholder="GSTN" alphanum-without-space
+                                       ng-model="GSTINText"
+                                       class="form-control input-md">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Country</label>
+
+                            <div class="col-sm-9">
+                                <select id="countryId" name="countryId"
+                                         ng-model="countryId"
+                                         ng-change="countryState(countryId)"
+                                         ng-options="country.countryId as
+											country.countryName for country in countryList" class="form-control input-md">
+                                <option value="">Select</option>
+                            </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">State</label>
+                            <div class="col-sm-9">
+                                <select id="state" name="stateName"
+                                        ng-model="stateId"
+                                        ng-options="state.stateName as state.stateName for state in stateList"
+                                        class="form-control input-md/">
+                                    <option value="">Select</option>
+                                </select>
+                        </div>
+                        </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input id="ContactEmail" name="ContactEmail"
+                                           ng-readonly="operation === 'Return'"
+                                           type="text" placeholder="Contact  Email"
+                                           ng-model="contactEmailText"
+                                           class="form-control input-md">
+                                    <p class="error" ng-show="form.Email.$error.pattern">Enter Valid MailID</p>
+                                </div>
+                            </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Contact</label>
+                                    <div class="col-sm-9">
+                                        <input id="ContactContact" name="ContactContact" num-with-out-space  maxlength="10"
+                                               ng-readonly="operation === 'Return'"
+                                               type="text" placeholder="Contact"
+                                               ng-model="contactContactText" num-with-out-space
+                                               class="form-control input-md" required maxlength="15">
+                                    </div>
+                                </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Address</label>
+                                <div class="col-sm-9">
+                                    <textarea id="ContactAddress" name="ContactAddress" alpha-with-space
+                                              ng-readonly="operation === 'Return'"
+                                              type="text" placeholder="Contact  Address"
+                                              ng-model="contactAddressText"
+                                              class="form-control input-md" required>
+                                                </textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Person Incharge</label>
+                                <div class="col-sm-9">
+                                    <input id="personIncharge" name="personIncharge" alpha-with-space
+                                           allowpattern="[a-z]" alpha-with-space
+                                           type="text" placeholder="Person Incharge Name"
+                                           ng-model="personInchargeText"
+                                           class="form-control input-md" required>
+                                </div>
+                            </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label">Status</label>
+                            <div class="col-sm-9">
+                                <select name="contStatus" id="contStatus" ng-model="status" class="form-control input-md" required>
+                                    <option value="Active">Active</option>
+                                    <option value="InActive">InActive</option>
+                                </select>
+                            </div>
+                        </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Bank Name</label>
+                                <div class="col-sm-9">
+                                    <input id="bankName" name="bankName"  alpha-with-space
+                                           type="text" placeholder="Bank Name"
+                                           ng-model="bankNameText" alpha-with-space
+                                           class="form-control input-md" >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">PAN No</label>
+                                <div class="col-sm-9">
+                                    <input id="panNumber" name="panNumber"  alphanum-without-space
+                                           type="text" placeholder="PAN Number"
+                                           ng-model="panNumberText" alphanum-without-space
+                                           onblur="this.value = this.value.replace(/[^a-zA-Z 0-9\n\r.]+/g, '')"
+                                           onkeyup="this.value = this.value.replace(/[^a-zA-Z 0-9\n\r.]+/g, '');"
+                                           class="form-control input-md" required maxlength="10">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Bank Branch</label>
+                                <div class="col-sm-9">
+                                    <input id="Bankbranch" name="Bankbranch" alpha-without-space
+                                           type="text" placeholder="Bank Branch"
+                                           ng-model="bankBranchText" alpha-with-space
+                                           class="form-control input-md" required>
+                                    </input>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">IFSC</label>
+                                <div class="col-sm-9">
+                                    <input id="IFSC" name="IFSC" alphanum-with-space
+                                           type="text" placeholder="IFSC"
+                                           ng-model="IFSCText" alphanum-without-space
+                                           class="form-control input-md" required>
+                                    </input>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Website</label>
+                                <div class="col-sm-9">
+                                    <input id="website" name="website"
+                                           type="text" placeholder="Website"
+                                           ng-model="websiteText"
+                                           class="form-control input-md" required>
+                                    <p class="error" ng-show="form.Addres.$error.pattern">Enter Valid Address</p>
+                                </div>
+                            </div>
+
+                    </div>
+
+                </div>
+            </div>
+                    <div class="modal-footer">
+                        <button id="submit" type="submit" class="btn btn-primary hi_btn" data-toggle="modal" ng-disabled="isDisabled"
+                                data-target=".print-me" ng-disabled="!form.$valid" id="submit"
+                                ng-click="saveContact('add_new_contact_modal')">Save
+                        </button>
+                        <button type="button" class="btn btn-primary hi_btn" ng-click="removeOtherContactsData()"
+                                data-dismiss="modal">Close
+                        </button>
+
+                    </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+    </div>
+</div>
+<form class="form-horizontal" id="contactDetails" method="post" ng-submit="saveContactImport()">
+    <div class="modal fade" tabindex="-1" id="import_contact" role="dialog" data-backdrop="static"
+         aria-labelledby="mySmallModalLabel_1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Import Contact </h4>
+                </div>
+                <a href="resource\ImportSheets\Contact.xlsx" download>Download ExcelSheet</a>
+                <div class="modal-body checkout-body">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-xs-5">
+                                <input type="file" name="myFile"
+                                       id="myFile"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default" data-toggle="modal" ng-disabled="">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,344 @@
+
+<style>
+    .table .thead-dark th {
+        color: #fff !important;
+        background-color: #696969 !important;
+        border-color: #ecf0f5 !important;
+    }
+    .table td{
+        border:1px solid #696969 !important;
+    }
+    .top-button-area1 {
+        margin: 10px 0px !important;
+        float: none !important;
+        margin-top: 0px !important;
+    }
+    .top-box1{
+        height:143px;
+    }
+
+    @media only screen and (max-width: 1024px) {
+        .top-box1{
+            height: 350px !important;
+        }
+    }
+    @media only screen and (max-width: 768px) {
+        .top-box1 {
+            height: 340px;
+        }
+    }
+    @media only screen and (max-width: 414px) {
+        .top-box1 {
+            height: 440px !important;
+        }
+    }
+
+
+
+</style>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Month End Report
+
+    </h1>
+
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="top-box1">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6 form-group no-pad">
+                        <div class="col-lg-3 col-md-12">
+                            <label>From:</label>
+                        </div>
+                        <div class="col-lg-8 col-md-12 col-xs-12 input-group date">
+                     <span class="custom-dropdown custom-dropdown--white">
+                          <select name="tableText" id="tableText"
+                                  ng-model="monthName" ng-change="setDates1($index)"
+                                  ng-options="table as table for table in monthNames"
+                                  class="form-control input-md">
+                                                        <option value="">Select</option>
+                                                    </select>
+                     </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 form-group">
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                            <label>Date:</label>
+                        </div>
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 input-group date">
+                            <p class="input-group" style="width:100%;">
+                                <input type="text" class="form-control"
+                                       uib-datepicker-popup="{{format}}"
+                                       ng-model="fromDate"
+                                       is-open="popup1.opened" readonly
+                                       datepicker-options="dateOptions"
+                                       ng-required="true"
+                                       close-text="Close" alt-input-formats="altInputFormats"/>
+                            </p>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-lg-3 col-md-3 col-sm-6 form-group">
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                            <label>To:</label>
+                        </div>
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 input-group date">
+                            <p class="input-group" style="width:100%;">
+                                <input type="text" class="form-control" readonly
+                                       uib-datepicker-popup="{{format}}"
+                                       ng-model="toDate"
+                                       is-open="popup2.opened" datepicker-options="dateOptions"
+                                       ng-required="true"
+                                       close-text="Close" alt-input-formats="altInputFormats"/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6 form-group">
+                        <div class="col-lg-4 col-md-12">
+                            <label>Item Category:</label>
+                        </div>
+                        <div class="col-lg-7 col-md-12 col-xs-12 input-group date">
+                            <div class="form-group">
+                                <input id="textinput" name="textinput" readonly type="text"
+                                       ng-change="updateItemCategoryId(this)"
+                                       placeholder="Click To Select Item Category"
+                                       ng-model="itemCategorySearchText" class="form-control input-md"
+                                       ng-click="getItemCategoryList('')" style="width: 100% !important;"/>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-3 col-md-3 col-sm-6 form-group">
+                        <div class="col-lg-4 col-md-12">
+                            <label>Item Name:</label>
+                        </div>
+                        <div class="col-lg-7 col-md-12 col-xs-12 input-group date">
+                            <div class="form-group">
+                                <input id="textinput" name="textinput" readonly type="text" ng-change="updateItemId(this)"
+                                       placeholder="Click To Select Item" ng-model="itemText" class="form-control input-md"
+                                       ng-click="getItemLists('')" style="width: 100% !important;"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="top-button-area1">
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <button type="button" class="btn btn-block btn-success"  ng-click="getSalesInvoicewithFilter('',SIfilter)">View</button>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <a href="/reports/downloadMonthEndSalesExcelSheet?fromDate={{fromDate| date:'yyyy-MM-dd'}}&toDate={{toDate| date:'yyyy-MM-dd'}}&category={{itemCategoryId}}&item={{itemId}}&inventoryLocationId={{location.inventoryLocationId}}&filterApplied={{isFilterApplied}}"><button type="button" class="btn btn-block btn-success">EXCEL</button></a>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <a href="/reports/downloadMonthEndSalesPdf?fromDate={{fromDate| date:'yyyy-MM-dd'}}&toDate={{toDate| date:'yyyy-MM-dd'}}&category={{itemCategoryId}}&item={{itemId}}&inventoryLocationId={{location.inventoryLocationId}}&filterApplied={{isFilterApplied}}"><button type="button" class="btn btn-block btn-success">PDF</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <div style="overflow-x:auto;">
+                <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Category Name</th>
+                        <th>Item Name</th>
+                        <th>Qty</th>
+                        <th>Total Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody ng-repeat="sq in exportList">
+                    <tr>
+                        <td class="align_right">{{sq.itemCategoryName}}</td>
+                        <td class="align_right">{{sq.itemName}}</td>
+                        <td class="align_right">{{sq.qty}}</td>
+                        <td class="align_right">{{sq.invoiceAmount|number:2}}</td>
+
+                    </tr>
+                    <tfoot>
+                    <tr>
+                        <td><strong>Grand Total</strong></td>
+                        <td></td>
+                        <td></td>
+                        <td class="align_right"><strong>{{invoiceTotal|number:2}}</strong></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            </tbody>
+
+            </table>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12 col-md-12 pagination_" style="margin-top: 180px;">
+
+            <button type="button" class="btn btn-default hi_btn" ng-class="{'diabled-class': first}"
+                    ng-disabled="first"
+                    ng-click="getPaginatedSalesInvoice('firstPage')" ng-model="first">First
+            </button>
+            <button type="button" class="btn btn-default hi_btn" ng-class="{'diabled-class': prev}"
+                    ng-disabled="prev"
+                    ng-click="getPaginatedSalesInvoice('prevPage')" ng-model="prev">Prev
+            </button>
+            <button type="button" class="btn btn-default hi_btn" name="next" ng-disabled="next"
+                    ng-click="getPaginatedSalesInvoice('nextPage')" value="next"
+                    ng-class="{'diabled-class': next}" ng-model="next">Next
+            </button>
+            <button type="button" class="btn btn-default hi_btn"
+                    ng-click="getPaginatedSalesInvoice('lastPage')" ng-class="{'diabled-class': last}"
+                    ng-disabled="last"
+                    ng-model="last">Last
+            </button>
+        </div>
+    </div>
+    <div class="modal fade selectItemCategory" tabindex="-1" id="selectItemCategory" role="dialog"
+         data-backdrop="static"
+         aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content checkout">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Select Item</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <label>Search: <input class="form-control input-sm"
+                                                  ng-change="getItemCategoryList(searchText)"
+                                                  ng-change-delay="300" ng-model="searchText"
+                                                  maxlength="255"></label>
+                            <div class="table-responsive">
+                                <table class="table table-striped table_costomize itemlisttable" id="">
+                                    <thead>
+                                    <tr>
+                                        <th data-field="name">Item Category Code</th>
+                                        <th data-field="desc">Item Category Name</th>
+                                        <th data-field="desc">Item Category Desc</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="parentTable">
+                                    <tr ng-repeat="itemCategoryId in itemCategoryList| filter:itemCategorySearchText"
+                                        ng-click="appendItemCategory(itemCategoryId)">
+                                        <td>{{itemCategoryId.itemCategoryCode}}</td>
+                                        <td class="word_break">{{itemCategoryId.itemCategoryName}}</td>
+                                        <td>{{itemCategoryId.itemCategoryDesc}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade selectItem" tabindex="-1" id="selectItems" role="dialog" data-backdrop="static"
+         aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content checkout">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Select Item</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <label>Search: <input class="form-control input-sm" ng-change="getItemList(searchText)"
+                                                  ng-change-delay="300" ng-model="searchText" maxlength="255"></label>
+                            <div class="table-responsive">
+                                <table class="table table-striped table_costomize itemlisttable" id="">
+                                    <thead>
+                                    <tr>
+                                        <th data-field="name">Item Code</th>
+                                        <th data-field="desc">Item Name</th>
+                                        <th data-field="desc">Count Type</th>
+                                        <th data-field="desc">Available Qty</th>
+                                        <th data-field="desc">Item Category Name</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="parentTable">
+                                    <tr ng-repeat="itemId in itemList| filter:itemSearchText"
+                                        ng-click="appendItem(itemId)">
+                                        <td hidden>{{itemId.serializableStatus}}</td>
+                                        <td class="word_break">{{itemId.itemCode}}</td>
+                                        <td class="word_break">{{itemId.itemName}}</td>
+                                        <td>{{itemId.serializableStatus}}</td>
+                                        <td>{{itemId.stock}}</td>
+                                        <td>{{itemId.itemCategoryName}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade selectEmployee" tabindex="-1" id="selectEmployee" role="dialog" data-backdrop="static"
+         aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content checkout">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Select Employee</h4>
+                </div>
+                <div class="modal-body" style="height: 460px; overflow-y: scroll;">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <label>Search: <input class="form-control input-sm" ng-change="getEmployeeList(searchText)"
+                                                  ng-change-delay="300" ng-model="searchText" maxlength="255"></label>
+                            <div class="table-responsive">
+                                <table class="table table-striped table_costomize employeelisttable" id="">
+                                    <thead>
+                                    <tr>
+                                        <th data-field="name" style="width:48px !important;"></th>
+                                        <th data-field="desc" style="width:450px;">Employee Name</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="parentTable">
+                                    <tr ng-repeat="employeeId in employeeList| filter:employeeSearchText">
+                                        <td style='width: 48px !important;'>
+                                            <input
+                                                    type="checkbox" ng-model="selectedEmployee" ng-click="selectedEmployeeList(employeeId.employeeName)">
+                                        </td>
+                                        <td style="width:450px;">{{employeeId.employeeName}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

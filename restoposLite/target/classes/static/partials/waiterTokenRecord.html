@@ -1,0 +1,213 @@
+<style>
+    .fixed-table-container {
+        margin-top: 24px;
+        padding-top: 2px;
+        box-shadow: 0px 0px 4px #999;
+    }
+
+    .details {
+        padding: 4px;
+    }
+
+    table.record {
+        margin-bottom: 0;
+    }
+
+    table.record tr {
+        border-bottom: 1px solid #ddd;
+    }
+
+    table.record tr:last-child {
+        border-bottom: none !important;
+    }
+
+    table.record tr td {
+        border: none;
+        padding: 2px !important;
+        font-size: 14px;
+    }
+
+    table.record tr td:first-child {
+        text-align: left;
+    }
+
+    table.record tr td:last-child {
+        text-align: right;
+    }
+
+    .button-row > div {
+        padding: 0 5px 5px;
+    }
+
+    .button-row button {
+        width: 100%;
+    }
+
+    .table_wrap {
+        max-height: 200px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    table {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    table tr th {
+        text-align: center;
+    }
+
+    .bottom {
+        padding: 2px;
+    }
+    .fixed-table-container-inner table {
+        margin-top: 0px;
+    }
+</style>
+<body>
+<div class="container-fluid" style="width: 100%;">
+    <div class="container cus_main_row">
+
+        <div class="row">
+            <h2 class="pos-header-new">
+                <div>Waiter Token Records</div>
+            </h2>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6 col-sm-6" style="position:relative;">
+                <label class="col-md-4 col-sm-4 control-label" >Waiter Name :</label>
+                <select id="countryId" name="countryId" ng-model="waiterName" style="width: 32%" ng-options="waiter.employeeName as
+											waiter.employeeName for waiter in employeeList" class="form-control input-md">
+                    <option value="">All</option>
+                </select>
+            </div>
+        </div>
+        <button type="button" class="btn btn-default hi_btn" ng-click="getTokenRecordsList(waiterName)">View
+        </button>
+        <!--<div class="column" ng-repeat="token in tokenRecordsList">-->
+            <!--<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">-->
+                <!--<div class="fixed-table-container">-->
+                    <!--<div class="details">-->
+                        <!--<table class="table record">-->
+                            <!--<tbody>-->
+                            <!--<tr>-->
+                            <!--<tr>-->
+                                <!--<td>Token No</td>-->
+                                <!--<td>:</td>-->
+                                <!--<td>{{token.tokenNo}}</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td>Table No</td>-->
+                                <!--<td>:</td>-->
+                                <!--<td>{{token.tableName}}</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td>Waiter Name</td>-->
+                                <!--<td>:</td>-->
+                                <!--<td>{{token.waiter}}</td>-->
+                            <!--</tr>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
+                    <!--</div>-->
+                    <!--<div class="table_wrap fixed-table-container-inner">-->
+                        <!--<table class=" hi_table table table_option2 table-hover table-striped table-fixed-header list_table"-->
+                               <!--style="margin-bottom: 0;">-->
+                            <!--<thead>-->
+                            <!--<tr>-->
+                                <!--<th>-->
+                                    <!--<div>Item Name</div>-->
+                                <!--</th>-->
+                                <!--<th>-->
+                                    <!--<div>Qty Completed</div>-->
+                                <!--</th>-->
+                                <!--<th>-->
+                                    <!--<div>Qty Delivered</div>-->
+                                <!--</th>-->
+                            <!--</tr>-->
+                            <!--</thead>-->
+                            <!--<tbody>-->
+                            <!--<tr ng-repeat="item in token.tokenItemDetailsList">-->
+                                <!--<td>{{item.itemName}}</td>-->
+                                <!--<td>{{item.qtyCompleted}}</td>-->
+                                <!--<td><select  id="itemBrandId" style="width: 82px;padding: 0 25px"-->
+                                             <!--ng-model="item.qtyDelivered" ng-change="checkQty(item.qtyDelivered,token)"-->
+                                             <!--ng-options="number for number in item.numberList">-->
+
+                                <!--</select></td>-->
+                            <!--</tr>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
+                    <!--</div>-->
+                    <!--<div class="bottom">-->
+                        <!--<td colspan="1" style="float:left;width: 50%"><select class="form-control" ng-model="token.status">-->
+                            <!--<option value="">Select</option>-->
+                            <!--<option value="Completed">Completed</option>-->
+                            <!--<option value="Partially Completed">Partially Completed</option>-->
+                            <!--<option value="Partially Delivered">Partially Delivered</option>-->
+                        <!--</select></td>-->
+                        <!--<button style="background-color: #1cbbb4;width: 100%" ng-click="updateStockStatus(token)" type="button">Update</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+    <table class="table table-striped table_costomize ten_table_info"
+           id="saleslisttable">
+        <thead>
+        <tr>
+            <th data-field="name" style="width: 10% !important;">Token No
+            </th>
+            <th data-field="name" style="width: 10% !important;">Order Placed
+            </th>
+            <th data-field="name" style="width: 10% !important;">Table No
+            </th>
+            <th data-field="name" style="width: 10% !important;">Waiter Name</th>
+            <th data-field="name" style="width: 10% !important;">Items &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Qty
+            </th>
+            <!--<th data-field="name" style="width: 10% !important;">Amount</th>-->
+            <!--<th data-field="name" style="width: 10% !important;">Channel-->
+            <!--</th>-->
+            <!--<th data-field="name" style="width: 10% !important;">View</th>-->
+            <th data-field="name" style="width: 20% !important;">Actions</th>
+
+        </tr>
+        </thead>
+        <tbody id="parentTable">
+        <tr ng-repeat="token in ItemsList">
+            <td style="width: 10% !important;">{{token.tokenNo}}
+            </td>
+            <td style="width: 10% !important;">
+                {{token.kitchenTokenStart|date:'dd/MM/yyyy hh:mm'}}
+            </td>
+            <td style="width: 10% !important;">
+                {{token.tableName}}
+            </td>
+            <td style="width: 10% !important;">{{token.waiter}}
+            </td>
+            <td style="width: 10% !important;">{{token.itemName}} &nbsp; {{token.qtyCompleted}}
+            </td>
+            <!--<td style="width: 10% !important;">-->
+            <!--<button type="button" ng-click="viewAllDetails(token)"-->
+            <!--class="btn btn-default">Details-->
+            <!--</button>-->
+            <!--</td>-->
+            <td style="display: inline-block !important;
+    width: 104% !important;">
+                <!--<button  type="button"  ng-click="AcceptOrder(token)"-->
+                         <!--class="btn btn-default">Accept-->
+                <!--</button>-->
+                <button type="button"  ng-click="ReadyOrder(token)"
+                        class="btn btn-default">Ready
+                </button>
+                <button type="button"  ng-click="servedOrder(token)"
+                        class="btn btn-default">Served
+                </button>
+            </td>
+        </tr>
+
+        </tbody>
+
+    </table>
+</div>
+</body>

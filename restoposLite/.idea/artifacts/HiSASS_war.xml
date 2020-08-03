@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="HiSASS:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="IDM-V-17.1.74.war">
+      <element id="artifact" artifact-name="HiSASS:war exploded" />
+    </root>
+  </artifact>
+</component>

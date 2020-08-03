@@ -1,0 +1,38 @@
+package com.hyva.restopos.rest.Mapper;
+
+import com.hyva.restopos.rest.entities.Item;
+import com.hyva.restopos.rest.pojo.ItemPojo;
+import org.springframework.util.StringUtils;
+
+public class ItemMapper {
+
+    public static Item mapPojoToEntity(ItemPojo itemPojo){
+        Item item = new Item();
+        item.setItemName(itemPojo.getItemName());
+        if(itemPojo.getMenu_price()!=null) {
+            item.setItemPrice(itemPojo.getMenu_price());
+        }item.setItemId(itemPojo.getItemId());
+        item.setItemtype(itemPojo.getItemType());
+        if(itemPojo.getStock_qty()!=null) {
+            item.setStock(itemPojo.getStock_qty());
+        }
+        if(itemPojo.getImage()!=null) {
+            item.setImageFile(itemPojo.getImage());
+        }
+        item.setItemStatus(itemPojo.getItemStatus());
+        item.setCategoryId(itemPojo.getMenu_category_id());
+        item.setShiftId(itemPojo.getMealtime_id());
+        item.setItemDesc(itemPojo.getItemDesc());
+        item.setMenu_category_id(itemPojo.getMenu_category_id());
+        item.setMealtime_id(itemPojo.getMealtime_id());
+        item.setTaxpercent(itemPojo.getTaxpercent());
+        if(itemPojo.getTaxtype() == "true"){
+            item.setTaxtype("Inclusive");
+        }else{
+            item.setTaxtype("Exclusive");
+        }
+        item.setItemDesc(itemPojo.getItemDesc());
+        return item;
+    }
+
+}

@@ -1,0 +1,349 @@
+
+<style>
+    .table .thead-dark th {
+        color: #fff !important;
+        background-color: #696969 !important;
+        border-color: #ecf0f5 !important;
+    }
+    .table td{
+        border:1px solid #696969 !important;
+    }
+
+    @media only screen and (max-width: 1024px) {
+        .top-box1{
+            height: 250px;
+        }
+    }
+    @media only screen and (max-width: 768px) {
+        .top-box1 {
+            height: 340px;
+        }
+
+        @media only screen and (max-width: 414px) {
+            .top-box1 {
+                height: 600px;
+            }
+        }
+    }
+    .top-button-area1{
+        margin-top:-76px;
+    }
+    .top-box1{
+        height:155px;
+    }
+
+</style>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Waiter Report
+
+    </h1>
+
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="top-box1">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6 form-group">
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                            <label>Date:</label>
+                        </div>
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 input-group date">
+                            <p class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
+                                       ng-model="fromDate" style="height: 35px;"
+                                       is-open="popup1.opened" readonly datepicker-options="dateOptions"
+                                       ng-required="true"
+                                       close-text="Close" alt-input-formats="altInputFormats"/>
+                                <span class="input-group-btn">
+                                     <button type="button" class="btn btn-default" ng-click="open1()"><i
+                                             class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 form-group">
+                        <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                            <label>To:</label>
+                        </div>
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 input-group date">
+                            <p class="input-group">
+                                <input type="text" class="form-control" readonly uib-datepicker-popup="{{format}}"
+                                       ng-model="toDate" style="height: 35px;"
+                                       is-open="popup2.opened" datepicker-options="dateOptions"
+                                       ng-required="true"
+                                       close-text="Close" alt-input-formats="altInputFormats"/>
+                                <span class="input-group-btn">
+                                     <button type="button" class="btn btn-default" ng-click="open2()"><i
+                                             class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6 form-group no-pad">
+                        <div class="col-lg-3 col-md-12">
+                            <label>From:</label>
+                        </div>
+                        <div class="col-lg-8 col-md-12 col-xs-12 input-group date">
+                     <span class="custom-dropdown custom-dropdown--white">
+                         <select class="form-control"
+                                 ng-options="salesQuot as salesQuot.sqno for salesQuot in salesList track by salesQuot.sqid"
+                                 ng-model="fromsalesinvoice">
+                             <option value=""> Select</option>
+                         </select>
+                     </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6 form-group no-pad">
+                        <div class="col-lg-2 col-md-12">
+                            <label>To:</label>
+                        </div>
+                        <div class="col-lg-8 col-md-12 col-xs-12 input-group date">
+                    <span class="custom-dropdown custom-dropdown--white">
+                        <select class="form-control"
+                                ng-options="salesQuot as salesQuot.sqno for salesQuot in salesList track by salesQuot.sqid"
+                                ng-model="toSalesinvoice">
+                            <option value=""> Select</option>
+                        </select></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6 form-group">
+                        <div class="col-lg-4 col-md-12">
+                            <label>Customer:</label>
+                        </div>
+                        <div class="col-lg-7 col-md-12 col-xs-12 input-group date">
+                            <div class="form-group">
+                                <input style="width: 100%!important;" id="customertextinput" name="customertextinput"
+                                       type="text" ng-change="updateCustomerId(this)"
+                                       placeholder="Cash Customer|01"
+                                       ng-model="customerSearchText"
+                                       class="form-control input-md"
+                                       ng-click="getCustomerListSearch(searchCustomerText)"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6 form-group">
+                        <div class="col-lg-4 col-md-12">
+                            <label>Employee:</label>
+                        </div>
+                        <div class="col-lg-7 col-md-12 col-xs-12 input-group date">
+                            <div class="form-group">
+                                <input style="width: 100%!important;" id="textinput" name="textinput" readonly type="text" ng-change="updateEmployeeId(this)"
+                                       placeholder="Click To Select Employee" ng-model="employeeSearchText" class="form-control input-md"
+                                       ng-click="getEmployeeList('')"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 form-group no-pad">
+                        <div class="col-lg-3 col-md-12">
+                            <label>Order Type:</label>
+                        </div>
+                        <div class="col-lg-8 col-md-12 col-xs-12 input-group date">
+                            <div class="form-group">
+                                <select id="invoiceType" name="invoiceType" ng-model="invoiceType" ng-options="order as
+											order for order in orderTypes" class="form-control input-md">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-offset-6 col-md-6">
+                        <div class="top-button-area1">
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <button type="button" class="btn btn-block btn-success"  ng-click="getSalesInvoicewithFilter('',SIfilter)">View</button>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <a href="/reports/downloadWaiterReportExcelSheet?fromDate={{fromDate| date:'yyyy-MM-dd'}}&toDate={{toDate| date:'yyyy-MM-dd'}}&customerId={{customerId}}&fromPID={{fromsalesinvoice.sqid}}&toPID={{toSalesinvoice.sqid}}&filterApplied={{isFilterApplied}}&paymentId={{paymentId.sqid}}&employee={{employeeId}}&invoiceType={{invoiceType}}"><button type="button" class="btn btn-block btn-success">EXCEL</button></a>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <a href="/reports/downloadWaiterReportPdf?fromDate={{fromDate| date:'yyyy-MM-dd'}}&toDate={{toDate| date:'yyyy-MM-dd'}}&customerId={{customerId}}&fromPID={{fromsalesinvoice.sqid}}&toPID={{toSalesinvoice.sqid}}&filterApplied={{isFilterApplied}}&paymentId={{paymentId.sqid}}&employee={{employeeId}}&invoiceType={{invoiceType}}"><button type="button" class="btn btn-block btn-success">PDF</button></a>                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <div style="overflow-x:auto;">
+                <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Inv Date</th>
+                        <th>Sales Invoice No</th>
+                        <th>Customer Name</th>
+                        <th>Table Name/No</th>
+                        <th>Employee Name</th>
+                        <th>Discount Amount</th>
+                        <th>Tax Amount<br>(CGST:SGST)</th>
+                        <th>Invoice Amount</th>
+                        <th>Incentives</th>
+                        <th>Incentives Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody ng-repeat="sq in exportList">
+                    <tr>
+                        <td>{{sq.date | date:'dd/MM/yyyy'}}</td>
+                        <td>{{sq.sqno}}</td>
+                        <td>{{sq.customerName}}</td>
+                        <td>{{sq.tableName}}</td>
+                        <td>{{sq.employeeName}}</td>
+                        <td>{{sq.discountAmount}}</td>
+                        <td>{{sq.salesTotalTaxAmt/2|number:2}} : {{sq.salesTotalTaxAmt/2|number:2}}</td>
+                        <td>{{sq.totalAmount|number:2}}</td>
+                        <td>{{sq.incentives|number:2}}</td>
+                        <td>{{sq.incentivesAmount|number:2}}</td>
+                    </tr>
+                    <tfoot>
+                <tr>
+                    <td ><strong>Grand Total</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><strong>{{discountAmount|number:2}}</strong></td>
+                    <td><strong>{{salesTaxAmt/2|number:2}}:{{salesTaxAmt/2|number:2}}</strong></td>
+                    <td><strong>{{invoiceTotal|number:2}}</strong></td>
+                    <td><strong>{{incentives|number:2}}</strong></td>
+                    <td><strong>{{incentivesAmount|number:2}}</strong></td>
+
+                </tr>
+                    </tbody>
+                </table>
+            </div>
+            </tbody>
+
+            </table>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12 col-md-12 pagination_" style="margin-top: 180px;">
+
+            <button type="button" class="btn btn-default hi_btn" ng-class="{'diabled-class': first}"
+                    ng-disabled="first"
+                    ng-click="getPaginatedSalesInvoice('firstPage')" ng-model="first">First
+            </button>
+            <button type="button" class="btn btn-default hi_btn" ng-class="{'diabled-class': prev}"
+                    ng-disabled="prev"
+                    ng-click="getPaginatedSalesInvoice('prevPage')" ng-model="prev">Prev
+            </button>
+            <button type="button" class="btn btn-default hi_btn" name="next" ng-disabled="next"
+                    ng-click="getPaginatedSalesInvoice('nextPage')" value="next"
+                    ng-class="{'diabled-class': next}" ng-model="next">Next
+            </button>
+            <button type="button" class="btn btn-default hi_btn"
+                    ng-click="getPaginatedSalesInvoice('lastPage')" ng-class="{'diabled-class': last}"
+                    ng-disabled="last"
+                    ng-model="last">Last
+            </button>
+        </div>
+    </div>
+    <div class="modal fade selectEmployee" tabindex="-1" id="selectEmployee" role="dialog" data-backdrop="static"
+         aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content checkout">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Select Employee</h4>
+                </div>
+                <div class="modal-body" style="height: 460px; overflow-y: scroll;">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <label>Search: <input class="form-control input-sm" ng-change="getEmployeeList(searchText)"
+                                                  ng-change-delay="300" ng-model="searchText" maxlength="255"></label>
+                            <div class="table-responsive">
+                                <table class="table table-striped table_costomize employeelisttable" id="">
+                                    <thead>
+                                    <tr>
+                                        <!--<th data-field="name" style="width:48px !important;"></th>-->
+                                        <th data-field="desc" style="width:450px;">Employee Name</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="parentTable">
+                                    <tr ng-repeat="employeeId in employeeList| filter:employeeSearchText" ng-click="appendEmployee(employeeId)">
+                                        <!--<td style='width: 48px !important;'>-->
+                                            <!--<input-->
+                                                    <!--type="checkbox" ng-model="selectedEmployee" ng-click="selectedEmployeeList(employeeId.employeeName)">-->
+                                        <!--</td>-->
+                                        <td style="width:450px;">{{employeeId.employeeName}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade selectCustomer" tabindex="-1" id="selectCustomer" role="dialog" data-backdrop="static"
+         aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content checkout">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Select Customer</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <label style="margin-left:20px;">Search: <input class="form-control input-sm"
+                                                                            ng-change="getCustomerListSearch(searchCustomerText)"
+                                                                            ng-change-delay="300"
+                                                                            ng-model="searchCustomerText"></label>
+                            <div class="table-responsive">
+                                <table class="table table-striped table_costomize customerList" id="">
+                                    <thead>
+                                    <tr>
+                                        <th data-field="name" style="width: 33.3% !important">Customer Name</th>
+                                        <!--<th data-field="desc">Customer Number</th>-->
+                                        <th style="width: 33.3% !important" data-field="desc">Email</th>
+                                        <th style="width: 33.3% !important" data-field="desc">Contact</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="parentCustomerTable">
+                                    <tr ng-repeat="customerId in customerList| filter:searchCustomerText"
+                                        ng-click="appendCustomer(customerId)">
+                                        <td style="width: 33.3% !important;word-break: break-word;">
+                                            {{customerId.customerName}}
+                                        </td>
+                                        <td style="width: 33.3% !important;word-break: break-word;">
+                                            {{customerId.customerEmail}}
+                                        </td>
+                                        <td style="width: 33.3% !important;word-break: break-word;">
+                                            {{customerId.customerContact}}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</section>

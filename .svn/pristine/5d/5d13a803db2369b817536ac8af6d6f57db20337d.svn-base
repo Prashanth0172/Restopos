@@ -1,0 +1,177 @@
+<div class="panel panel-primary" style="margin-top: -116px;margin-left: 195px;">
+  <div class="panel-heading">
+    <h2>PaymentVoucher</h2>
+  </div>
+  <div class="panel-body">
+    <button type="button" id="btnOpen" class="btn btn-primary" (click)="openModal(true)">Add</button>
+    <button style="margin-left: 10px" id="btnActive" class="btn btn-primary" (click)="inactiveButton()">{{ButtonStatus}}</button>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Code</th>
+        <th>Validity</th>
+        <th>Status</th>
+        <th>Edit</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let paymentvoucher of vouchers">
+        <td>{{paymentvoucher.name}}</td>
+        <td>{{paymentvoucher.code}}</td>
+        <td>{{paymentvoucher.validity}}</td>
+        <td>{{paymentvoucher.status}}</td>
+        <td><button (click)="updatePaymentVoucher(paymentvoucher)" class="btn btn-info" style="margin-left: 10px">Edit</button> </td>
+      </tr>
+      </tbody>
+      <div class="form-group">
+        <div class="col-sm-12 col-md-12 pagination_" style="margin-top: 0px;">
+
+          <button type="button" [disabled]="first" (click)="paginationList('firstPage')" >First
+          </button>
+          <button type="button" [disabled]="prev" (click)="paginationList('prevPage')" >Prev
+          </button>
+          <button type="button"  [disabled]="next" (click)="paginationList('nextPage')">Next
+          </button>
+          <button type="button" [disabled]="last" (click)="paginationList('lastPage')">Last
+          </button>
+        </div>
+      </div>
+    </table>
+  </div>
+</div>
+<div id="mdlSample" class="modal fade" role="dialog" [ngStyle]="{'display': mdlSampleIsOpen ? 'block' : 'none', 'opacity': 1}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="country-title">Add PaymentVoucher</h4>
+      </div>
+      <div class="modal-body">
+        <div class="box-body">
+          <div class="row" id="cus_step1">
+
+            <div class="form-group">
+              <label  class="col-sm-3 control-label">CouponCode<span style="color: red">*</span> </label>
+              <div class="col-sm-9">
+                <input id="code" name="code"
+                       ng-pattern="/[aA-zZ\s]$/"
+                       type="text" placeholder="Coupon Code"
+                       [(ngModel)]="paymentVoucher.code" maxlength="125"
+                       class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label  class="col-sm-3 control-label">CouponName<span style="color: red">*</span> </label>
+              <div class="col-sm-9">
+                <input id="name" name="name"
+                       ng-pattern="/[aA-zZ\s]$/"
+                       type="text" placeholder="Coupon Name"
+                       [(ngModel)]="paymentVoucher.name" maxlength="125"
+                       class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="">Type </label>
+              <div class="col-md-6 col-sm-6" style="position:relative;">
+                <select class="form-control input-md" name="type" [(ngModel)]="paymentVoucher.type" id="paymentVoucher">
+                  <option value="">Select</option>
+                  <option value="fixedAmount">FixedAmount</option>
+                  <option value="percentage">Percentage</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label  class="col-sm-3 control-label">Discount</label>
+              <div class="col-sm-9">
+                <input id="discount" name="discount"
+                       type="text" placeholder="Discount"
+                       [(ngModel)]="paymentVoucher.discount"
+                       class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label  class="col-sm-3 control-label">Minimum Amount</label>
+              <div class="col-sm-9">
+                <input id="min_total" name="min_total"
+                       type="text" placeholder="Minimum Amount"
+                       [(ngModel)]="paymentVoucher.min_total"
+                       class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label  class="col-sm-3 control-label">Redemptions</label>
+              <div class="col-sm-9">
+                <input id="redemptions" name="redemptions"
+                       type="text" placeholder="Redemptions"
+                       [(ngModel)]="paymentVoucher.redemptions"
+                       class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label  class="col-sm-3 control-label">Customer Redemptions</label>
+              <div class="col-sm-9">
+                <input id="customer_redemptions" name="customer_redemptions"
+                       type="text" placeholder="Customer Redemptions"
+                       [(ngModel)]="paymentVoucher.customer_redemptions"
+                       class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="">
+                Order Restriction </label>
+              <div class="col-md-6 col-sm-6" style="position:relative;">
+                <select class="form-control input-md" name="order_restriction"
+                        [(ngModel)]="paymentVoucher.order_restriction" id="order_restriction">
+                  <option value="">Select</option>
+                  <option value="None">None</option>
+                  <option value="deliveryonly">DeliveryOnly</option>
+                  <option value="collectiononly">CollectionOnly</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="">
+                validity </label>
+              <div class="col-md-6 col-sm-6" style="position:relative;">
+                <select class="form-control input-md" name="validity"
+                        [(ngModel)]="paymentVoucher.validity" id="validity">
+                  <option value="">Select</option>
+                  <option value="forever">Forever</option>
+                  <option value="fixed">Fixed</option>
+                  <option value="period">Period</option>
+                  <option value="recurring">Recurring</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label  class="col-sm-3 control-label">Description</label>
+              <div class="col-sm-9">
+                <textarea id="description" name="description"
+                       type="text" placeholder="Description"
+                       [(ngModel)]="paymentVoucher.description"
+                       class="form-control">
+                </textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <label  class="col-sm-3 control-label"> Status </label>
+              <div class="col-sm-9">
+                <select name="status" id="status" [(ngModel)]="paymentVoucher.status" class="form-control" required>
+                  <option value="1">Active</option>
+                  <option value="0">InActive</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="submit" type="button" class="btn btn-default" data-toggle="modal" ng-disabled="isDisabled"
+                data-target=".print-me" (click)="onSubmit('add_new_country_modal')">Save</button>
+        <button type="button" id="btnOpen1" class="btn btn-primary" (click)="openModal(false)">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

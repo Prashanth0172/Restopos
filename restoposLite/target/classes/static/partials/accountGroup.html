@@ -1,0 +1,203 @@
+<style>
+
+    .table .thead-dark th {
+        color: #fff !important;
+        background-color: #696969 !important;
+        border-color: #ecf0f5 !important;
+    }
+    .table td{
+        border:1px solid #696969 !important;
+    }
+    table>thead>tr>th {
+        padding: 4px !important;
+        background-color: #696969;
+        color: white;
+        font-size: 13px;
+    }
+</style>
+
+<section class="content-header">
+    <h1>
+        Account Group
+    </h1>
+
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="top-box">
+                <div class="col-md-2">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="searchText..." id="textinput" name="textinput"  type="text"
+                                   placeholder="Search AccountGroup" ng-model="searchText"
+                                   ng-change="getAccountGroupList(searchText)">
+
+                        </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="top-button-area">
+                        <div class="col-md-2 col-sm-4">
+                            <button type="button" class="btn btn-block btn-success" ng-click="addNewAccountTypePopulate()">Add</button>
+                        </div>
+                        <div class="col-md-2 col-sm-4">
+                            <button type="button" class="btn btn-block btn-success" id="colButnw"  data-toggle="modal"
+                                    ng-model="inactiveStatus" data-target=".print-me"
+                                    ng-click="inactiveButton()">{{ButtonStatus}}</button>
+                        </div>
+                        <!--<div class="col-md-2 col-sm-4">-->
+                            <!--<button type="button" class="btn btn-block btn-success" ng-click="importState()">Import</button>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12 col-xs-12 customer-data">
+            <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
+                <thead>
+                <tr>
+                    <th>
+                        Account Name
+                    </th>
+                    <th>
+                        Account Desc
+                    </th>
+                    <th>
+                        Account Code
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+
+
+                </thead>
+                <tbody id="parentTable">
+                <input type="hidden" ng-model="accountId" value="{{accountGroupList.accountId}}"/>
+                <tr ng-repeat="account in accountGroupList|filter:searchText">
+                    <td>{{account.accountName}}</td>
+                    <td>{{account.accountDescription}}</td>
+                    <td>{{account.accountCode}}</td>
+                    <td>{{account.status}}</td>
+                    <td><button type="button" class="btn btn-primary hi_btn"  ng-click="editAccountGroup(account)">Edit</button></td>
+                    <!--<button type="button" class="btn btn-primary hi_btn"  ng-click="deleteAccountGroup(account)">Delete</button></td>-->
+                </tr>
+                </tbody>
+            </table>
+            <div class="col-sm-12 pagination_">
+
+                <div class="col-sm-12" style="float:right !important;">
+                    <button type="button" class="btn btn-default hi_btn" ng-class="{'diabled-class': first}"
+                            ng-disabled="first"
+                            ng-click="getAccountGroupList('firstPage')" ng-model="first">First
+                    </button>
+                    <button type="button" class="btn btn-default hi_btn" ng-class="{'diabled-class': prev}"
+                            ng-disabled="prev"
+                            ng-click="getAccountGroupList('prevPage')" ng-model="prev">Prev
+                    </button>
+                    <button type="button" class="btn btn-default hi_btn" name="next" ng-disabled="next"
+                            ng-click="getAccountGroupList('nextPage')" value="next"
+                            ng-class="{'diabled-class': next}" ng-model="next">Next
+                    </button>
+                    <button type="button" class="btn btn-default hi_btn"
+                            ng-click="getAccountGroupList('lastPage')" ng-class="{'diabled-class': last}"
+                            ng-disabled="last"
+                            ng-model="last">Last
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="add_new_accountType_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 id="accountGroup" class="modal-title">Add AccountType</h4>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="row" id="cus_step1">
+                        <div class="form-group">
+                            <label class="col-md-4 col-sm-4 control-label" for="">Account Name
+                                <span style="color: red">*</span></label>
+                            <div class="col-md-6 col-sm-6" style="position:relative;">
+                                <input id="accountName" name="accountName" alpha-with-space
+                                       ng-pattern="/[aA-zZ\s]$/"
+                                       type="text" placeholder="AccouuntName"
+                                       ng-model="accountName" maxlength="125"
+                                       ng-value="setupobj.accountName"
+                                       class="form-control input-md" autocomplete="off" required>
+                                <p class="error" ng-show="form.accountName.$error.pattern">Alphabets
+                                    only, please.</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-sm-4 control-label" for="">Description
+                            </label>
+                            <div class="col-md-6 col-sm-6" style="position:relative;">
+                                <input id="accountDesc" name="accountDesc" alpha-with-space
+                                       type="text" placeholder="AccountDesc"
+                                       ng-model="accountDesc" maxlength="250"
+                                       ng-value="setupobj.accountDesc"
+                                       class="form-control input-md" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-sm-4 control-label" >Account Type: <span style="color: red">*</span></label>
+                            <div class="col-md-6 col-sm-6" style="position:relative;">
+                                <select id="branchId" name="branchId" ng-model="accountType"
+                                        ng-options="account.accountId as account.accountName for account in accountTypeList" class="form-control input-md">
+                                    <option value="">Select Level</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-sm-4 control-label" for="">Account Code
+                                <span style="color: red">*</span></label>
+                            <div class="col-md-6 col-sm-6" style="position:relative;">
+                                <input id="accountCode" name="accountCode"
+                                       type="text" placeholder="AccountDesc"
+                                       ng-model="accountCode" maxlength="125"
+                                       ng-value="setupobj.accountCode" num-with-out-space=""
+                                       class="form-control input-md" autocomplete="off" required>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-sm-4 control-label" for="">Status</label>
+                            <div class="col-md-6 col-sm-6">
+                                <select name="StatusText" id="StatusText" ng-model="StatusText"
+                                        ng-init="StatusText='Active'" class="form-control input-md">
+                                    <option value="Active">Active</option>
+                                    <option value="InActive">InActive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-toggle="modal" ng-disabled="isDisabled"
+                        data-target=".print-me" ng-click="saveAccountType('add_new_accountType_modal')">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="removeaccountTypeDetails()">Close</button>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

@@ -1,0 +1,13 @@
+export class Employee {
+  employeeId: number;
+  employeeName: string;
+  staff_group_id: string;
+  status: string;
+  username: string;
+  password: string;
+  staff_email: string;
+  Restaurant_id: string;
+  location_connect_id: string;
+  incentives: string;
+  permission: string;
+}

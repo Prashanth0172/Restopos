@@ -1,0 +1,28 @@
+package com.hyva.restopos.rest.entities;
+
+import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+
+@Data
+@Entity
+public class TablesPos {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
+    private Long tableid;
+    private String tableName;
+    private int gridLocationH;
+    private int gridLocationV;
+    private String configurationname;
+    private String tableConfig;
+    private String status;
+    private Long noOfChairs;
+    private String tableStatus;
+    private String mergeTable;
+    private String minCapacity;
+    private String maxCapacity;
+    private String message;
+
+}

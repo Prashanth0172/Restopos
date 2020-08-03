@@ -1,0 +1,84 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
+import { EmployeeListComponent } from './employee-list/employee-list.component';
+import { HttpClientModule } from '@angular/common/http';
+import { UpdateEmployeeComponent } from './update-employee/update-employee.component';
+import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
+import { ShiftListComponent } from './shift-list/shift-list.component';
+import { KitchenListComponent } from './kitchen-list/kitchen-list.component';
+import { CountryListComponent } from './country-list/country-list.component';
+import {EmployeeService} from "./employee.service";
+import { TableZoneListComponent } from './table-zone-list/table-zone-list.component';
+import { PaymentMethodListComponent } from './payment-method-list/payment-method-list.component';
+import { TablePosListComponent } from './table-pos-list/table-pos-list.component';
+import { StateListComponent } from './state-list/state-list.component';
+import { CityListComponent } from './city-list/city-list.component';
+import { DeliveryAreaListComponent } from './delivery-area-list/delivery-area-list.component';
+import { CurrencyListComponent } from './currency-list/currency-list.component';
+import { CategoryListComponent } from './category-list/category-list.component';
+import {CustomerListComponent} from "./customer-list/customer-list.component";
+import { AgenyListComponent } from './ageny-list/ageny-list.component';
+import { DiscountListComponent } from './discount-list/discount-list.component';
+import { CreateItemComponent } from './create-item/create-item.component';
+import { ItemListComponent } from './item-list/item-list.component';
+import { PaymentVoucherListComponent } from './payment-voucher-list/payment-voucher-list.component';
+import { MenuComponent } from './menu/menu.component';
+import {DatePipe} from '@angular/common';
+import { StaffGroupListComponent } from './staff-group-list/staff-group-list.component';
+
+
+
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    EmployeeDetailsComponent,
+    EmployeeListComponent,
+    UpdateEmployeeComponent,
+    SidenavListComponent,
+    ShiftListComponent,
+    SidenavListComponent,
+    KitchenListComponent,
+    SidenavListComponent,
+    CountryListComponent,
+    TablePosListComponent,
+    CountryListComponent,
+    CountryListComponent,
+    SidenavListComponent,
+    CustomerListComponent,
+    DeliveryAreaListComponent,
+    CurrencyListComponent,
+    CategoryListComponent,
+    AgenyListComponent,
+    DiscountListComponent,
+    CategoryListComponent,
+    CountryListComponent,
+    SidenavListComponent,
+    TableZoneListComponent,
+    PaymentMethodListComponent,
+    CountryListComponent,
+    StateListComponent,
+    CityListComponent,
+    CreateItemComponent,
+    ItemListComponent,
+    PaymentVoucherListComponent,
+    MenuComponent,
+    StaffGroupListComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+  ],
+  providers: [EmployeeService,DatePipe],
+  bootstrap: [AppComponent],
+
+})
+export class AppModule { }

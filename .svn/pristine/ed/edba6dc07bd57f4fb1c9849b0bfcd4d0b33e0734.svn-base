@@ -1,0 +1,111 @@
+<div class="panel panel-primary" style="margin-top: -116px;margin-left: 195px;">
+  <div class="panel-heading">
+    <h2>Payment Method</h2>
+  </div>
+  <div class="panel-body">
+    <button type="button" id="btnOpen" class="btn btn-primary" (click)="openModal(true)">Add</button>
+    <button style="margin-left: 10px" id="btnActive" class="btn btn-primary" (click)="inactiveButton()">{{ButtonStatus}}</button>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Payment Name	</th>
+        <th>Description</th>
+        <th>Payment Type	</th>
+        <th>Status</th>
+        <th>Edit</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let paymentmethod of paymentmetho">
+        <td>{{paymentmethod.paymentmethodName}}</td>
+        <td>{{paymentmethod.paymentmethodDescription}}</td>
+        <td>{{paymentmethod.paymentmethodType}}</td>
+        <td>{{paymentmethod.status}}</td>
+        <td><button (click)="updatePaymentMethod(paymentmethod)" class="btn btn-info" style="margin-left: 10px">Edit</button> </td>
+      </tr>
+      </tbody>
+      <div class="form-group">
+        <div class="col-sm-12 col-md-12 pagination_" style="margin-top: 0px;">
+
+          <button type="button" [disabled]="first" (click)="paginationList('firstPage')" >First
+          </button>
+          <button type="button" [disabled]="prev" (click)="paginationList('prevPage')" >Prev
+          </button>
+          <button type="button"  [disabled]="next" (click)="paginationList('nextPage')">Next
+          </button>
+          <button type="button" [disabled]="last" (click)="paginationList('lastPage')">Last
+          </button>
+        </div>
+      </div>
+    </table>
+  </div>
+</div>
+<div id="mdlSample" class="modal fade" role="dialog" [ngStyle]="{'display': mdlSampleIsOpen ? 'block' : 'none', 'opacity': 1}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="country-title">Add PaymentMethod</h4>
+      </div>
+      <div class="modal-body">
+        <div class="box-body">
+          <div class="row" id="cus_step1">
+
+            <div class="form-group">
+              <label  class="col-sm-3 control-label">Name<span style="color: red">*</span> </label>
+              <div class="col-sm-9">
+                <input id="paymentmethodName" name="paymentmethodName"
+                       ng-pattern="/[aA-zZ\s]$/"
+                       type="text" placeholder="Name"
+                       [(ngModel)]="paymentmethod.paymentmethodName"  maxlength="125"
+                       class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label  class="col-sm-3 control-label">Description<span style="color: red">*</span> </label>
+              <div class="col-sm-9">
+                <textarea id="paymentmethodDescription" name="paymentmethodDescription"
+                       ng-pattern="/[aA-zZ\s]$/"
+                       type="text" placeholder="Description"
+                       [(ngModel)]="paymentmethod.paymentmethodDescription"  maxlength="125"
+                       class="form-control">
+                </textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-4 control-label">
+                Payment Type </label>
+              <div class="col-md-6 col-sm-6" style="position:relative;">
+                <select class="form-control input-md" name="status"
+                        [(ngModel)]="paymentmethod.paymentmethodType" id="paymentmethodType">
+                  <option value="">Select</option>
+                  <option value="Cash">Cash</option>
+                  <option value="Bank">Bank</option>
+                  <option value="Voucher">Voucher</option>
+                  <option value="Card">Card</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label  class="col-sm-3 control-label"> Status</label>
+              <div class="col-sm-9">
+                <select name="status" id="status" [(ngModel)]="paymentmethod.status" class="form-control" required>
+                  <option value="Active">Active</option>
+                  <option value="InActive">InActive</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="submit" type="button" class="btn btn-default" data-toggle="modal" ng-disabled="isDisabled"
+                data-target=".print-me" (click)="onSubmit('add_new_paymethod')">Save</button>
+        <button type="button" id="btnOpen1" class="btn btn-primary" (click)="openModal(false)">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+

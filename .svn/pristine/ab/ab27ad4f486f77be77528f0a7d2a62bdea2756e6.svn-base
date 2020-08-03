@@ -1,0 +1,564 @@
+<div class="modal fade voucherPayment" tabindex="-1" id="paymentNew1" role="dialog" data-backdrop="static"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"  ng-click="clearValues();clearPaymentValues()" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Payment</h4>
+            </div>
+            <div class="modal-body" style="height: 460px; overflow-y: scroll;">
+                <form class="form-horizontal" name="multi" novalidate>
+                    <fieldset>
+                        <div ng-show="paymentButton === 'Purchase'" class="form-group">
+                            <label class="col-md-4 control-label" for="supInNo">Supplier INVNo</label>
+                            <div class="col-md-5">
+                                <input id="supInNo" name="supInno" ng-model="supplierInvNo" alphanum-with-space=""
+                                       class="resetClass form-control input-md">
+                            </div>
+                        </div>
+                        <div ng-show="paymentButton === 'Purchase'||paymentButton === 'Sales'" class="form-group">
+                            <label class="col-md-4 control-label" for="memo">Memo</label>
+                            <div class="col-md-5">
+                                <input id="memo" name="memo" ng-model="memo" maxlength="255"
+                                       class="resetClass form-control input-md">
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-show="paymentButton === 'Sales'">
+                            <label class="col-md-4 control-label" for="memo">Discount Percentage</label>
+                            <div class="col-md-5">
+                                <input   id="disAmtInPer"  maxlength="5" type="text" class="form-control"  ng-change="updatePayable(disAmtInPer)" ng-model="disAmtInPer"
+                                         ng-disabled="user_access_rights.restDiscount==false"  ng-readonly="discountType == 'itemWise'||userRights.discount == false"
+                                         ng-model-options="{debounce: 1000}"
+                                         required/>
+                            </div>
+
+                        </div>
+
+
+                        <!--num-with-space-->
+                        <div class="row total_info">
+
+                            <div ng-show="paymentButton != 'Restaurant'" class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label"></label>
+                                    <div class="col-md-8">
+                            <span class="custom-dropdown custom-dropdown--white">
+                              <select id="currencyOne" name="currency"
+                                      ng-readonly="operation === 'Return'"
+                                      ng-model="currencyText"
+                                      ng-change="getExchangeRate(currencyText,exchangeRateList); selectCurrencyDescription()"
+                                      ng-options="custinvLoc.currencyId as custinvLoc.currencyName for custinvLoc in currencyList"
+                                      class="form-control input-md" ng-disabled = "true">
+                                     <!--<option value="">Select Currency</option>-->
+                                </select>
+                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-show="paymentButton != 'Restaurant'" class="col-md-6 col-sm-6 ">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label"></label>
+                                    <div class="col-md-8">
+                                        <input id="exchangeRate" name="exchangeRate"
+                                               placeholder="Exchange Rate" ng-init="truefalse = true"
+                                               ng-model="exchangeRateText" valid-number
+                                               class="form-control input-md" ng-readonly='cmpyCurrency'>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="total_discount">Total</label>
+                                    <div class="col-md-8">
+                                        <input id="total_discount" name="totalVPBeforDiscount"
+                                               ng-model="totalVPBeforDiscount" ng-value="totalVPBeforDiscount"
+                                               type="text" readonly="true" class="form-control input-md">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="totalVPDiscount">Discount</label>
+                                    <div class="col-md-8">
+                                        <!--</div>-->
+                                        <input id="amountWithoutDiscount" ng-model="amountWithoutDiscount"
+                                               name="amountWithoutDiscount"
+                                               readonly="true" type="hidden" class="form-control input-md">
+                                        <input id="totalVPDiscount" name="totalVPDiscount"
+                                               ng-model="totalVPDiscount"
+                                               readonly="true",
+                                               ng-change="OnChangeMultiDiscount1(totalVPDiscount)" maxlength="8"
+                                               type="text" class="form-control input-md">
+                                    </div>
+                                    <!--ng-readonly="userRights.discount== false"-->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="totalVPAfterDiscount">Amount
+                                        Tendered</label>
+                                    <div class="col-md-8">
+                                        <input ng-model="totalVPAfterDiscount"
+                                               name="totalVPAfterDiscount"
+                                               ng-readonly="true" type="hidden" class="form-control input-md">
+                                        <input id="totalVPAfterDiscount"
+                                               ng-model="totalPaidAmt"
+                                               name="totalPaidAmt"
+                                               value="totalPaidAmt"
+                                               readonly="true" type="text" class="form-control input-md">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="totalVPAmountRefunded">Amount
+                                        Returned</label>
+                                    <div class="col-md-8">
+                                        <input id="totalVPAmountRefunded" name="totalVPAmountRefunded" ng-readonly="true"
+                                               ng-model="totalVPAmountRefunded"
+                                               class="form-control input-md">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="totalTCSAmountTendered">TCS</label>
+                                    <div class="col-md-8">
+                                        <input id="totalTCSAmountTendered" ng-model="totalTCSAmountTendered" ng-value="totalTCSAmountTendered"
+                                               name="totalTCSAmountTendered" type="number"
+                                               ng-init="totalTCSAmountTendered=0"
+                                               ng-change="OnChangeMultiPayament(totalVPAfterDiscount,totalTCSAmountTendered,'TCS',$index)"
+                                               class="resetClass form-control input-md" required/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="totalTDSAmountTendered">TDS
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input id="totalTDSAmountTendered" ng-model="totalTDSAmountTendered" ng-value="{{totalTDSAmountTendered}}"
+                                               name="totalTDSAmountTendered" type="number"
+                                               ng-init="totalTDSAmountTendered=0"
+                                               ng-change="OnChangeMultiPayament(totalVPAfterDiscount,totalTDSAmountTendered,'TDS',$index)"
+                                               class="resetClass form-control input-md" required/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" ng-show="paymentButton === 'Sales'&& countryId == '1'"  style="margin: 10px 0px 9px 0px; font-size: 14px; font-weight: bold;">
+                                <input id="roundingoff" ng-model="roundingOff"
+                                       name="roundingOff" type="checkbox"
+                                       ng-change="openStockValidateMultipaymnet(roundingOff)"
+                                       required/>Rounding Off
+                            </div>
+                            <div class="col-md-12" ng-show="paymentButton === 'Purchase'&& countryId == '1'"  style="margin: 10px 0px 9px 0px; font-size: 14px; font-weight: bold;">
+                                <input id="roundingoff" ng-model="roundingOff"
+                                       name="roundingOff" type="checkbox"
+                                       ng-change="openStockValidateMultipaymnetPurchase(roundingOff)"
+                                       required/>Rounding Off
+                            </div>
+                        </div>
+                        <div class="Bank_info row">
+                            <div class="col-md-12"
+                                 style="margin: 10px 0px 9px 0px; font-size: 14px; font-weight: bold;">
+                                <i class="fa fa-credit-card" style="  font-size: 17px; color: dimgray;"></i> Payment Type
+                            </div>
+                            <div ng-repeat="p in paymentDropdown" >
+                                <!--{{DefaultPaymentmethodId}}  &#45;&#45; {{selectedPaymentType}}-->
+                                <div class="form-group">
+                                    <select id="{{p.id}}" ng-model="p.DefaultPaymentmethodId"
+                                            ng-change="selectPaymentType(p.DefaultPaymentmethodId,p.id,$index+1,paymentList[$index]);"
+                                            ng-options="option.paymentmethodId as option.paymentmethodName disable when checkPayment(option.paymentmethodId) for option in paymentList[$index]"
+                                            class="resetClass form-control paymentListClass">
+                                        <option value="">-- Select a PaymentType --</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-12 bankInfoHide" style="width: 96%;" id="bankInfoHide{{$index+1}}">
+                                    <!-- CASH -->
+                                    <div ng-if="p.DEFAULT_PAYMENT_TYPE == 'Cash'">
+                                        <div class="col-md-8 bank_no_info" style="padding: 0px">
+                                            <div class="form-group" id="cash_info{{p.id}}">
+                                                <label class="col-md-4 control-label" for="cashAmt{{$index+1}}">Amount</label>
+                                                <div class="col-md-8">
+                                                    <input id="cashAmt{{$index+1}}" ng-model="p.totalCPAmountTendered"
+                                                           name="totalCPAmountTendered"
+                                                           type="number"
+                                                           limit-to="11"
+                                                           ng-click="showcurrencySidePopupModal(true,'Cash',$index);"
+                                                           ng-model-options="{ debounce:100 }"
+                                                           ng-change="OnChangeMultiPayament(totalVPAfterDiscount, p.totalCPAmountTendered, 'CASH',$index)"
+                                                           class="resetClass form-control input-md" required/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-if="p.DEFAULT_PAYMENT_TYPE == 'airPay'">
+                                        <div class="col-md-8 bank_no_info" style="padding: 0px">
+                                            <div class="form-group" id="airPay_cash_info{{p.id}}">
+                                                <label class="col-md-4 control-label" for="airPayAmt{{$index+1}}">Amount</label>
+                                                <div class="col-md-8">
+                                                    <input id="airPayAmt{{$index+1}}" ng-model="p.totalAPAmountTendered"
+                                                           name="totalAPAmountTendered"
+                                                           type="number"
+                                                           limit-to="11"
+                                                           ng-click="showcurrencySidePopupModal(true,'AirPay',$index);"
+                                                           ng-model-options="{ debounce:100 }"
+                                                           ng-change="OnChangeMultiPayament(totalVPAfterDiscount, p.totalAPAmountTendered, 'AirPay',$index)"
+                                                           class="resetClass form-control input-md" required/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 no-pad">
+                                                <label class="control-label col-sm-4">Mobile No</label>
+                                                <div class="col-sm-8">
+                                                    <input id="airPaymobile{{$index+1}}" type="text" class="resetClass form-control input-md"
+                                                           ng-model="p.airPaymobile" name="airPaymobile">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-if="p.DEFAULT_PAYMENT_TYPE == 'invoicePay'">
+                                        <div class="col-md-8 bank_no_info" style="padding: 0px">
+                                            <div class="form-group" id="invoicePay_cash_info{{p.id}}">
+                                                <label class="col-md-4 control-label" for="invoicePayAmt{{$index+1}}">Amount</label>
+                                                <div class="col-md-8">
+                                                    <input id="invoicePayAmt{{$index+1}}" ng-model="p.totalINVAmountTendered"
+                                                           name="totalAPAmountTendered"
+                                                           type="number"
+                                                           limit-to="11"
+                                                           ng-click="showcurrencySidePopupModal(true,'Cash',$index);"
+                                                           ng-model-options="{ debounce:100 }"
+                                                           ng-change="OnChangeMultiPayament(totalVPAfterDiscount, p.totalINVAmountTendered, 'INVAMT',$index)"
+                                                           class="resetClass form-control input-md" required/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 no-pad">
+                                                <label class="control-label col-sm-4">Mobile No</label>
+                                                <div class="col-sm-8">
+                                                    <input id="invmobile{{$index+1}}" type="text" class="resetClass form-control input-md"
+                                                           ng-model="p.invmobile" name="invmobile">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 no-pad">
+                                                <label class="control-label col-sm-4">Mail Id</label>
+                                                <div class="col-sm-8">
+                                                    <input id="invmail{{$index+1}}" type="text" class="resetClass form-control input-md"
+                                                           ng-model="p.invmail" name="invmail">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- CARD -->
+                                    <div   ng-if="p.DEFAULT_PAYMENT_TYPE == 'Card'">
+                                        <div class="card_info row" style="margin: 0px -10px !important;" >
+                                            <div class="row">
+                                                <div class="col-md-6 TransactionNo_info no-pad">
+                                                        <label class="col-sm-4 control-label">Card No</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" id="cardNo{{$index+1}}" ng-model="p.cardTransactionNo"
+                                                                   name="cardTransactionNo"
+                                                                   class="resetClass form-control input-md transcNo">
+                                                        </div>
+                                                </div>
+                                                <div class="col-md-6 cardAmount_info no-pad">
+                                                        <label class="col-sm-4 control-label">Card Amount</label>
+                                                        <div class="col-sm-8">
+                                                            <input  name="cardAmt" id="cardAmt{{$index+1}}" ng-model="p.cardAmount"
+                                                                    ng-click="showcurrencySidePopupModal(true,'Card',$index);"
+                                                                    ng-change="OnChangeMultiPayament(totalVPAfterDiscount,p.cardAmount,'CARD',$index)"
+                                                                    type="text" class="resetClass form-control input-md cardAmt" />
+                                                        </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 no-pad">
+                                                    <label class="control-label col-sm-4">Transaction Number</label>
+                                                    <div class="col-sm-8">
+                                                        <input id="cardBankAccount{{$index+1}}" type="text" class="resetClass form-control input-md"
+                                                               ng-model="p.cardBankAccount" name="cardBankAccount">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 TransactionNo_info no-pad">
+                                                    <label class="col-sm-4 control-label">Date</label>
+                                                    <div class="col-sm-8">
+                                                        <p class="input-group">
+                                                            <input type="text" class="resetClass form-control"
+                                                                   uib-datepicker-popup="{{format}}"
+                                                                   ng-model="p.cardDate" name="cardDate"
+                                                                   ng-init="p.cardDate=dt"
+                                                                   is-open="opened[$index+1]"
+                                                                   datepicker-options="dateOptions"
+                                                                   ng-required="true" close-text="Close"
+                                                                   alt-input-formats="altInputFormats"/>
+                                                            <span class="input-group-btn">
+                                                                    <button type="button" class="btn btn-default" ng-click="openDatePicker($event, $index+1)"><i
+                                                                            class="glyphicon glyphicon-calendar"></i></button>
+                                                                </span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- BANK -->
+                                    <div  ng-if="p.DEFAULT_PAYMENT_TYPE == 'Bank'">
+                                        <!--{{banks}}-->
+                                        <div class="Bank_info row">
+                                            <div class="row">
+                                                <div class="col-md-6 bank_no_info">
+                                                    <label class="control-label col-sm-4">Bank Account</label>
+                                                    <div class="col-sm-8">
+                                                        <input id="bankAccount{{$index+1}}" type="text" class="resetClass form-control input-md"
+                                                               placeholder="Select Account"
+                                                               ng-model="p.bankAccount" name="bankAccount"
+                                                               style=" display: inline; margin-right: 5px;">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 bank_no_info">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">Bank Name</label>
+                                                        <div class="col-md-8">
+                                                            <input id="bankName{{$index+1}}" ng-model="p.bankName" name="bankName"
+                                                                   type="text" size="9" maxlength="8"
+                                                                   class="resetClass form-control input-md voucher_No">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 bank_no_info">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">Cheque/Transaction No.</label>
+                                                        <div class="col-md-8">
+                                                            <input id="invoiceNo{{$index+1}}" ng-model="p.bankinvoiceNo" name="bankinvoiceNo"
+                                                                   type="text" size="9" maxlength="8" ng-value=""
+                                                                   class="resetClass form-control input-md voucher_No">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 bank_no_info">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">Amount</label>
+                                                        <div class="col-sm-8">
+                                                            <input  name="cardAmt" id="amount{{$index+1}}" ng-model="p.bankAmount"
+                                                                    ng-click="showcurrencySidePopupModal(true,'Bank',$index);"
+                                                                    ng-change="OnChangeMultiPayament(totalVPAfterDiscount,p.bankAmount,'BANK',$index)"
+                                                                    type="text" class="resetClass form-control input-md cardAmt" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 TransactionNo_info">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">Date</label>
+                                                        <div class="col-md-8">
+                                                            <p class="input-group">
+                                                                <div ng-if="p.bankDate==null" ng-init="p.bankDate=dt" ></div>
+                                                            <input type="text" class="resetClass form-control"
+                                                                       uib-datepicker-popup="{{format}}"
+                                                                       ng-model="p.bankDate" name="bankDate"
+                                                                       is-open="opened1[$index+1]"
+                                                                       datepicker-options="dateOptions"
+                                                                       ng-required="true" close-text="Close"
+                                                                       alt-input-formats="altInputFormats"/>
+                                                                <span class="input-group-btn">
+                                                                    <button type="button" class="btn btn-default" ng-click="openDatePicker1($event, $index+1)"><i
+                                                                            class="glyphicon glyphicon-calendar"></i></button>
+                                                                </span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- VOUCHER -->
+                                    <div ng-if="p.DEFAULT_PAYMENT_TYPE == 'Voucher'">
+                                        <!--{{vouchers}}-->
+                                        <div class="voucher_info row">
+                                            <div class="col-md-5 voucher_no_info">
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label" >Voucher No</label>
+                                                    <div class="col-md-8">
+                                                        <input id="voucherNum{{$index}}" ng-model="p.voucherNo" name="voucherNo"
+                                                               type="text" size="9" maxlength="8" ng-model-options="{debounce: 700}"
+                                                               ng-change="validateVoucher(p.voucherNo,totalVPAfterDiscount,p.DefaultPaymentmethodId)"
+                                                               class="resetClass form-control input-md voucher_No">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5 voucher_amount_info">
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Voucher
+                                                        Amount</label>
+                                                    <div class="col-sm-8">
+                                                        <input  name="cardAmt" id="voucherAmt{{$index+1}}" ng-model="p.voucherAmt"
+                                                                ng-click="showcurrencySidePopupModal(true,'VOUCHER',$index);"
+                                                                ng-change="OnChangeMultiPayament(totalVPAfterDiscount,p.voucherAmt,'VOUCHER',$index)"
+                                                                type="text" class="resetClass form-control input-md cardAmt" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="PaymentTypeRedeem{{p.id}}"  style="display:none">
+                                        <!--{{Redeem}}-->
+                                        <div class="voucher_info row">
+                                            <div class="col-md-5 voucher_no_info">
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Redeem Points</label>
+                                                    <div class="col-md-8">
+                                                        <input id="redeemPoints{{$index}}" ng-model="p.redeemPoints" name="redeemPoints"
+                                                               type="text" size="9" maxlength="8" ng-value="loyaltyPoints"
+                                                               ng-change="getRedeemAmt(p.redeemPoints,totalVPAfterDiscount,p.id)"
+                                                               class="resetClass form-control input-md Redeem_Points">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5 voucher_amount_info">
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Redeem
+                                                        Amount</label>
+                                                    <div class="col-md-8">{{redeemAmt}}
+                                                        <input id="redeemAmt{{$index}}" ng-model="p.redeemAmt" name="redeemAmt"
+                                                               ng-change="OnChangeMultiPayament(totalVPAfterDiscount,p.redeemAmt,'Redeem',$index)"
+                                                               type="number"
+                                                               readonly="true"
+                                                               class="resetClass form-control input-md Redeem_Amount"
+                                                               ng-required="true"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-1 bank_amount_info button_info" style="width: 4%;">
+                                    <button class="btn btn-default add_btn bank_plus remove" ng-hide="$first"
+                                            ng-click="removeSection($index)">-
+                                    </button>
+                                    <button class="btn btn-default add_btn bank_plus addfields" ng-show="$last"
+                                            ng-click="addNewSection($index+1)">+
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-show="showEmailBox" class="form-group">
+                            <div class="col-md-5" ng-if="paymentButton === 'Restaurant'">
+                                <label>Mobile No:</label>
+                                <input id="a" name="emailId" ng-model="customerMobileNo" ng-change="setEmail(customerMobileNo)"
+                                       class="form-control input-md">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div ng-show="paymentButton === 'Restaurant'" class="modal-footer">
+                        <button type="button" class="btn btn-default" ng-hide="invoiceType=='OnlineDelivery'||pageType=='other'"data-toggle="modal" data-target=".print-me" ng-click="getCustomerBill(); showcurrencySidePopup = false;">Customer Bill</button>
+                        <button type="button" class="btn btn-default" ng-hide="invoiceType=='OnlineDelivery'||pageType=='other'"data-toggle="modal" data-target=".print-me" ng-click="saveSI('multiPayment','savePrint','sms')">Save & Sms</button>
+                        <button type="submit" class="btn btn-default" data-toggle="modal"  ng-disabled="isDisabled" data-target=".print-me" ng-click="saveSI('multiPayment','savePrint'); showcurrencySidePopup = false;">Save&print</button>
+                        <button type="submit" class="btn btn-default" data-toggle="modal"  ng-disabled="isDisabled" data-target=".print-me" ng-click="saveSI('multiPayment','save'); showcurrencySidePopup = false;">Save</button>
+                        <button type="button" class="btn btn-default"  data-dismiss="modal" ng-click="clearPaymentValues();showcurrencySidePopup = false;">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .shadowBox {
+        background: #fff;
+        border: none;
+        border-radius: 2px;
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+        outline: none;
+        transition: box-shadow 200ms cubic-bezier(0.4,0.0,0.2,1);
+    }
+    #currencySidePopup{
+        width: 356px;
+        z-index: 2000;
+        position: absolute;
+        top: 241px;
+        background: #fff;
+        border: 1px solid #ddd;
+        right: 36px;
+        height: 255px;
+    }
+
+    .animationIf.ng-enter,
+    .animationIf.ng-leave {
+        -webkit-transition: opacity ease-in-out 1s;
+        -moz-transition: opacity ease-in-out 1s;
+        -ms-transition: opacity ease-in-out 1s;
+        -o-transition: opacity ease-in-out 1s;
+        transition: opacity ease-in-out 1s;
+    }
+    .animationIf.ng-enter,
+    .animationIf.ng-leave.ng-leave-active {
+        opacity: 0;
+    }
+    .animationIf.ng-leave,
+    .animationIf.ng-enter.ng-enter-active {
+        opacity: 1;
+    }
+</style>
+<div class="shadowBox animationIf" id="currencySidePopup" ng-if="showcurrencySidePopup">
+    <div style="padding: 5px 15px; background: dimgray;color: #fff;">
+        <button type="button" class="close"><span aria-hidden="true" style="color: #fff" ng-click="closecurrencySidePopup();">×</span></button>
+        <h4 class="modal-title">Currency</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <button class="btn curr_btn" ng-click="currency_add($event,type);">1</button>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn curr_btn" ng-click="currency_add($event,type);">2</button>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn curr_btn" ng-click="currency_add($event,type)">5</button>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <button class="btn curr_btn" ng-click="currency_add($event,type)">10</button>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn curr_btn" ng-click="currency_add($event,type)">20</button>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn curr_btn" ng-click="currency_add($event,type)">50</button>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <button class="btn curr_btn" ng-click="currency_add($event,type)">100</button>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn curr_btn" ng-click="currency_add($event,type)">200</button>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn curr_btn" ng-click="currency_add($event,type)">500</button>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <button class="btn curr_btn" ng-click="currency_add($event,type)">2000</button>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn curr_finish_btn"  ng-click="currency_clear(type);">Clear</button>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn curr_finish_btn" ng-click="closecurrencySidePopup();">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+<div class="panel panel-primary" style="margin-top: -116px;margin-left: 195px;">
+  <div class="panel-heading">
+    <h2>Shift List</h2>
+  </div>
+  <div class="panel-body">
+    <button type="button" id="btnOpen" class="btn btn-primary" (click)="openModal(true)">Add</button>
+    <button style="margin-left: 10px" id="btnActive" class="btn btn-primary" (click)="inactiveButton()">{{ButtonStatus}}</button>
+    <!--<button class="nav-item">-->
+      <!--<a routerLink="addShift" class="nav-link" routerLinkActive="active">Add</a>-->
+    <!--</button>-->
+    <!--<button class="nav-item">-->
+      <!--<button (click)="inactiveButton()">{{ButtonStatus}}</button>-->
+    <!--</button>-->
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Shift Name</th>
+        <th>From Time</th>
+        <th>To Time</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let shift of shifts">
+        <td>{{shift.mealtime_name}}</td>
+        <td>{{shift.start_time}}</td>
+        <td>{{shift.end_time}}</td>
+        <td>{{shift.mealtime_status}}</td>
+        <td>
+          <button (click)="updateShift(shift)" class="btn btn-info" style="margin-left: 10px">Edit</button>
+        </td>
+      </tr>
+      </tbody>
+      <div class="form-group">
+        <div class="col-sm-12 col-md-12 pagination_" style="margin-top: 0px;">
+
+          <button type="button" [disabled]="first" (click)="paginationList('firstPage')" >First
+          </button>
+          <button type="button" [disabled]="prev" (click)="paginationList('prevPage')" >Prev
+          </button>
+          <button type="button"  [disabled]="next" (click)="paginationList('nextPage')">Next
+          </button>
+          <button type="button" [disabled]="last" (click)="paginationList('lastPage')">Last
+          </button>
+        </div>
+      </div>
+    </table>
+  </div>
+</div>
+<div id="mdlSample" class="modal fade" role="dialog" [ngStyle]="{'display': mdlSampleIsOpen ? 'block' : 'none', 'opacity': 1}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="country-title">Add Shift</h4>
+      </div>
+      <div class="form-group">
+        <label for="name">Shift Name</label>
+        <input type="text" class="form-control" id="firstName" required [(ngModel)]="shift.mealtime_name" name="firstName">
+      </div>
+
+      <div class="form-group">
+        <label for="name">From Time</label>
+        <input type="time" class="form-control" id="lastName" required [(ngModel)]="shift.start_time" name="lastName">
+      </div>
+
+      <div class="form-group">
+        <label for="name">To Time</label>
+        <input type="time" class="form-control" id="emailId" required [(ngModel)]="shift.end_time" name="emailId">
+      </div>
+      <div class="form-group">
+        <label for="name">Status</label>
+        <select class="form-control" id="status" required [(ngModel)]="shift.mealtime_status" name="status">
+          <option value="1">Active</option>
+          <option value="0">InActive</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button id="submit" type="button" class="btn btn-default" data-toggle="modal" ng-disabled="isDisabled"
+                data-target=".print-me" (click)="onSubmit('add_new_country_modal')">Save</button>
+        <button type="button" id="btnOpen1" class="btn btn-primary" (click)="openModal(false)">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+

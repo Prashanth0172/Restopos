@@ -1,0 +1,653 @@
+
+<body>
+<style>
+    #textdiv11 {
+
+        height: 238px !important;
+        overflow-y: auto !important;
+    }
+    .col-xs-5 {
+        width: 66.666667%;!important;
+    }
+    @media screen and (max-width: 1024px){
+        .container{
+            width: 98% !important;
+        }
+    }
+
+</style>
+
+<div class="container-fluid">
+    <div class="container cus_main_row" >
+
+        <div class="row">
+            <h2 class="pos-header-new">
+                <div>journal entry</div>
+            </h2>
+        </div>
+
+        <div class="row inner_row_bg">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="panel">
+                    <div class="panel-body" style="height: 85px;">
+                        <div class="col-md-12 col-lg-12 col-sm-5 col-xs-5">
+
+                            <form class="form-horizontal ng-pristine ng-valid">
+                                <div class="form-group">
+                                    <div class="col-sm-6 col-md-6">
+                                        <label class="control-label col-sm-5" for="">Effective Date:</label>
+                                        <p class="input-group col-sm-7">
+                                            <input type="text" class="form-control" readonly uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                                            <span class="input-group-btn">
+			                      <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+		                         	</span>
+                                        </p>
+
+                                    </div>
+                                    <div class="col-md-2 col-sm-2 col-xs-2" ng-show="userAccessRights.jeselectAcnt">
+                                        <div class="btn-group padbtm">
+                                            <button class="btn btn-sucess" type="button" ng-model="accountSearchText"
+                                                    ng-click="getAccountList(accountSearchText, false)" ng-disabled="showAcceptedNotificationList"
+                                                    data-toggle="modal" data-target="#selectAccountSidePopup">
+                                                Select Account
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!--<div class="col-md-2">-->
+                                    <!--<div class="col-md-12" style="padding: 0;">-->
+                                    <!--<span class="custom-dropdown custom-dropdown&#45;&#45;white">-->
+                                    <!--<select id="fromLocation" name="fromLocation"-->
+                                    <!--ng-model="fromLocation"-->
+                                    <!--ng-options="cmpyinvLoc.inventoryLocationId as cmpyinvLoc.inventoryLocationName for cmpyinvLoc in inventoryLocationList"-->
+                                    <!--ng-disabled="fromLocation"-->
+                                    <!--class="form-control input-md">-->
+                                    <!--</select>-->
+                                    <!--</span>-->
+                                    <!--</div>-->
+
+                                    <!--</div>-->
+                                    <div class="col-md-1" ng-show="userAccessRights.jeprintlist">
+                                        <button class="btn btn-default" type="button" ng-click="getDuplicateJE()" data-toggle="modal"
+                                                data-target=".invoke-order"
+                                                ng-disabled="showAcceptedNotificationList">Print List
+                                        </button>
+                                    </div>
+
+                                    <div class="col-md-2" ng-show="userAccessRights.jeremoveAcnt">
+                                        <button class="btn btn-default" type="button"  ng-click="removeSelectedAccount()"
+                                                data-toggle="modal" ng-disabled="remove_account">Remove Account
+                                        </button>
+                                    </div>
+
+                                    <!--<div class="col-md-2">-->
+                                    <!--<ul class="pos_table_icons">-->
+                                    <!--<li>-->
+                                    <!--<a type="button" data-toggle="tooltip" id="hideSection"-->
+                                    <!--ng-click="hideSection()"-->
+                                    <!--title="Hide Section" style="display:none">Less</a>-->
+                                    <!--<a type="button" data-toggle="tooltip" id="showSection"-->
+                                    <!--ng-click="showSection()"-->
+                                    <!--title="Show Section">More</a>-->
+                                    <!--</li>-->
+                                    <!--</ul>-->
+                                </div>
+                        </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" tabindex="-1" id="purchase_print_list_modal" role="dialog" data-backdrop="static"
+             aria-labelledby="mySmallModalLabel_1">
+
+            <div class="modal-dialog modal-md" style="width: 700px;">
+                <div class="modal-content checkout">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Print List </h4>
+                    </div>
+                    <div class="modal-body checkout-body">
+                        <div class="col-xs-4 col-md-4"><div class="report_icon"><a data-toggle="modal" ng-click="getDuplicateJE()"
+                                                                                   data-target=".invoke-order" class="link_account_payable"><img src="resource/images/creditors-ageing.png" />DUPLICATE JOURNAL ENTRY</a></div></div>
+                        <!--<div class="col-xs-4 col-md-4"><div class="report_icon"><a href="#" class="link_report_sales"><img src="resource/images/purchase.png" /> Purchase</a></div></div>-->
+                        <!--<div class="col-xs-4 col-md-4"><div class="report_icon"><a href="#" class="link_report_inventory"><img src="resource/images/inventory.png" /> Inventory</a></div></div>-->
+                        <!--<div class="col-xs-4 col-md-4"><div class="report_icon"><a href="#" class="link_report_analysis"><img src="resource/images/analysis.png" /> Analysis</a></div></div>-->
+                        <!--<div class="col-xs-4 col-md-4"><div class="report_icon"><a href="#" class="link_report_financial_statement "><img src="resource/images/financial.png" /> Financial Statement</a></div></div>-->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--begin :: anjana-->
+        <div id="openSection" class="more_btn_sales_info" style="display:none">
+            <div class="form-group custom_sales_row" style="margin-top: 135px;">
+                <div class="col-md-2" style="position:relative;">
+                        <span class="custom-dropdown custom-dropdown--white">
+                            <select id="agent" name="agent"
+                                    ng-readonly="operation === 'Return'"
+                                    ng-model="agentText"
+                                    ng-options="custinvLoc.agentId as custinvLoc.agentName for custinvLoc in agentList"
+                                    class="form-control input-md">
+                                <option value="">Select Agent</option>
+                            </select>
+                        </span>
+                </div>
+                <div class="col-md-2" style="position:relative;">
+                        <span class="custom-dropdown custom-dropdown--white">
+                            <select id="currency" name="currency"
+                                    ng-change="getExchangeRate(currencyText,exchangeRateList); selectCurrencyDescription()"
+                                    ng-readonly="operation === 'Return'"
+                                    ng-model="currencyText"
+                                    ng-options="custinvLoc.currencyId as custinvLoc.currencyName for custinvLoc in currencyList"
+                                    class="form-control input-md">
+                                <!--<option value="">Select Currency</option>-->
+                            </select>
+                        </span>
+                </div>
+                <div class="col-md-2" style="position:relative;">
+                    <input id="exchangeRate" name="exchangeRate"
+                           placeholder="Exchange Rate" ng-init="truefalse = true" ng-readonly="truefalse"
+                           ng-model="exchangeRateText" valid-number readonly
+                           class="form-control input-md">
+                    </input>
+                </div>
+                <div class="col-md-2" style="position:relative;">
+                        <span class="custom-dropdown custom-dropdown--white">
+                            <select id="termsCondition" name="termsCondition"
+                                    ng-readonly="operation === 'Return'"
+                                    ng-model="termsAndConditionText"
+                                    ng-options="custinvLoc.termsAndConditionId as custinvLoc.termsAndConditionName for custinvLoc in termsAndConditionList"
+                                    class="form-control input-md">
+                                <option value="">Select T & C</option>
+                            </select>
+                        </span>
+                </div>
+                <div class="col-md-2" style="position:relative;">
+                        <span class="custom-dropdown custom-dropdown--white">
+                            <select id="project" name="project"
+                                    ng-readonly="operation === 'Return'"
+                                    ng-model="projectText"
+                                    ng-options="custinvLoc.projectId as custinvLoc.projectName for custinvLoc in projectList"
+                                    class="form-control input-md">
+                                <option value="">Select Cost Centre</option>
+                            </select>
+                        </span>
+                </div>
+            </div>
+            </br>
+            <div class="form-group custom_sales_row">
+                <div class="col-md-2" style="position:relative;">
+                        <span class="custom-dropdown custom-dropdown--white">
+                        <select id="shipingmethod" name="shipingmethod"
+                                ng-model="shipingmethod"
+                                ng-options="ship.shippingMethodId as ship.shippingMethodName for ship in shippingMethod"
+                                class="form-control input-md">
+                            <option value="">Select Shipping Method</option>
+                        </select>
+                        </span>
+                </div>
+                <div class="col-md-2" style="position:relative;">
+                    <p class="input-group">
+                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt1" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                        <span class="input-group-btn">
+                             <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                    </p>
+                </div>
+                <div class="col-md-2" style="position:relative;">
+                    <input id="shippingmethodreferenceno" name="shippingmethodreferenceno"
+                           ng-model="shippingmethodreferenceno" placeholder="Shipping Refrence No."
+                           class="form-control input-md">
+                    </input>
+                </div>
+                <div class="col-md-2" style="position:relative;">
+                    <input id="referenceNo" name="referenceNo"
+                           ng-model="referenceNo" placeholder="Refrence No."
+                           class="form-control input-md">
+                    </input>
+                </div>
+            </div>
+        </div>
+        <!--end-->
+        <div class="col-md-12">
+            <select-account-modal></select-account-modal>
+            <div class="fixed-table-container">
+                <div class="table_wrap fixed-table-container-inner" style="max-height: 200px; min-height: 200px;">
+                    <div class="header-background"> </div>
+                    <table data-toggle="table" data-cache="false" id="tableAccountsList" data-height="299" class="journal_table hi_table table table-hover table-bordered table-striped table-fixed-header">
+                        <thead>
+                        <tr>
+                            <th data-field="account" style="width: 4% !important;"><div class="th-inner"></div></th>
+                            <th data-field="account"><div class="th-inner">Account</div></th>
+                            <th data-field="debit"><div class="th-inner helpdebit">Debit</div></th>
+                            <th data-field="credit"><div class="th-inner helpcredit">Credit</div></th>
+                            <th data-field="description"><div class="th-inner">Description</div></th>
+                        </tr>
+                        </thead>
+                        <tbody id="textdiv11" >
+                        <tr ng-repeat="account in selectedAccountList" class="journal_body">
+                            <td style='width: 4% !important;'><input type="checkbox" ng-model="selectedAccountListRemoval[$index]"></td>
+                            <td><input type="text" class="form-control" ng-model="account.accountname" readonly/>  </td>
+                            <td><input type="text" class="form-control"
+                                       limit-to="8" min="0"
+                                       ng-model="account.debitAmount" ng-pattern="regEX"
+                                       ng-change="updateTotalDebit_Credit(account, $index, 'debit')"
+                                       two-digits-dec required/></td>
+                            <td><input type="text" class="form-control" limit-to="8" min="0"
+                                       ng-model="account.creditAmount" ng-pattern="regEX"
+                                       ng-change="updateTotalDebit_Credit(account, $index, 'credit')"
+                                       two-digits-dec required/></td>
+                            <td>
+                                <input type="text" limit-to="50" min="0"
+                                       id="accountDescription_{{$index}}"
+                                       name="accountDescription_{{$index}}"
+                                       class="form-control input-md"
+                                       ng-model="account.accountDescription"
+                                       required/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body custom_p_body" style="margin-top: 50px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 no-pad">
+                        <div class="row">
+                            <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-5">-->
+                            <!--<div class="form-group">-->
+                            <!--<label class="col-md-4 control-label" for="">Memo</label>-->
+                            <!--<div class="col-md-6" style="position:relative;">-->
+                            <!--<textarea id="Memo" name="Memo"-->
+                            <!--allowpattern="[a-z]"-->
+                            <!--type="text" placeholder="Memo"-->
+                            <!--ng-model="memoText"-->
+                            <!--ng-model-options="{ debounce: 1000 }"-->
+                            <!--ng-blur="hideAutoComplete()"-->
+                            <!--class="form-control input-md"> </textarea>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-lg-offset-3">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="">Total Debit</label>
+                                        <div class="col-md-6" style="position:relative;">
+                                            <input id="totalDebit" name="TotalDebit"
+                                                   type="text" placeholder="Total Debit"
+                                                   ng-model="totalDebitText"
+                                                   class="form-control input-md" required readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="">Total Credit</label>
+                                        <div class="col-md-6" style="position:relative;">
+                                            <input id="totalCredit" name="TotalDebit"
+                                                   type="text" placeholder="Total Credit"
+                                                   ng-model="totalCreditText"
+                                                   class="form-control input-md" required readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="">Out of Balance</label>
+                                        <div class="col-md-6" style="position:relative;">
+                                            <input id="OutofBalance" name="OutofBalance"
+                                                   type="text" placeholder="Out of Balance"
+                                                   ng-model="outofBalanceText |number:2"
+                                                   class="form-control input-md" required readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12" style="margin-top: 15px;">
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-2 col-sm-3"ng-show="userAccessRights.jesave">
+                                                    <button type="submit" class="btn btn-default hi_btn" data-toggle="modal"
+                                                            data-target=".print-me" ng-click="saveJournalEntry()" style="background:#89c534; border-radius:5px; border:0; padding:7px 9px; color:#fff; float:right;">Save
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-3" ng-show="userAccessRights.jedraft">
+                                                    <button type="submit" class="btn btn-default hi_btn" data-toggle="modal"
+                                                            data-target=".print-me" ng-click="saveDraftJournalEntry()" style="background:#89c534; border-radius:5px; border:0; padding:7px 9px; color:#fff; float:right;">Draft
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-3" ng-show="userAccessRights.jecancel">
+                                                    <button type="button" class="btn btn-default hi_btn" data-dismiss="modal" ng-click="removeAllItems()" style="background:#89c534; border-radius:5px; border:0; padding:7px 9px; color:#fff; float:right;">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="modal fade selectAccount" tabindex="-1" id="selectAccount" role="dialog" data-backdrop="static"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content checkout">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Select Account</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Search: <input class="form-control input-sm" ng-change="getAccountList(searchText, true)"
+                                              ng-change-delay="300" ng-model="searchText"></label>
+                        <div class="table-responsive">
+                            <table class="table journal-select-account table-striped table_costomize itemlisttable" id="">
+                                <thead>
+                                <tr>
+                                    <th data-field="name">Account Code</th>
+                                    <th data-field="desc">Account Name</th>
+                                    <th data-field="desc">Upper Level Name </th>
+                                    <th data-field="desc">Account Type</th>
+                                    <!--<th data-field="desc">Item Category Name</th>-->
+                                </tr>
+                                </thead>
+                                <tbody id="parentTable">
+                                <tr ng-repeat="account in accountList| filter:searchText"
+                                    ng-click="showAcceptedNotificationList ? updateNotificationItemInList(account) : addAccount(account,$index);">
+                                    <td hidden>{{account.accountid}}</td>
+                                    <td>{{account.stringAccountCode}}</td>
+                                    <td class="word_break">{{account.account_name}}</td>
+                                    <td>{{account.account_name}}</td>
+                                    <td>{{account.accountGroup}}</td>
+                                    <td>{{account.parentAccount_name}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade  bs-check" tabindex="-1" id="receiptDuplicatePrint" role="dialog" data-backdrop="static"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md" style="width: 770px;">
+        <div class="modal-content checkout">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="hideButton()" aria-label="Close">
+                    <span aria-hidden="true" ng-click="remove()">&times;</span></button>
+                <h4 class="modal-title">Duplicate Journal Entry List</h4>
+            </div>
+            <div class="modal-body checkout-body">
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <!--<select class="form-control input-md" ng-change="getInvokeOrder(this.invokeorder)"-->
+                                    <!--ng-model="salesInvoice"  ng-options="salesInvoice.siid  as salesInvoice.sino for salesInvoice in  posSalesList">-->
+                                    <!--<option value="">Select</option>
+                           </select>-->
+                                    <label>Search: <input class="form-control input-sm"
+                                    ng-keyup="$event.keyCode == 13 ? getDuplicateJE(searchText) : null"
+                                    ng-model="searchText"></label>
+                                    <table class="table table-striped table_costomize" id="saleslisttable">
+                                        <thead>
+                                        <tr>
+                                            <th data-field="name">Form No</th>
+                                            <th data-field="name">Total Debit</th>
+                                            <th data-field="name">Total Credit</th>
+                                            <th data-field="name">Edit</th>
+                                            <th data-field="name">Post</th>
+                                            <th data-field="name" style="width: 105px;">Duplicate Print</th>
+                                            <!--<th data-field="name">Mail</th>-->
+                                        </tr>
+                                        </thead>
+                                        <tbody id="parentTable">
+                                        <tr ng-repeat="s in JeList | filter:searchText">
+                                            <td>{{s.jeNo}}</td>
+                                            <td>{{s.totalDebit}}</td>
+                                            <td>{{s.totalCredit}}</td>
+                                            <td ng-if="s.status == 'Draft'"><a type="button" data-toggle="tooltip"
+                                                                               ng-readonly="status === 'Draft'"  ng-click="getJREForEdit(s.jeNo)"
+                                                                               title="Edit"><img
+                                                    src="resource/posimages/icons/edit.PNG"></a></td>
+                                            <td  ng-if="s.status == 'Prepared'"><a type="text" data-toggle="tooltip"
+                                                                                   title="Yes" ></a>Posted</td>
+                                            <td ng-if="s.status == 'Draft'"><a type="button" data-toggle="tooltip" ng-readonly="status === 'Draft'"  ng-click="postJournalEntry(s.jeNo,$index)"
+                                                                               title="Posting"><img src="resource/posimages/icons/cal_icon_2.png"></a></td>
+                                            <td ng-if="s.status == 'Prepared'"><a type="text" data-toggle="tooltip" title="Yes" ></a>Yes</td>
+                                            <td style="width: 105px;"><a type="button" data-toggle="tooltip"
+                                                                         ng-click="duplicateJEPrint(s.jeNo)" title="Print"><img
+                                                    src="resource/posimages/icons/cal_icon_1.png"></a></td>
+                                            <!--<td><a type="button" data-toggle="tooltip"-->
+                                            <!--ng-click="mailDuplicateInvoice(s.jeNo,s.customerEmail)"-->
+                                            <!--title="Mail"><img-->
+                                            <!--src="resource/posimages/icons/cal_icon_2.png"></a></td>-->
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" ng-click="remove()" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<journal-entry-print></journal-entry-print>
+
+<div id="selectAccountSidePopup" class="modal fade shadowBox animationIf">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header" style="padding:5px 15px; background:#1b4374; color:#fff;">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true" style="color: #fff" ng-click="closeSelectAccountSidePopup();remove();">×</span>
+                </button>
+                <h4 class="modal-title">Select Account</h4>
+            </div>
+
+            <div class="modal-body" style="height: 460px; overflow-y: scroll;">
+                <div class="row">
+                    <div class="col-md-12" style="padding: 0 15px;">
+                        <label>Search:
+                            <div style="position:relative; width:287px; display:inline-block; margin-right:3px; margin-left:5px;">
+                                <input id="selectAccountSearchBox" class="form-control input-sm"
+                                       ng-keyup="$event.keyCode == 13 ? getAccountList(text, false) : null"
+                                       ng-model="text" style="clear:both; margin:2px 0 10px;" />
+                                <span style="position:absolute; top:8px; right:8px;">
+                                    <i class="fa fa-search" aria-hidden="true"
+                                       style="font-size:15px !important; border:none !important; color:#ddd;"></i>
+                                </span>
+                            </div>
+                            <!--<div style="display: inline-block;position: relative;">
+                                <button style="background: #1b4374;border-radius: 5px;border: 0px;padding: 7px 9px 4px;margin: 0px;"
+                                        class="btn btn-default add_btn" ng-disabled="gtPurchaseAccountAdd==false"
+                                        ng-click="addNewAccountPopulate()">
+                                    <i class="fa fa-plus fa-fw" style="color: #fff;border: none !important;"></i>
+                                </button>
+                            </div>-->
+                        </label>
+                        <div class="table-responsive">
+                            <table class="table table-select-account table-striped table_costomize itemlisttable" id="">
+                                <thead style="background:#1b4374;">
+                                <tr>
+                                    <th data-field="name" style="padding:8px 0; width:20%;">Account Code</th>
+                                    <th data-field="desc" style="padding:8px 0; width:30%;">Account Name</th>
+                                    <th data-field="desc" style="padding:2px 0; width:20%;">Upper Level Name</th>
+                                    <th data-field="desc" style="padding:8px 0; width:30%;">Account Type</th>
+                                </tr>
+                                </thead>
+                                <tbody id="parentTable">
+                                <tr ng-repeat="account in accountList| filter:searchText"
+                                    ng-click="showAcceptedNotificationList ? updateNotificationItemInList(account) : addAccount(account,$index);">
+                                    <td hidden>{{account.accountid}}</td>
+                                    <td>{{account.stringAccountCode}}</td>
+                                    <td class="word_break">{{account.accountname}}</td>
+                                    <td>{{account.accountGroup}}</td>
+                                    <td>{{account.parentAccountname}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div style="border-top: 1px solid #ddd;padding: 5px; text-align: right;">-->
+            <!--<button type="button" class="btn btn-default" ng-click="closeSelectItemSidePopup();remove();">Close</button>-->
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade printreceiptA4" tabindex="-1" id="gtJournalEntryPrint" role="dialog"
+     data-backdrop="static"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-lg" style="width:770px;height:842px;">
+        <div class="modal-content checkout">
+            <div id="receiptPaymentPritableArea" class="panel-body" class="mini-print-wrapper"
+                 style="max-height:500px;overflow-y: auto;">
+
+                <style>
+
+                    #receiptPaymentA5SaveAndPrint tr {
+                        display: table-row;
+                    }
+                    #receiptPaymentA5SaveAndPrint td {
+                        display: table-cell;
+                    }
+
+                    #receiptPaymentA5SaveAndPrint tbody {
+                        display: table-row-group;
+                    }
+
+                    table, tr, td{
+                        border:none!important;
+                        border-collapse: collapse;
+                        font-size: 11px;
+                        padding: 5px;
+                    }
+
+
+                </style>
+                <table style="width:700px;border:1px solid gray!important;">
+                    <tr>
+                        <td>
+                            <table class="hi_table" style="width: 700px;border-bottom: 1px solid black!important;">
+                                <tr>
+                                    <td>
+                                        <div class="invoice-title">
+                                            <h3 style="text-align: center;font-weight: 600;"> JOURNAL ENTRY</h3>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table style="width:700px;border-bottom: 1px solid black!important; padding-bottom: 30px!important;" class="hi_table">
+                                <tr>
+                                    <td style="width: 37%;">Company Name </td>
+                                    <td style="width: 3%;">: </td>
+                                    <td>{{journalEntryData.company.companyName}} </td>
+                                </tr>
+                                <tr>
+                                    <td>Company No </td>
+                                    <td>: </td>
+                                    <td>{{journalEntryData.company.companyNo}} </td>
+                                </tr>
+                                <tr>
+                                    <td>Email Id</td>
+                                    <td>:</td>
+                                    <td>{{journalEntryData.company.email}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Transaction ID </td>
+                                    <td>:</td>
+                                    <td>{{journalEntryData.jeNo}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Date</td>
+                                    <td>:</td>
+                                    <td>{{journalEntryData.jepDate}}</td>
+                                </tr>
+                                <!--<tr style="padding-bottom:20px;">-->
+                                <!--<td >Prepared By</td>-->
+                                <!--<td>:</td>-->
+                                <!--<td>{{fullUserName}}</td>-->
+                                <!--</tr>-->
+                            </table>
+
+                            <table style="width: 700px;border: 1px solid black!important;padding: 30px 0!important;" class="hi_table">
+
+                                <thead>
+                                <tr style="padding: 20px 0!important;">
+                                    <th style="text-align: left!important;border: 1px solid black!important;padding-left:5px;">Account Name</th>
+                                    <th style="text-align: left!important;border: 1px solid black!important;padding-left:5px;">Account Description</th>
+                                    <th style="text-align: left!important;border: 1px solid black!important;padding-left:5px;">Debit</th>
+                                    <th style="text-align: left!important;border: 1px solid black!important;padding-left:5px;">Credit</th>
+                                </tr>
+                                </thead>
+                                <tbody style="padding: 20px 0!important">
+                                <tr ng-repeat="journalEntryData in journalEntryData.journalEntryDetailsList">
+                                    <td style="border: 1px solid black!important">{{journalEntryData.accountname}}</td>
+                                    <td style="border: 1px solid black!important">{{journalEntryData.accountDescription}}</td>
+                                    <td style="border: 1px solid black!important">{{journalEntryData.debitAmount|number:2}}</td>
+                                    <td style="border: 1px solid black!important">{{journalEntryData.creditAmount|number:2}}</td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+
+
+                            <table style="width:700px;border-top: 1px solid black;border-bottom: 1px solid black!important;padding: 20px 0!important;" class="hi_table">
+                                <tr>
+                                    <td>TotalDebit&nbsp; : {{journalEntryData.totalDebit|number:2}} </td>
+                                </tr>
+                                <tr>
+                                    <td>TotalCredit : {{journalEntryData.totalCredit|number:2}}</td>
+                                </tr>
+                            </table>
+                            <table class="hi_table" style="margin-top: 20px;width: 700px;">
+                                <tr>
+                                    <td>
+                                        <p style="padding:80px 30px 0 30px;">Approved By</p>
+                                    </td>
+                                    <td>
+                                        <p style="padding:80px 30px 0 30px;text-align: right;">Prepared By</p>
+                                    </td>
+                                <tr>
+                                    <td colspan="3" id="log"></td>
+                                </tr>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" id="close" class="btn btn-default" id="close" data-dismiss="modal" >Close
+                </button>
+                <button type="button" id="printbutton" ng-click="printDivA5('receiptPaymentPritableArea')" id="printbutton" class="btn btn-default">Print
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    .rep_list_info .custom_info {
+        margin: 15px 0px;
+        text-align: center;
+        border: 1px solid #ccc;
+        background: #fff;
+        padding: 20px 10px;
+        height: 136px;
+    }
+    .rep_list_info .custom_info img{
+        width: 30%;
+    }
+    .rep_info {
+        text-align: center;
+        color: #333;
+        font-weight: bold;
+    }
+    .pos-header-new {
+        border-top: 30px solid #f0ad4e;
+        border-right: 25px solid transparent;
+        color: black;
+        margin: 0;
+        float: left;
+        height: 0;
+        line-height: 24px;
+        padding: 0 35px 0 10px;
+        text-transform: uppercase;
+        -moz-transition: border-bottom-color .4s ease;
+        -o-transition: border-bottom-color .4s ease;
+        -webkit-transition: border-bottom-color .4s ease;
+        transition: border-bottom-color .4s ease;
+        min-width: 202px;
+    }
+    .pos-header-new > div, .pos-header-double > div {
+        margin-top: -25px;
+    }
+    @media (min-width: 992px) {
+        .col-md-3 {
+            width: 22% !important;
+        }
+    }
+</style>
+
+<body>
+<div class="container-fluid" style="width:100%;">
+    <div class="container cus_main_row">
+
+        <div class="row">
+            <h2 class="pos-header-new">
+                <div>Masters</div>
+
+            </h2>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/country" ng-show="userAccessRights.country">
+                    <div class="custom_info">
+                        <i class=" fa fa-globe fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">Country</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/state" ng-show="userAccessRights.state">
+                    <div class="custom_info">
+                        <i class="fa fa-map-marker fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">State</div>
+                    </div>
+                </a>
+            </div>
+           <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/currency" ng-show="userAccessRights.currency">
+                    <div class="custom_info">
+                        <i class=" fa fa-money fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">Currency</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/tableconfig" ng-show="userAccessRights.tableZone">
+                    <div class="custom_info">
+                        <i class="fa fa-table fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">TableZone</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/table" ng-show="userAccessRights.tableZone">
+                    <div class="custom_info">
+                        <i class="fa fa-th fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">TablesPos</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/agent" ng-show="userAccessRights.agent">
+                    <div class="custom_info">
+                        <i class="fa fa-user fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">Agent</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/employee" ng-show="userAccessRights.employee">
+                    <div class="custom_info">
+                        <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">Employee</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/customer" ng-show="userAccessRights.customer">
+                    <div class="custom_info">
+                        <i class="fa fa-users fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">Customer</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/categoryinv" ng-show="userAccessRights.category">
+                    <div class="custom_info">
+                        <i class="fa fa-braille fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">Category</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/kitchen" >
+                    <div class="custom_info">
+                        <i class="fa fa-braille fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">Kitchen</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/item" ng-show="userAccessRights.item">
+                    <div class="custom_info">
+                        <i class="fa fa-cutlery fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">Item</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/paymentmethod" ng-show="userAccessRights.paymentMethod">
+                    <div class="custom_info">
+                        <i class="fa fa-credit-card fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">Payment Method</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/useraccountSetup" ng-show="userAccessRights.userAccountSetUp">
+                    <div class="custom_info">
+                        <i class="fa fa-user-plus fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">User Account Setup</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/accountType" ng-show="userAccessRights.accountType">
+                    <div class="custom_info">
+                        <i class="fa fa-google-wallet fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">Account Type</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/accountGroup" ng-show="userAccessRights.accountGroup">
+                    <div class="custom_info">
+                        <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">Account Group</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/createchartofaccount" ng-show="userAccessRights.chartOfAccounts">
+                    <div class="custom_info">
+                        <i class="fa fa-university fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">Create Chart Of Accounts</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/contact" ng-show="userAccessRights.contact">
+                    <div class="custom_info">
+                        <i class="fa fa-phone-square fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">Contact</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/configuration" ng-show="userAccessRights.configuration">
+                    <div class="custom_info">
+                        <i class="fa fa-cogs fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">Configuration</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/shift" ng-show="userAccessRights.shift">
+                    <div class="custom_info">
+                        <i class="fa fa-random fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">Shift</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/voucher" ng-show="userAccessRights.paymentVoucher">
+                    <div class="custom_info">
+                        <i class="fa fa-gift fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">Payment Voucher</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 rep_list_info">
+                <a href="#!/smsServer" ng-show="userAccessRights.smsService">
+                    <div class="custom_info">
+                        <i class="fa fa-comments fa-5x" aria-hidden="true"></i>
+                        <div class="rep_info">SMS Service</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

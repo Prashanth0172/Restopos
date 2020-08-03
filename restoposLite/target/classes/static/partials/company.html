@@ -1,0 +1,256 @@
+<div class="">
+    <div class="container cus_main_row" style="width: 100%">
+
+        <div class="row">
+            <h2 class="pos-header-new">
+                <div>Company Information</div>
+            </h2>
+        </div>
+        <div class="row inner_row_bg">
+            <button style="background: #f0ad4e" type="button"
+                    class="btn btn-danger"
+                    data-toggle="tooltip" ng-disabled="disable"
+                    ng-click="syncOrders()">Syncronise
+            </button>
+
+    <form class="form-horizontal" id="companyDetails" method="post" name="addemail">
+        <div class="col-sm-offset-1 col-sm-5 col-md-5 col-lg-5 marginTop_50px">
+            <fieldset>
+
+                <!-- Text input-->
+                <input type="hidden" id="companyId" ng-model="companyId">
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-6 col-lg-6 control-label">Company Name<span
+                            style="color: red">*</span></label>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <input type="text" name="companyname" placeholder="Company Name."
+                               ng-value="companyname" ng-model="companyname"
+                               class="form-control input-md">
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-6 col-lg-6 control-label" for="company_no">Company No.</label>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <input type="text" name="companyno" maxlength="12"
+                               ng-value="companyno" ng-model="companyno"
+                               id="company_no" class="form-control input-md" placeholder="Company No.">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-6 col-lg-6 control-label" for="company_no">PAN<span
+                            style="color: red"></span></label>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <input type="text" name="panNo" maxlength="12"
+                               ng-value="panNo" ng-model="panNo"
+                               id="pan_no" class="form-control input-md" placeholder="PAN No.">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-6 col-lg-6 control-label">Incorp. Date</label>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <p class="input-group">
+                            <input type="text" id="fromDate"  name="incdate" class="form-control" uib-datepicker-popup="{{format}}" ng-model="incdate" readonly  is-open="popup1.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats" />
+                            <span class="input-group-btn">
+                                     <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                        </p>
+                    </div>
+                </div>
+                <!-- Textarea -->
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-6 col-lg-6 control-label" for="address">Address</label>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                    <textarea name="address" cols="" rows=""
+                              ng-value="address" ng-model="address"
+                              id="address"
+                              class="form-control input-md"></textarea>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label  class="col-sm-3 col-md-6 col-lg-6 control-label" for="address">Pincode</label>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <input name="pincode" ng-model="pincode" ng-value="pincode" id="pincode" class="form-control" placeholder="Pincode">
+
+                    </div>
+                </div>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-6 col-lg-6 control-label">Phone Number</label>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <input type="text" name="phone" num-with-space
+                               ng-model="phone" maxlength="10"
+                               ng-value="phone"
+                               id="phone" class="form-control input-md" placeholder="Phone Number">
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-6 col-lg-6 control-label" for="fax">Fax No.</label>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <input type="text" name="fax" maxlength="16" alphanum-with-space
+                               ng-model="fax" id="fax" ng-value="fax"
+                               class="form-control input-md">
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-6 col-lg-6 control-label">Language</label>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <input type="text" name="lang" alpha-with-space maxlength="125"
+                               ng-value="lang" ng-model="lang"
+                               ng-change="lang"
+                               class="form-control input-md">
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-3 col-lg-6 control-label" for="email">Email</label>
+                    <div class="col-sm-6 col-md-6 ol-lg-6">
+                        <input type="text" name="email" maxlength="245" id="email" class="form-control input-md"
+                               ng-value="email" ng-model="email" ng-pattern="word"
+                               placeholder="Email">
+                        <p class="error" ng-show="addemail.email.$error.pattern">Enter Valid EmailId</p>
+
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-6 col-lg-6 control-label">Website</label>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <input type="text" name="web" ng-value="web" ng-model="web"
+                               class="form-control input-md" placeholder="Website">
+                    </div>
+                </div>
+            </fieldset>
+            <!--<div class="btn-group">-->
+                <!--<a id="get-selections" class="btn btn-default clear_dialog" style="padding:5px 20px;" ng-disabled="isDisabled"-->
+                   <!--ng-click="SaveDetails()">Update</a>-->
+            <!--</div>-->
+        </div>
+
+        <div class="col-sm-5 col-md-5 col-lg-5 marginTop_50px">
+            <fieldset>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label class="col-md-6 col-sm-4 control-label" >Country<span style="color: red">*</span></label>
+                    <div class="col-md-6 col-sm-6" style="position:relative;">
+                        <select id="countryId" name="countryId"
+                                ng-model="countryId"
+                                ng-change="countryState(countryId)"
+                                ng-options="country.countryId as
+											country.countryName for country in countryList" class="form-control input-md">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-6 col-sm-4 control-label" >State<span style="color: red">*</span></label>
+                    <div class="col-md-6 col-sm-6" style="position:relative;">
+                        <select id="stateId" name="stateId" ng-model="stateId" ng-options="state.stateId as
+											state.stateName for state in stateList" class="form-control input-md">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label class="col-md-6 col-sm-4 control-label" >Currency<span style="color: red">*</span></label>
+                    <div class="col-md-6 col-sm-6" style="position:relative;">
+                        <select id="currencyId" name="currencyId" ng-model="currencyId" ng-options="currency.currencyId as
+											currency.currencyCode for currency in currencyList" class="form-control input-md">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                </div>
+
+
+
+
+                <!-- Multiple Radios (inline) -->
+                <div class="form-group">
+                    <label class="col-sm-4 col-md-6 col-lg-6 control-label">GST Registered?</label>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <select name="StatusText" id="gstRegText" ng-model="gstRegText" class="form-control input-md">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="gstRegText=='Yes'">
+                    <label class="col-sm-4 col-md-6 col-lg-6 control-label">GST No.</label>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <input type="text" name="registerNo" maxlength="15" id="gstRegisterNo" class="form-control input-md"
+                               ng-value="gstRegisterNo" ng-model="gstRegisterNo"
+                               placeholder="GST No.">
+                    </div>
+                </div>
+                <div class="form-group" ng-show="gstRegText=='Yes'">
+                    <label class="col-sm-4 col-md-6 col-lg-6 control-label">GST Registered Date</label>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <p class="input-group">
+                            <input type="text" name="gstregisteredDate" id="fromDatew" class="form-control" uib-datepicker-popup="{{format}}"   ng-model="gstregisteredDate"  is-open="popup2.opened" datepicker-options="dateOptions"  close-text="Close" alt-input-formats="altInputFormats" />
+                            <span class="input-group-btn">
+                                     <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 col-md-6 col-lg-6 control-label">Inventory Location</label>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <input type="text" name="invLoc" maxlength="12" id="invLoc" class="form-control input-md"
+                               ng-value="invLoc" ng-model="invLoc"
+                               placeholder="Inventory Location">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 col-md-6 col-lg-6 control-label">HiConnect No</label>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <input type="text" name="hiconnectNo" maxlength="12" id="hiconnectNo" class="form-control input-md"
+                               ng-value="hiconnectNo" ng-model="hiconnectNo"
+                               placeholder="HiConnect No.">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h4 class="col-sm-2 col-md-3 col-lg-4 control-label" for=""></h4>
+                    <input type='file' accept='image/*' id="imageLoad" ng-model-instant
+                           onchange="angular.element(this).scope().imageUpload(event)"><br>
+                    <img class="image-preview"
+                         style="width: 175px;height:175px;margin-left: 239px;" src={{fileName}}>
+                    <br>
+                </div>
+            <div class="btn-group">
+                <a id="get-selections" class="btn btn-default clear_dialog" style="padding:-276px -21px;margin-top: 54px;" ng-disabled="isDisabled"
+                   ng-click="SaveDetails()">Update</a>
+            </div>
+            </fieldset>
+
+        </div>
+    </form>
+            <div id="select_item_box" class="easyui-dialog" closed="true" modal="true" title="ITEMS" style="width:770px; height:500px;">
+       <div id="select_item_box_alert" class="easyui-dialog alert_box_class" closed="true" modal="true"
+         title="Alert" style="width:300px; min-height:100px; height: auto;margin: auto;text-align: center ;">
+        <span class="message">
+            <p></p>
+
+        </span>
+    </div>
+</div></div>
+</div>
+</div>
+
+
+
+
+

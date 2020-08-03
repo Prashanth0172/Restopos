@@ -1,0 +1,84 @@
+<div class="panel panel-primary" style="margin-top: -116px;margin-left: 195px;">
+  <div class="panel-heading">
+    <h2>Table List</h2>
+  </div>
+  <div class="panel-body">
+    <button type="button" id="btnOpen" class="btn btn-primary" (click)="openModal(true)">Add</button>
+    <button style="margin-left: 10px" id="btnActive" class="btn btn-primary" (click)="inactiveButton()">{{ButtonStatus}}</button>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Table Name</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let table of table ">
+        <td>{{table.table_name}}</td>
+        <td>{{table.table_status}}</td>
+        <td>
+          <button (click)="updateTable(table)" class="btn btn-info" style="margin-left: 10px">Edit</button>
+        </td>
+      </tr>
+      </tbody>
+      <div class="form-group">
+        <div class="col-sm-12 col-md-12 pagination_" style="margin-top: 0px;">
+
+          <button type="button" [disabled]="first" (click)="paginationList('firstPage')" >First
+          </button>
+          <button type="button" [disabled]="prev" (click)="paginationList('prevPage')" >Prev
+          </button>
+          <button type="button"  [disabled]="next" (click)="paginationList('nextPage')">Next
+          </button>
+          <button type="button" [disabled]="last" (click)="paginationList('lastPage')">Last
+          </button>
+        </div>
+      </div>
+    </table>
+  </div>
+</div>
+<div id="mdlSample" class="modal fade" role="dialog" [ngStyle]="{'display': mdlSampleIsOpen ? 'block' : 'none', 'opacity': 1}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="country-title">Add Table</h4>
+      </div>
+      <div class="form-group">
+        <label for="name">Table Name</label>
+        <input type="text" class="form-control" id="firstName" required [(ngModel)]="tablePos.table_name" name="firstName">
+      </div>
+
+      <label >Zone Name</label>
+      <select id="zone_id" name="zone_id" [(ngModel)]="tablePos.zone_id">
+        <option *ngFor="let zone of zoneList" [value]="zone.id">
+          {{zone.zone_name}}
+        </option>
+      </select>
+
+      <!--<div class="form-group">-->
+        <!--<label for="name">Zone Name</label>-->
+        <!--<select name="zone_id" [(ngModel)]="table.zone_id">-->
+          <!--<option *ngFor="let tablezone of tablezon" [value]="tablezone.id">-->
+            <!--{{tablezone.zone_name}}-->
+          <!--</option>-->
+        <!--</select>-->
+      <!--</div>-->
+      <div class="form-group">
+        <label for="name">Status</label>
+        <select class="form-control" id="status" required [(ngModel)]="tablePos.table_status" name="status">
+          <option value="1">Active</option>
+          <option value="0">InActive</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button id="submit" type="button" class="btn btn-default" data-toggle="modal" ng-disabled="isDisabled"
+                data-target=".print-me" (click)="onSubmit('add_new_country_modal')">Save</button>
+        <button type="button" id="btnOpen1" class="btn btn-primary" (click)="openModal(false)">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="headerCtrl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{name}}</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="./dist/angular-ui-notification.min.css">
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="./bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="./bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="./dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" type="text/css" href="./dist/css/custom.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="./dist/css/skins/_all-skins.min.css">
+    <!-- Morris chart -->
+    <link rel="stylesheet" href="./bower_components/morris.js/morris.css">
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="./bower_components/jvectormap/jquery-jvectormap.css">
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="./bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="./bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="./plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/v/dt/dt-1.10.16/r-2.2.1/datatables.min.css">
+
+    <!-- Google Font -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+
+    <header id="header" class="main-header">
+        <!-- Logo -->
+        <!--<a class="logo">-->
+            <!--&lt;!&ndash; mini logo for sidebar mini 50x50 pixels &ndash;&gt;-->
+            <!--&lt;!&ndash;<span class="logo-mini" style="text-align: center"><b>{{name}}</b></span>&ndash;&gt;-->
+            <!--&lt;!&ndash; logo for regular state and mobile devices &ndash;&gt;-->
+            <!--<span class="logo-lg" style="text-align: center">{{name}}</span>-->
+        <!--</a>-->
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <img src="partials/images/logo.png" style="width: 33%;">
+        </div>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" style="text-align: center;">
+            <span style="color:white;text-align: center;font-size: 30px">{{name}}</span>
+            <!-- Sidebar toggle button-->
+            <a class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown notifications-menu">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="label label-warning" ng-if="tableMessage.length" >{{tableMessage.length}}</span>
+                        </a>
+                        <ul class="dropdown-menu" style="width: 600px;">
+                            <li ng-repeat="message in tableMessage track by $index">
+                              {{$index+1}}        {{message}}
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown notifications-menu">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="label label-warning" ng-if="onlineplacedList.length">{{onlineplacedList.length}}</span>
+                        </a>
+                        <ul class="dropdown-menu" style="width: 600px;">
+                            <li class="header">You have {{onlineplacedList.length}} notifications</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu" ng-if="onlineplacedList.length">
+                                    <li ng-repeat="notification in onlineplacedList">
+                                        <a>
+                                            <div class="row" style="margin: 0px;">
+                                                <div class="col-md-3 text-center"
+                                                     ng-show="notification.fromCompname=='Zomato'||notification.fromCompname=='zomato'">
+                                                    <img src="resource/images/Zomato_logo.png"
+                                                         style="width:48px; height:48px; "/>
+                                                    <p style="margin: 10px 0 0;color: dimgray;font-weight: 60; border: 1px solid;padding: 0 5px;">
+                                                        {{notification.typeFlag}}
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-3 text-center"
+                                                     ng-show="notification.fromCompname=='Swiggy'||notification.fromCompname=='swiggy'">
+                                                    <img src="resource/images/swiggy-logo.png"
+                                                         style="width:48px; height:48px; "/>
+                                                    <p style="margin: 10px 0 0;color: dimgray;font-weight: 60; border: 1px solid;padding: 0 5px;">
+                                                        {{notification.typeFlag}}
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-3 text-center"
+                                                     ng-show="notification.fromCompname=='ubereats'||notification.fromCompname=='UberEats'">
+                                                    <img src="resource/images/uber.png"
+                                                         style="width:48px; height:48px; "/>
+                                                    <p style="margin: 10px 0 0;color: dimgray;font-weight: 60; border: 1px solid;padding: 0 5px;">
+                                                        {{notification.typeFlag}}
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-3 text-center"
+                                                     ng-show="notification.fromCompname=='Restopos'||notification.fromCompname=='Restopos'">
+                                                    <img src="resource/images/favicon-16x16.png"
+                                                         style="width:48px; height:48px; "/>
+                                                    <p style="margin: 10px 0 0;color: dimgray;font-weight: 60; border: 1px solid;padding: 0 5px;">
+                                                        {{notification.typeFlag}}
+                                                    </p>
+                                                </div>
+                                                <div class="col-m`d-3 text-center"
+                                                     ng-show="notification.fromCompname=='FoodPanda'||notification.fromCompname=='foodpanda'">
+                                                    <img src="resource/images/foodpanda.png"
+                                                         style="width:48px; height:48px; "/>
+                                                    <p style="margin: 10px 0 0;color: dimgray;font-weight: 60; border: 1px solid;padding: 0 5px;">
+                                                        {{notification.typeFlag}}
+                                                    </p>
+                                                </div>
+
+                                                <div class="col-md-9">
+                                                    <div ng-if="notification.status=='placed'">
+                                                        <div class="col-md-12" style="padding-left:0px">
+                                                            <div class="col-md-5" style="padding:0px">
+                                                                <div class="col-md-6 text-center" style="padding:0px">
+
+                                                                    <table class="table table-striped table-bordered nowrap">
+                                                                        <tr style="padding-top:20px!important;">
+                                                                            <td style="width: 37%;"><b>Customer Name</b>
+                                                                            </td>
+                                                                            <td style="width: 3%;">:</td>
+                                                                            <td>{{notification.customerName}}</td>
+                                                                            <td style="width: 37%;"><b>Amount</b></td>
+                                                                            <td style="width: 3%;">:</td>
+                                                                            <td>{{notification.amount}}</td>
+                                                                            <td>
+                                                                                <button type="button"
+                                                                                        class="btn btn-success"
+                                                                                        width="60" height="100"
+                                                                                        ng-click="viewdetails(notification)">
+                                                                                    View
+                                                                                </button>
+                                                                            </td>
+
+                                                                        </tr>
+
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <!-- Tasks: style can be found in dropdown.less -->
+                    <li class="dropdown notifications-menu">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-flag-o"></i>
+                            <span class="label label-warning"
+                                  ng-if="digiplacedList.length">{{digiplacedList.length}}</span>
+                        </a>
+                        <ul class="dropdown-menu" style="width: 600px;">
+                            <li class="header">You have {{digiplacedList.length}} notifications</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu" ng-if="digiplacedList.length">
+                                    <li ng-repeat="notification in digiplacedList">
+                                        <a>
+                                            <div class="row" style="margin: 0px;">
+                                                <div class="col-md-3 text-center"
+                                                     ng-show="notification.fromCompname=='Zomato'||notification.fromCompname=='zomato'">
+                                                    <img src="resource/images/Zomato_logo.png"
+                                                         style="width:48px; height:48px; "/>
+                                                    <p style="margin: 10px 0 0;color: dimgray;font-weight: 60; border: 1px solid;padding: 0 5px;">
+                                                        {{notification.typeFlag}}
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-3 text-center"
+                                                     ng-show="notification.fromCompname=='Swiggy'||notification.fromCompname=='swiggy'">
+                                                    <img src="resource/images/swiggy-logo.png"
+                                                         style="width:48px; height:48px; "/>
+                                                    <p style="margin: 10px 0 0;color: dimgray;font-weight: 60; border: 1px solid;padding: 0 5px;">
+                                                        {{notification.typeFlag}}
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-3 text-center"
+                                                     ng-show="notification.fromCompname=='ubereats'||notification.fromCompname=='UberEats'">
+                                                    <img src="resource/images/uber.png"
+                                                         style="width:48px; height:48px; "/>
+                                                    <p style="margin: 10px 0 0;color: dimgray;font-weight: 60; border: 1px solid;padding: 0 5px;">
+                                                        {{notification.typeFlag}}
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-3 text-center"
+                                                     ng-show="notification.fromCompname=='Restopos'||notification.fromCompname=='Restopos'">
+                                                    <img src="resource/images/favicon-16x16.png"
+                                                         style="width:48px; height:48px; "/>
+                                                    <p style="margin: 10px 0 0;color: dimgray;font-weight: 60; border: 1px solid;padding: 0 5px;">
+                                                        {{notification.typeFlag}}
+                                                    </p>
+                                                </div>
+                                                <div class="col-m`d-3 text-center"
+                                                     ng-show="notification.fromCompname=='FoodPanda'||notification.fromCompname=='foodpanda'">
+                                                    <img src="resource/images/foodpanda.png"
+                                                         style="width:48px; height:48px; "/>
+                                                    <p style="margin: 10px 0 0;color: dimgray;font-weight: 60; border: 1px solid;padding: 0 5px;">
+                                                        {{notification.typeFlag}}
+                                                    </p>
+                                                </div>
+
+                                                <div class="col-md-9">
+                                                    <div ng-if="notification.status=='placed'">
+                                                        <div class="col-md-12" style="padding-left:0px">
+                                                            <div class="col-md-5" style="padding:0px">
+                                                                <div class="col-md-6 text-center" style="padding:0px">
+
+                                                                    <table class="table table-striped table-bordered nowrap">
+                                                                        <tr style="padding-top:20px!important;">
+                                                                            <td style="width: 37%;"><b>Customer Name</b>
+                                                                            </td>
+                                                                            <td style="width: 3%;">:</td>
+                                                                            <td>{{notification.customerName}}</td>
+                                                                            <td style="width: 37%;"><b>Amount</b></td>
+                                                                            <td style="width: 3%;">:</td>
+                                                                            <td>{{notification.amount}}</td>
+                                                                            <td>
+                                                                                <button type="button"
+                                                                                        class="btn btn-success"
+                                                                                        width="60" height="100"
+                                                                                        ng-click="viewdetails(notification)">
+                                                                                    View
+                                                                                </button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+
+
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            <!--<img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">-->
+                            <span class="hidden-xs">{{userName}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a class="btn btn-default btn-flat" ng-click="deactiveLicense()">Deactivate</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Control Sidebar Toggle Button -->
+
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <aside id="side" class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="active" id="restdashboard" ng-show="userAccessRights.restDashboard">
+                    <a id="restdashboardLink" href="#!/restdashboard">
+                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+                <li id="restaurantZone" ng-show="userAccessRights.restaurant">
+                    <a href="#!/restaurantZone" id="restaurantZoneLink">
+                        <i class="fa fa-dashboard"></i> <span>Restaurant</span>
+                    </a>
+                </li>
+                <li class="treeview" ng-show="userAccessRights.tokens">
+                    <a>
+                        <i class="fa fa-cutlery"></i>
+                        <span>Token</span>
+                        <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a id="kitchentokenLink" ng-show="userAccessRights.kitchenTokens" href="#!/kitchenTokenRecord"> Kitchen Token </a></li>
+                        <li><a id="waitertokenLink" ng-show="userAccessRights.waiterTokens" href="#!/waiterTokenRecord"> Waiter Token </a></li>
+                    </ul>
+                </li>
+
+                <li ng-show="userAccessRights.masters"><a id="mastersLink" href="#!/masters"><i class="fa fa-cogs"></i> <span>Masters</span></a>
+                </li>
+                <li class="treeview" ng-show="userAccessRights.finance">
+                    <a>
+                        <i class="fa fa-money"></i>
+                        <span>Finance</span>
+                        <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a id="receipt" href="#!/gtforsales" ng-show="userAccessRights.receipt"> Receipt</a></li>
+                        <li><a id="expense" href="#!/gtforpurchase" ng-show="userAccessRights.expense"> Expense</a></li>
+                        <li><a id="journalentry" href="#!/journalentry" ng-show="userAccessRights.journalEntry"> Journal Entry </a></li>
+                        <li><a id="plreport" href="#!/plreport" ng-show="userAccessRights.pandlreport"> Profit &amp; Loss Report</a></li>
+                        <li><a id="balanceSheet" href="#!/balanceSheetReport" ng-show="userAccessRights.restaurant"> Balance Sheet Report</a></li>
+                    </ul>
+                </li>
+                <li><a href="#!/company" ng-show="userAccessRights.companyInfo"><i class="fa fa-dashboard"></i> <span>Company Info</span></a>
+                </li>
+                <li class="treeview" ng-show="userAccessRights.reports">
+                    <a>
+                        <i class="fa fa-money"></i>
+                        <span>Reports</span>
+                        <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="#!/restaurantReports" ng-show="userAccessRights.restaurantReports"> Restaurant </a></li>
+                        <!--<li><a href="#"> Inventory </a></li>-->
+                    </ul>
+                </li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    <div class="modal fade printreceiptA4" tabindex="-1" id="viewalldetail" role="dialog"
+         data-backdrop="static"
+         aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-lg" style="width:770px;height:842px;">
+            <div class="modal-content checkout">
+                <div id="receiptPaymentPritableArea" class="panel-body" class="mini-print-wrapper"
+                     style=" max-height:500px;overflow-y: auto;">
+                    <button type="button" class="close" data-dismiss="modal" style="color: black !important;">x</button>
+                    <table style="width:700px;border:1px solid gray;">
+                        <tr>
+                            <td style="padding: 0 10px">
+                                <table class="hi_table">
+                                    <tr>
+                                        <td>
+                                            <table class="hi_table"
+                                                   style="width: 700px;border-bottom: 1px solid black;">
+                                                <tr>
+                                                    <td>
+                                                        <div class="invoice-title">
+                                                            <h3 style="text-align: center;font-weight: 600;">
+                                                                {{notification.restaurantName}} Order Details</h3>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                            <table style="width: 700px; border-bottom: 1px solid black; padding-bottom: 10px !important;">
+                                                <tr>
+                                                    <td>
+                                                        <h><b>Customer Details</b></h>
+                                                        <table style="width:350px;" class="hi_table">
+
+                                                            <tr style="padding-top:20px!important;">
+                                                                <td style="width: 37%;">Customer Name</td>
+                                                                <td style="width: 3%;">:</td>
+                                                                <td>{{notification.customerName}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 37%;">Location</td>
+                                                                <td style="width: 3%;">:</td>
+                                                                <td>{{notification.location}}</td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Phone Number</td>
+                                                                <td>:</td>
+                                                                <td>{{notification.phone}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Aggregator</td>
+                                                                <td>:</td>
+                                                                <td>{{notification.fromCompname}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                    <td>
+                                                        <table style="width:350px;" class="hi_table">
+                                                            <tr style="padding-bottom:20px;">
+                                                                <td style="width: 37%;">OrderId</td>
+                                                                <td style="width: 3%;">:</td>
+                                                                <td>{{notification.notificationId}}</td>
+                                                            </tr>
+                                                            <tr style="padding-bottom:20px;">
+                                                                <td style="width: 37%;">Order Date&Time</td>
+                                                                <td style="width: 3%;">:</td>
+                                                                <td>{{notification.date|date:'dd/MM/yyyy hh:mm:ss'}}
+                                                                </td>
+                                                            </tr>
+                                                            <tr style="padding-bottom:20px;"
+                                                                ng-show="notification.email">
+                                                                <td style="width: 37%;">Email</td>
+                                                                <td style="width: 3%;">:</td>
+                                                                <td>{{notification.email}}</td>
+                                                            </tr>
+
+                                                            <tr style="padding-bottom:20px;"
+                                                                ng-show="notification.pincode">
+                                                                <td>PinCode</td>
+                                                                <td>:</td>
+                                                                <td>{{notification.pincode}}</td>
+                                                            </tr>
+                                                            <tr style="padding-bottom:20px;"
+                                                                ng-show="notification.paymentStatus">
+                                                                <td>Payment Status</td>
+                                                                <td>:</td>
+                                                                <td>{{notification.paymentStatus}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table class="border_info" style="width: 700px;" class="hi_table">
+                                                <thead style="padding-top: 12px;">
+                                                <h><b>Item Details</b></h>
+                                                <tr>
+                                                    <th>SL.No</th>
+                                                    <th>Item Name</th>
+                                                    <th>Tax</th>
+                                                    <th>Unit Price</th>
+                                                    <th>Quantity</th>
+                                                    <th>Final Price</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="item in notification.itemdetails">
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{item.item_name}}</td>
+                                                    <td>
+                                                        {{(item.item_final_price/item.item_quantity)-item.item_unit_price|number:2}}
+                                                    </td>
+                                                    <td>{{item.item_unit_price}}</td>
+                                                    <td>{{item.item_quantity}}</td>
+                                                    <td>{{item.item_final_price|number:2}}</td>
+                                                </tr>
+                                                </tbody>
+
+                                            </table>
+                                </table>
+
+                                <br>
+                                <h><b style="text-align: center">Instructions:</b><br></h>
+                                <br>
+                                <p>{{notification.instructions}}</p>
+                    </table>
+                    <table class="hi_tabled"
+                           style="width: 700px;padding-bottom:10px;border-bottom: 1px solid black;margin-top: -70px !important;">
+                        <br>
+                        <h><b>Payment Details</b></h>
+                        <tr style="text-align: right;margin-left: 10px">
+                            <td>SubTotal</td>
+                            <td>:</td>
+                            <td>{{notification.subTotal|number:2}}</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <br>
+                        <tr style="text-align: right;margin-left: 10px" ng-repeat="charge in notification.charges">
+                            <td>{{charge.title}}</td>
+                            <td>:</td>
+                            <td>{{charge.value|number:2}}</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <br>
+                        <tr style="text-align: right;margin-left: 10px">
+                            <td>Total Charges</td>
+                            <td>:</td>
+                            <td>{{notification.itemCharge|number:2}}</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <br>
+                        <tr style="text-align: right;margin-left: 10px">
+                            <td>Discount</td>
+                            <td>:</td>
+                            <td>{{notification.discount|number:2}}</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <br>
+                        <tr style="text-align: right;margin-left: 10px">
+                            <td>Total Tax</td>
+                            <td>:</td>
+                            <td>{{notification.totalTaxes|number:2}}</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <br>
+                        <tr style="text-align: right;margin-left: 10px">
+                            <td>Order Total</td>
+                            <td>:</td>
+                            <td>{{notification.total|number:2}}</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <br>
+                        <tr style="text-align: right">
+                            <td>Payment Mode</td>
+                            <td> :</td>
+                            <td>{{notification.paymentmode}}</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </table>
+                    <table class="border_info" class="hi_table">
+                        <button style="float: right" type="button" data-dismiss="modal" class="btn btn-success">Close
+                        </button>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-wrapper" ng-view="true">
+
+    </div>
+    <script src="./js/vendors/jquery.min.js"></script>
+    <!-- Jquery UI Scripts -->
+    <script src="./js/vendors/jquery-ui.js"></script>
+    <script src="./js/jspdf.min.js"></script>
+    <script src="./js/base64.js"></script>
+    <script src="./js/jquery-base64.js"></script>
+    <script src="./js/sprintf.js"></script>
+    <!-- Bootstrap -->
+    <script src="./js/vendors/bootstrap.min.js"></script>
+    <!-- JQuery -->
+    <script src="./js/vendors/jquery.min.js"></script>
+    <!-- Jquery UI Scripts -->
+    <script src="./js/vendors/jquery-ui.js"></script>
+    <script src="./js/jspdf.min.js"></script>
+    <script src="./js/base64.js"></script>
+    <script src="./js/jquery-base64.js"></script>
+    <script src="./js/sprintf.js"></script>
+    <!-- Bootstrap -->
+    <script src="./js/vendors/bootstrap.min.js"></script>
+
+
+    <!-- Angular js -->
+    <script src="./js/vendors/angular.min.js"></script>
+    <script src="./js/vendors/angular-route.js"></script>
+    <script src="./js/vendors/angular-animate.min.js"></script>
+    <script src="./js/vendors/angular-sanitize.min.js"></script>
+    <script src="./js/vendors/select2.min.js"></script>
+    <script src="./js/vendors/angular-ui-notification.min.js"></script>
+    <script src="./js/vendors/angular-cookies.min.js"></script>
+    <script type="text/javascript" src="./js/vendors/moment.js"></script>
+    <script src="./js/vendors/bootstrap-datetimepicker.min.js"></script>
+    <script src="./js/vendors/ng-table.min.js"></script>
+    <script src="./js/vendors/Chart.min.js"></script>
+    <script src="./js/vendors/angular-chart.js"></script>
+    <script src="./js/vendors/bootbox.min.js"></script>
+    <script src="./js/vendors/ui-bootstrap-tpls.min.js"></script>
+    <script src="./js/vendors/angular-filter.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="./js/main.js"></script>
+    <script src="./js/custom.js"></script>
+    <script src="./js/bootstrap-wysiwyg.js"></script>
+    <script src="./js/jquery.hotkeys.js"></script>
+    <script src="./js/controller/login.js"></script>
+    <script src="./js/controller/header.js"></script>
+    <script src="./js/controller/currency.js"></script>
+
+
+    <script src="./js/controller/state.js"></script>
+    <script src="./js/controller/table.js"></script>
+    <script src="./js/controller/tableconfiguration.js"></script>
+    <script src="./js/controller/agent.js"></script>
+    <script src="./js/controller/restaurant.js"></script>
+    <script src="./js/controller/categoryinv.js"></script>
+    <script src="./js/controller/zone.js"></script>
+    <script src="./js/controller/shift.js"></script>
+    <script src="./js/controller/paymentVoucher.js"></script>
+    <script src="./js/controller/accountSetup.js"></script>
+    <script src="./js/controller/country.js"></script>
+    <script src="./js/controller/iteminv.js"></script>
+    <script src="./js/controller/addCustomerModal.js"></script>
+    <script src="./js/controller/addContactModal.js"></script>
+    <script src="./js/controller/paymentRestaurant.js"></script>
+    <script src="./js/controller/addNewItemModal.js"></script>
+    <script src="./js/controller/employee.js"></script>
+    <script src="./js/controller/customer.js"></script>
+    <script src="./js/controller/paymentmethod.js"></script>
+    <script src="./js/controller/smsServer.js"></script>
+    <script src="./js/controller/createchartofaccount.js"></script>
+    <script src="./js/controller/report/monthendlisting.js"></script>
+    <script src="./js/controller/report/itemSalesReport.js"></script>
+    <script src="./js/controller/shiftReport.js"></script>
+    <script src="./js/controller/freeMeal.js"></script>
+    <script src="./js/controller/report/dayendreport.js"></script>
+    <script src="./js/controller/dayEndListing.js"></script>
+    <script src="./js/controller/discountReport.js"></script>
+    <script src="./js/controller/tableWiseReport.js"></script>
+
+    <script src="./js/controller/accountType.js"></script>
+    <script src="./js/controller/accountGroup.js"></script>
+    <script type="text/javascript" src="./js/controller/gtforsales.js"></script>
+    <script type="text/javascript" src="./js/controller/gtforpurchase.js"></script>
+    <script type="text/javascript" src="./js/controller/journalentry.js"></script>
+    <script src="./js/controller/otherContacts.js"></script>
+    <script src="./js/controller/plreport.js"></script>
+    <script src="./js/controller/balanceSheetReport.js"></script>
+    <script src="./js/controller/configuration.js"></script>
+    <script src="./js/controller/useraccountsetupwithpermissions.js"></script>
+    <script src="./js/controller/company.js"></script>
+    <script src="./js/controller/report/restaurantInvoiceListing.js"></script>
+    <script src="./js/controller/report/agentReport.js"></script>
+    <script src="./js/controller/report/cancelledItemReport.js"></script>
+    <script src="./js/controller/report/cancelledsalesinvoice.js"></script>
+    <script src="./js/controller/report/onlineInvoiceListing.js"></script>
+    <script src="./js/controller/report/waiterReport.js"></script>
+    <script src="./js/controller/kitchenTokenRecord.js"></script>
+    <script src="./js/controller/waiterTokenRecord.js"></script>
+    <script src="./js/controller/restdashboard.js"></script>
+    <script src="./js/controller/KitchenMaster.js"></script>
+    <script src="./js/image-compressor.js"></script>
+    <script type="text/javascript" src="./js/controller/numberToWord.js"></script>
+
+
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> V-19.0.5
+        </div>
+        <strong>Copyright &copy; 2019 <a>Restopos Lite</a>.</strong> All rights
+        reserved.
+    </footer>
+
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add Country</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Country Name </label>
+
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="Country Name ">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Password</label>
+
+                            <div class="col-sm-9">
+                                <select class="form-control">
+                                    <option>option 1</option>
+                                    <option>option 2</option>
+                                    <option>option 3</option>
+                                    <option>option 4</option>
+                                    <option>option 5</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="modal-default2">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Import Country</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
+                        <h5>Download Download ExcelSheet</h5>
+                        <div class="form-group">
+
+
+                            <div class="col-sm-9">
+                                <input type="file" id="exampleInputFile">
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<script src="./bower_components/jquery/dist/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="./bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+<!-- Bootstrap 3.3.7 -->
+<script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Morris.js charts -->
+<script src="./bower_components/raphael/raphael.min.js"></script>
+<script src="./bower_components/morris.js/morris.min.js"></script>
+<!-- Sparkline -->
+<script src="./bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+<!-- jvectormap -->
+<script src="./plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="./plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="./bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="./bower_components/moment/min/moment.min.js"></script>
+<script src="./bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- datepicker -->
+<script src="./bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="./plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<!-- Slimscroll -->
+<script src="./bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="./bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="./dist/js/adminlte.min.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="./dist/js/pages/dashboard.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="./dist/js/demo.js"></script>
+<script src="./dist/angular-ui-notification.min.js"></script>
+<script src="./dist/Chart.min.js"></script>
+<script src="./dist/angular-chart.js"></script>
+<script src="https://cdn.datatables.net/v/dt/dt-1.10.16/r-2.2.1/datatables.min.js"></script>
+<script>
+    $('.sidebar ul li').on('click', function() {
+        $('.sidebar ul li.active').removeClass('active');
+        $(this).addClass('active');
+    });
+</script>
+</body>
+</html>

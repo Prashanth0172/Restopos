@@ -1,0 +1,130 @@
+import { Component, OnInit } from '@angular/core';
+import {Country} from "../country";
+import {EmployeeService} from "../employee.service";
+import {Router} from "@angular/router";
+import {Observable} from "rxjs/index";
+import {TablePos} from "../tablePos";
+
+@Component({
+  selector: 'app-table-pos-list',
+  templateUrl: './table-pos-list.component.html',
+  styleUrls: ['./table-pos-list.component.css']
+})
+export class TablePosListComponent implements OnInit {
+
+  country: Observable<Country[]>;
+  tablePos: TablePos = new TablePos();
+
+  public table=[];
+  public zoneList=[];
+  ButtonStatus : String="InActive";
+  inactiveStatus :String ="Active";
+  clicked : Boolean = false;
+  firstPage :Boolean = true;
+  lastPage :Boolean = false;
+  prevPage :Boolean = false;
+  pageNo :number = 1;
+  noOfPages : number;
+  first : Boolean;
+  last : Boolean;
+  prev : Boolean;
+  next : Boolean;
+  page : String ='firstPage';
+  constructor(private employeeService: EmployeeService,
+              private router: Router) { }
+
+  ngOnInit() {
+    this.paginationList(this.page);
+    this.getZoneList();
+
+  }
+
+  getZoneList = function () {
+    this.employeeService.getAllZoneList().subscribe(data=> {
+      this.zoneList = data.data;
+    })
+  };
+
+  paginationList(page){
+    switch (page){
+      case 'firstPage':
+        this.pageNo = 1;
+        break;
+      case 'lastPage':
+        this.pageNo = this.noOfPages;
+        break;
+      case 'nextPage':
+        this.pageNo = this.pageNo + 1;
+        break;
+      case 'prevPage':
+        this.pageNo = this.pageNo - 1;
+        break;
+      default:
+        this.pageNo=1;
+        this.firstPage = true;
+    }
+    this.employeeService.getTableList(this.inactiveStatus,"",(this.pageNo.toString())).subscribe(data=>
+    {
+      this.table = data.data;
+      this.noOfPages=data.no_of_paginations;
+      if (this.noOfPages == 1||this.noOfPages==0) {
+        this.first = true;
+        this.last = true;
+        this.prev = true;
+        this.next = true;
+      }else if(this.pageNo == this.noOfPages){
+        this.first = false;
+        this.last = true;
+        this.prev = false;
+        this.next = true;
+      }else if(this.pageNo==1){
+        this.first = true;
+        this.last = false;
+        this.prev = true;
+        this.next = false;
+      }else if(this.pageNo < this.noOfPages){
+        this.first = false;
+        this.last = false;
+        this.prev = false;
+        this.next = false;
+      }
+    })
+  }
+
+  inactiveButton(){
+    if(this.clicked ==false) {
+      this.inactiveStatus = "InActive";
+      this.ButtonStatus = "Active";
+    }
+    else {
+      this.inactiveStatus = "Active";
+      this.ButtonStatus = "InActive";
+    }
+    this.clicked = !this.clicked;
+    this.paginationList('');
+  }
+
+  updateTable(data){
+    this.tablePos=data;
+    this.openModal(true);
+  }
+  private mdlSampleIsOpen : boolean = false;
+  private openModal(open : boolean) : void {
+    this.mdlSampleIsOpen = open;
+  }
+  private submitted: boolean;
+
+  onSubmit() {
+    this.submitted = true;
+    this.save();
+    this.openModal(false);
+  }
+
+  save() {
+    this.employeeService.createTable(this.tablePos)
+      .subscribe(data => console.log(data), error => console.log(error));
+    this.tablePos = new TablePos();
+    this.paginationList(this.page);
+  }
+
+}

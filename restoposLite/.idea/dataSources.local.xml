@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="idmdatabaseTEST@localhost" uuid="5774a31a-d9fb-4725-be61-afb9c4753210">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <introspection-schemas>*:idmdatabasetest</introspection-schemas>
+    </data-source>
+    <data-source name="kundan@localhost" uuid="13580853-be95-49d5-a767-02da7114c29b">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <introspection-schemas>*:kundan</introspection-schemas>
+    </data-source>
+    <data-source name="kundanSass@localhost" uuid="cc996b16-03da-485d-a7ad-21687857d0b9">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+    </data-source>
+  </component>
+</project>

@@ -1,0 +1,103 @@
+<div class="panel panel-primary" style="margin-top: -116px;margin-left: 195px;">
+  <div class="panel-heading">
+    <h2>Category List</h2>
+  </div>
+  <div class="panel-body">
+    <button type="button" id="btnOpen" class="btn btn-primary" (click)="openModal(true)">Add</button>
+    <button style="margin-left: 10px" id="btnActive" class="btn btn-primary" (click)="inactiveButton()">{{ButtonStatus}}</button>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Category Name	</th>
+        <th>Category Description</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let category of itemCategoryList">
+        <td>{{category.itemCategoryName}}</td>
+        <td>{{category.itemCategoryDesc}}</td>
+        <td>{{category.status}}</td>
+        <td><button (click)="updateCategory(category)" class="btn btn-info" style="margin-left: 10px">Edit</button> </td>
+      </tr>
+      </tbody>
+      <div class="form-group">
+        <div class="col-sm-12 col-md-12 pagination_" style="margin-top: 0px;">
+
+          <button type="button" [disabled]="first" (click)="paginationList('firstPage')" >First
+          </button>
+          <button type="button" [disabled]="prev" (click)="paginationList('prevPage')" >Prev
+          </button>
+          <button type="button"  [disabled]="next" (click)="paginationList('nextPage')">Next
+          </button>
+          <button type="button" [disabled]="last" (click)="paginationList('lastPage')">Last
+          </button>
+        </div>
+      </div>
+    </table>
+  </div>
+</div>
+<div id="mdlSample" class="modal fade" role="dialog" [ngStyle]="{'display': mdlSampleIsOpen ? 'block' : 'none', 'opacity': 1}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      </div>
+      <div class="modal-body">
+        <h4 id="country-title">Add Category</h4>
+        <div class="box-body">
+          <div class="row" id="cus_step1">
+
+            <div class="form-group">
+              <label  class="col-sm-3 control-label">Category Name<span style="color: red">*</span> </label>
+              <div class="col-sm-9">
+                <input id="itemCategoryName" name="itemCategoryName"
+                       ng-pattern="/[aA-zZ\s]$/"
+                       type="text" placeholder="Category Name"
+                       [(ngModel)]="category.itemCategoryName"  maxlength="125"
+                       class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label  class="col-sm-3 control-label">Category Code<span style="color: red">*</span> </label>
+              <div class="col-sm-9">
+                <input id="code" name="code"
+                       type="text" placeholder="Category Code"
+                       [(ngModel)]="category.code"
+                       class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label  class="col-sm-3 control-label">Description<span style="color: red">*</span> </label>
+              <div class="col-sm-9">
+                <textarea id="itemCategoryDesc" name="itemCategoryDesc"
+                       type="text" placeholder="Description"
+                       [(ngModel)]="category.itemCategoryDesc"
+                       class="form-control">
+                </textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <label  class="col-sm-3 control-label"> Status </label>
+              <div class="col-sm-9">
+                <select name="status" id="status" [(ngModel)]="category.status" class="form-control" required>
+                  <option value="Active">Active</option>
+                  <option value="InActive">InActive</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="submit" type="button" class="btn btn-default" data-toggle="modal" ng-disabled="isDisabled"
+                data-target=".print-me" (click)="onSubmit('add_new_country_modal')">Save</button>
+        <button type="button" id="btnOpen1" class="btn btn-primary" (click)="openModal(false)">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+

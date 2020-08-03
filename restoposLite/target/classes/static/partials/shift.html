@@ -1,0 +1,184 @@
+<style>
+
+    .table .thead-dark th {
+        color: #fff !important;
+        background-color: #696969 !important;
+        border-color: #ecf0f5 !important;
+    }
+    .table td{
+        border:1px solid #696969 !important;
+    }
+    table>thead>tr>th {
+        padding: 4px !important;
+        background-color: #696969;
+        color: white;
+        font-size: 13px;
+    }
+</style>
+
+<section class="content-header">
+    <h1>
+        Shift
+    </h1>
+
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="top-box">
+                <div class="col-md-2">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Search..." id="textinput" name="textinput"  type="text"
+                                   placeholder="Search Shift" ng-model="shiftSearchText"
+                                   ng-change="getPaginatedShiftList(shiftSearchText)">
+
+                        </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="top-button-area">
+                        <div class="col-md-2 col-sm-4">
+                            <button type="button" class="btn btn-block btn-success" ng-click="addShift()">Add</button>
+                        </div>
+                        <div class="col-md-2 col-sm-4">
+                            <button type="button" class="btn btn-block btn-success" id="colButnw"  data-toggle="modal"
+                                    ng-model="inactiveStatus" data-target=".print-me"
+                                    ng-click="inactiveShift()">{{ButtonStatus}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12 col-xs-12 customer-data">
+            <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
+                <thead>
+                <tr>
+                    <th>
+                        Shift Name
+                    </th>
+                    <th>
+                        From Time
+                    </th>
+                    <th>
+                        To Time
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+
+
+                </thead>
+                <tbody>
+                <tr ng-repeat="shift in shiftList| filter:shiftSearchText">
+                    <td>{{shift.shiftName}}</td>
+                    <td>{{shift.fromTime}}</td>
+                    <td>{{shift.toTime}}</td>
+                    <td>{{shift.status}}</td>
+
+                    <td><button type="button" class="btn btn-primary hi_btn"  ng-click="editshift(shift)">Edit</button></td>
+                    <!--<button type="button" class="btn btn-primary hi_btn"  ng-click="deletecustomer(customer.customerId)">Delete</button></td>-->
+                </tr>
+                </tbody>
+            </table>
+            <div class="col-sm-12 pagination_">
+
+                <div class="col-sm-12" style="float:right !important;">
+                    <button type="button" class="btn btn-default hi_btn" ng-class="{'diabled-class': first}"
+                            ng-disabled="first"
+                            ng-click="getPaginatedShiftList('firstPage')" ng-model="first">First
+                    </button>
+                    <button type="button" class="btn btn-default hi_btn" ng-class="{'diabled-class': prev}"
+                            ng-disabled="prev"
+                            ng-click="getPaginatedShiftList('prevPage')" ng-model="prev">Prev
+                    </button>
+                    <button type="button" class="btn btn-default hi_btn" name="next" ng-disabled="next"
+                            ng-click="getPaginatedShiftList('nextPage')" value="next"
+                            ng-class="{'diabled-class': next}" ng-model="next">Next
+                    </button>
+                    <button type="button" class="btn btn-default hi_btn"
+                            ng-click="getPaginatedShiftList('lastPage')" ng-class="{'diabled-class': last}"
+                            ng-disabled="last"
+                            ng-model="last">Last
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="add_new_Shift_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 id="shift-title" class="modal-title">Add Shift</h4>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="row" id="cus_step1">
+
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label">Shift Name<span style="color:red;">*</span> </label>
+                            <div class="col-sm-9">
+                                <input id="ShiftName" name="ShiftName"
+                                       type="text" placeholder="Shift Name" alphanum-with-space=""
+                                       ng-model="shiftName" maxlength="125"
+                                       class="form-control input-md" autocomplete="off" required>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label">From Time<span style="color:red;">*</span> </label>
+                            <div class="col-sm-9">
+                                <input id="fromtime" name="fromtime" num-with-out-space
+                                       type="text" placeholder="From Time (24:00 hrs format)"
+                                       ng-model="fromtime"
+                                       class="form-control input-md" autocomplete="off" required>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label">To Time<span  style="color:red;">*</span> </label>
+                            <div class="col-sm-9">
+                                <input id="totime" name="totime"
+                                       type="text" placeholder="To Time (24:00 hrs format)"
+                                       ng-model="totime" num-with-out-space
+                                       class="form-control input-md" autocomplete="off" required>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-3 control-label">Status</label>
+                            <div class="col-sm-9">
+                                <select name="empStatus" id="empStatus" ng-model="status" class="form-control" required>
+                                    <option value="Active">Active</option>
+                                    <option value="InActive">InActive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-toggle="modal" ng-disabled="isDisabled"
+                        data-target=".print-me" ng-click="saveNewShift()">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="removeShiftDetails()">Close</button>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

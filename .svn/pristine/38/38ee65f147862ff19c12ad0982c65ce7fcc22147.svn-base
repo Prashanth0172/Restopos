@@ -1,0 +1,147 @@
+import { Component, OnInit } from '@angular/core';
+import {Observable} from "rxjs/index";
+import {Customer} from "../customer";
+import {EmployeeService} from "../employee.service";
+import {Router} from "@angular/router";
+import {City} from "../city";
+
+@Component({
+  selector: 'app-customer-list',
+  templateUrl: './customer-list.component.html',
+  styleUrls: ['./customer-list.component.css']
+})
+export class CustomerListComponent implements OnInit {
+  employees: Observable<Customer[]>;
+  customer: Customer = new Customer();
+  public customerList=[];
+  public countryList=[];
+  public states=[];
+  public cities=[];
+  ButtonStatus : String="InActive";
+  inactiveStatus :String ="Active";
+  clicked : Boolean = false;
+  firstPage :Boolean = true;
+  lastPage :Boolean = false;
+  prevPage :Boolean = false;
+  pageNo :number = 1;
+  noOfPages : number;
+  first : Boolean;
+  last : Boolean;
+  prev : Boolean;
+  next : Boolean;
+  page : String ='firstPage';
+
+  constructor(private employeeService: EmployeeService,
+              private router: Router) {}
+
+  ngOnInit() {
+    this.paginationList(this.page);
+    this.getCountryList();
+    this.getStateList();
+    this.getCityList();
+  }
+
+  getCountryList = function () {
+    this.employeeService.getAllCountryList().subscribe(data=> {
+      this.countryList = data.data;
+    })
+  };
+
+  getStateList = function () {
+    this.employeeService.getAllStateList().subscribe(data=> {
+      this.states = data.data;
+    })
+  };
+
+  getCityList = function () {
+    this.employeeService.getAllCityList().subscribe(data=> {
+      this.cities = data.data;
+    })
+  };
+
+  paginationList(page){
+    switch (page){
+      case 'firstPage':
+        this.pageNo = 1;
+        break;
+      case 'lastPage':
+        this.pageNo = this.noOfPages;
+        break;
+      case 'nextPage':
+        this.pageNo = this.pageNo + 1;
+        break;
+      case 'prevPage':
+        this.pageNo = this.pageNo - 1;
+        break;
+      default:
+        this.pageNo=1;
+        this.firstPage = true;
+    }
+    this.employeeService.getCustomerList(this.inactiveStatus,"",(this.pageNo.toString())).subscribe(data=>
+    {
+      this.customerList = data.data;
+      this.noOfPages=data.no_of_paginations;
+      if (this.noOfPages == 1||this.noOfPages==0) {
+        this.first = true;
+        this.last = true;
+        this.prev = true;
+        this.next = true;
+      }else if(this.pageNo == this.noOfPages){
+        this.first = false;
+        this.last = true;
+        this.prev = false;
+        this.next = true;
+      }else if(this.pageNo==1){
+        this.first = true;
+        this.last = false;
+        this.prev = true;
+        this.next = false;
+      }else if(this.pageNo < this.noOfPages){
+        this.first = false;
+        this.last = false;
+        this.prev = false;
+        this.next = false;
+      }
+    })
+  }
+
+  inactiveButton(){
+    if(this.clicked ==false) {
+      this.inactiveStatus = "InActive";
+      this.ButtonStatus = "Active";
+    }
+    else {
+      this.inactiveStatus = "Active";
+      this.ButtonStatus = "InActive";
+    }
+    this.clicked = !this.clicked;
+    this.paginationList('');
+  }
+
+  // updateCustomer(id: number){
+  //   this.router.navigate(['update', id]);
+  // }
+
+  updateCustomer(data){
+    this.customer=data;
+    this.openModal(true);
+  }
+  private mdlSampleIsOpen : boolean = false;
+  private openModal(open : boolean) : void {
+    this.mdlSampleIsOpen = open;
+  }
+  private submitted: boolean;
+
+  onSubmit() {
+    this.submitted = true;
+    this.save();
+    this.openModal(false);
+  }
+
+  save() {
+    this.employeeService.createCustomer(this.customer)
+      .subscribe(data => console.log(data), error => console.log(error));
+    this.customer = new Customer();
+    this.paginationList(this.page);
+  }
+}

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<div class="container-fluid">
+    <div class="container cus_main_row">
+
+        <div class="row">
+            <h2 class="pos-header-new">
+                <div>Trial Balance</div>
+            </h2>
+        </div>
+        <div class="row inner_row_bg">
+            <div class="col-md-12">
+                <div class="panel">
+                    <div class="panel-body">
+                        <div class="col-md-12 col-sm-12">
+
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <!--<div class="col-md-3">-->
+                                            <!--<div class="col-md-3">-->
+                                                <!--<label class="control-label col-sm-9" for="">Date:</label>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-sm-9">-->
+                                                <!--<p class="input-group">-->
+                                                    <!--<input type="text" class="form-control" uib-datepicker-popup="{{format}}"-->
+                                                           <!--ng-model="dt"-->
+                                                           <!--is-open="popup1.opened" datepicker-options="dateOptions"-->
+                                                           <!--ng-required="true" style="height: 35px;"-->
+                                                           <!--close-text="Close" alt-input-formats="altInputFormats"/>-->
+                                                    <!--<span class="input-group-btn">-->
+                                                        <!--<button type="button" class="btn btn-default" ng-click="open1()">-->
+                                                            <!--<i class="glyphicon glyphicon-calendar"></i>-->
+                                                        <!--</button>-->
+                                                    <!--</span>-->
+                                                <!--</p>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="col-md-3">-->
+                                            <!--<div class="col-md-3">-->
+                                                <!--<label class="control-label col-sm-9" for="">To:</label>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-sm-9">-->
+                                                <!--<p class="input-group">-->
+                                                    <!--<input type="text" class="form-control" uib-datepicker-popup="{{format}}"-->
+                                                           <!--ng-model="dt1"-->
+                                                           <!--is-open="popup2.opened" datepicker-options="dateOptions"-->
+                                                           <!--ng-required="true" style="height: 35px;"-->
+                                                           <!--close-text="Close" alt-input-formats="altInputFormats"/>-->
+                                                    <!--<span class="input-group-btn">-->
+                                                        <!--<button type="button" class="btn btn-default" ng-click="open2()">-->
+                                                            <!--<i class="glyphicon glyphicon-calendar"></i>-->
+                                                        <!--</button>-->
+                                                    <!--</span>-->
+                                                <!--</p>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="col-md-2 col-sm-6">-->
+                                            <!--<span class="custom-dropdown custom-dropdown&#45;&#45;white">-->
+                                                <!--<select id="fromLocation" name="fromLocation"-->
+                                                        <!--ng-readonly="operation === 'Return'"-->
+                                                        <!--ng-model="inventoryLocation"-->
+                                                        <!--ng-options="cmpyinvLoc.inventoryLocationId as cmpyinvLoc.inventoryLocationName for cmpyinvLoc in inventoryLocationList"-->
+                                                        <!--class="form-control input-md">-->
+                                                    <!--<option value="">All</option>-->
+                                                <!--</select>-->
+                                            <!--</span>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="col-md-4 col-sm-8">-->
+                                            <!--<div class="col-md-4">-->
+                                                <!--<button type="button" class="btn btn-default hi_btn"-->
+                                                        <!--ng-click="updateTrailBalance()"> View-->
+                                                <!--</button>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-4">-->
+                                                <!--<a href="/reports/finance/downloadTrailBalanceExcelSheet?locationId={{inventoryLocation}}&fromDate={{dt| date:'yyyy-MM-dd'}}&toDate={{dt1| date:'yyyy-MM-dd'}}">-->
+                                                    <!--<button type="button" class="btn btn-default hi_btn">EXCEL</button>-->
+                                                <!--</a>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-4">-->
+                                                <!--<a href="/reports/finance/downloadTrailBalancePdf?locationId={{inventoryLocation}}&fromDate={{dt| date:'yyyy-MM-dd'}}&toDate={{dt1| date:'yyyy-MM-dd'}}">-->
+                                                    <!--<button type="button" class="btn btn-default hi_btn">PDF</button>-->
+                                                <!--</a>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fixed-table-container">
+                    <div class="table_wrapfixed-table-container-inner">
+                        <div class="header-background"></div>
+                        <fieldset>
+
+                        </fieldset>
+                        <table data-toggle="table" data-cache="false" data-height="299" style="margin-bottom: 0px;"
+                               class="hi_table table table-hover table-striped table-fixed-header table_option2">
+                            <thead>
+                            <tr>
+                                <th data-field="date" class="align_center">
+                                    <div class="th-inner">Account Code</div>
+                                </th>
+                                <th data-field="formno" class="align_center">
+                                    <div class="th-inner">Account Name</div>
+                                </th>
+                                <th data-field="ref" class="align_center">
+                                    <div class="th-inner">Debit</div>
+                                </th>
+                                <th data-field="date" class="align_center">
+                                    <div class="th-inner">Credit</div>
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td></td>
+                                <td>Opening Balance Difference:</td>
+                                <td>{{trialbalancepojo.openingBalDiffDebitAmt}}</td>
+                                <td>{{trialbalancepojo.openingBalDiffCreditAmt}}</td>
+                            </tr>
+                            <tr ng-repeat="tb in trialbalancepojo">
+                                <td><strong>{{tb.desc}}</strong></td>
+                                <td><strong><a href="javascript:void(0)"
+                                               ng-click="getAccountName(tb.accName)">{{tb.accName}}</a></strong>
+                                </td>
+                                <td class="align_right">{{tb.debit | number:2}}</td>
+                                <td class="align_right">{{tb.credit | number:2}}</td>
+                            </tr>
+
+
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td class="align_center"><strong>Total</strong></td>
+                                <td class="align_right"><strong>{{trialbalancepojo.totalDebit | number:2}}</strong></td>
+                                <td class="align_right"><strong>{{trialbalancepojo.totalCredit | number:2}}</strong>
+                                </td>
+
+                            </tr>
+
+                            </tfoot>
+                        </table>
+                        <div id="printablediv">
+                            <div class="header-background" ng-hide="true">
+                                <fieldset>
+
+                                </fieldset>
+                                <table class="export-table" data-toggle="table" data-cache="false" data-height="299"
+                                       class="hi_table table table-hover table-striped table-fixed-header table_option2">
+                                    <thead>
+                                    <tr>
+                                        <th data-field="date" class="align_center">
+                                            <div class="th-inner">Account Code</div>
+                                        </th>
+                                        <th data-field="formno" class="align_center">
+                                            <div class="th-inner">Account Name</div>
+                                        </th>
+                                        <th data-field="ref" class="align_center">
+                                            <div class="th-inner">Year to Date Debit</div>
+                                        </th>
+                                        <th data-field="date" class="align_center">
+                                            <div class="th-inner">Year to Date Credit</div>
+                                        </th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td>Opening Balance Difference:</td>
+                                        <td>{{trialbalancepojo.openingBalDiffDebitAmt}}</td>
+                                        <td>{{trialbalancepojo.openingBalDiffCreditAmt}}</td>
+                                    </tr>
+                                    <tr ng-repeat="tb in trialbalancepojo.dataList">
+                                        <td><strong>{{tb.accountNumber}}</strong></td>
+                                        <td><strong><a href="javascript:void(0)"
+                                                       ng-click="getAccountName(tb.accountName)">{{tb.accountName}}</a></strong>
+                                        </td>
+                                        <td class="align_right">{{tb.debit}}</td>
+                                        <td class="align_right">{{tb.credit}}</td>
+                                    </tr>
+
+
+                                    </tbody>
+
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td class="align_center"><strong>Total</strong></td>
+                                        <td class="align_right"><strong>{{trialbalancepojo.totalDebit}}</strong></td>
+                                        <td class="align_right"><strong>{{trialbalancepojo.totalCredit}}</strong></td>
+
+                                    </tr>
+
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p align="right" style="margin-top: 10px;">
+                    <a href="#!/reportfinancialstatement">
+                        <i class="btn btn-default hi_btn" style="float: right;">Go Back</i>
+                    </a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

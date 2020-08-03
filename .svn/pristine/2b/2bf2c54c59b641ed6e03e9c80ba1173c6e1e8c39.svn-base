@@ -1,0 +1,81 @@
+<div class="panel panel-primary" style="margin-top: -116px;margin-left: 195px;">
+  <div class="panel-heading">
+    <h2>Country List</h2>
+  </div>
+  <div class="panel-body">
+    <button type="button" id="btnOpen" class="btn btn-primary" (click)="openModal(true)">Add</button>
+    <button style="margin-left: 10px" id="btnActive" class="btn btn-primary" (click)="inactiveButton()">{{ButtonStatus}}</button>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Country Name</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let country of count">
+        <td>{{country.country_name}}</td>
+        <td>{{country.status}}</td>
+        <td><button (click)="updateCountry(country)" class="btn btn-info" style="margin-left: 10px">Edit</button> </td>
+      </tr>
+      <div class="form-group">
+        <div class="col-sm-12 col-md-12 pagination_" style="margin-top: 0px;">
+
+          <button type="button" [disabled]="first" (click)="paginationList('firstPage')" >First
+          </button>
+          <button type="button" [disabled]="prev" (click)="paginationList('prevPage')" >Prev
+          </button>
+          <button type="button"  [disabled]="next" (click)="paginationList('nextPage')">Next
+          </button>
+          <button type="button" [disabled]="last" (click)="paginationList('lastPage')">Last
+          </button>
+        </div>
+      </div>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div id="mdlSample" class="modal fade" role="dialog" [ngStyle]="{'display': mdlSampleIsOpen ? 'block' : 'none', 'opacity': 1}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="country-title">Add Country</h4>
+      </div>
+      <div class="modal-body">
+        <div class="box-body">
+          <div class="row" id="cus_step1">
+
+            <div class="form-group">
+              <label  class="col-sm-3 control-label">Name<span style="color: red">*</span> </label>
+              <div class="col-sm-9">
+                <input id="CountryName" name="CountryName"
+                       ng-pattern="/[aA-zZ\s]$/"
+                       type="text" placeholder="Country Name"
+                       [(ngModel)]="country.country_name" name="firstName" maxlength="125"
+                       class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label  class="col-sm-3 control-label"> Status </label>
+              <div class="col-sm-9">
+                <select name="custStatus" id="custStatus" [(ngModel)]="country.status" class="form-control" required>
+                  <option value="Active">Active</option>
+                  <option value="InActive">InActive</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="submit" type="button" class="btn btn-default" data-toggle="modal" ng-disabled="isDisabled"
+                data-target=".print-me" (click)="onSubmit('add_new_country_modal')">Save</button>
+        <button type="button" id="btnOpen1" class="btn btn-primary" (click)="openModal(false)">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+

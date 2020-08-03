@@ -1,0 +1,58 @@
+RELEASE NOTES
+**************
+
+========================================================
+I - RELEASE INFORMATION
+========================================================
+Product: Brainy Stars Franchise Management Systems
+Date: 27 Apr, 2018
+Version Number:	1.03
+Tag:
+========================================================
+II - SYSTEM REQUIREMENTS
+========================================================
+(a) HARDWARE REQUIREMENTS
+-------------------------
+1.pentium 4 or equivalent processor
+2.Ram min 4GB
+3.HDD min 10GB
+
+(b) SOFTWARE REQUIREMENTS
+-------------------------
+1. Java 1.8
+2. OS windows
+3. Database mysql 5.5
+
+(c) BROWSER
+-----------
+1. Google Chrome - Stable Version 4 and higher.
+2. Mozilla Firefox -Stable Version 4 and higher.
+
+========================================================
+III - WHAT'S NEW IN THIS RELEASE
+========================================================
+1) Configuration module is working properly according to requirements.
+2) Login page is completed.
+3) Search functionality completed in Configuration module
+4) Working on Instalments features for Fee details.
+5) completed on edit and delete functionality in Configuration Module.
+6) working on receipts.
+
+
+========================================================
+IV - KNOWN ISSUES OR LIMITATIONS
+========================================================
+
+
+========================================================
+V - Lists of Bugs
+========================================================
+1) Almost configuration module issues resolved in Build 4.
+2) Fee receipt and student and fee related bugs is resolved in Build 5.
+3)Fee related and Student Related bugs resolved
+4)Listing all Duplicate Receipts for Student
+========================================================
+
+========================================================
+VI - CHANGE HISTORY
+========================================================

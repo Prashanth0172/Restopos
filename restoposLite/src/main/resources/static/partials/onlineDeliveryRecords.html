@@ -1,0 +1,413 @@
+<style xmlns:width="http://www.w3.org/1999/xhtml">
+    .fixed-table-container {
+        margin-top: 24px;
+        padding-top: 2px;
+        box-shadow: 0px 0px 4px #999;
+    }
+
+    .details {
+        padding: 4px;
+    }
+
+    table.record {
+        margin-bottom: 0;
+    }
+
+    table.record tr {
+        border-bottom: 1px solid #ddd;
+    }
+
+    table.record tr:last-child {
+        border-bottom: none !important;
+    }
+
+    table.record tr td {
+        border: none;
+        padding: 2px !important;
+        font-size: 14px;
+    }
+
+    table.record tr td:first-child {
+        text-align: left;
+    }
+
+    table.record tr td:last-child {
+        text-align: right;
+    }
+
+    .button-row > div {
+        padding: 0 5px 5px;
+    }
+
+    .button-row button {
+        width: 100%;
+    }
+    .table_wrap {
+        height: 165px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    table {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    table tr th {
+        text-align: center;
+    }
+
+    .bottom {
+        padding: 2px;
+    }
+
+    .fixed-table-container-inner table {
+       margin-top: 0px;
+    }
+    .counter-ui {
+        line-height: normal;
+        height: auto;
+        display: inline-block;
+        margin-left: 10px;
+        padding: 3px 10px;
+        border-radius: 4px;
+        background: rgba(0,0,0,.2);
+        color: #fff;
+    }
+    table>thead>tr>th {
+        background-color: #696969;
+    }
+</style>
+<body>
+<div class="container-fluid" style="width: 100%;">
+    <div class="container cus_main_row" style="width: 100%">
+        <div class="col-md-4 col-sm-4" style="text-align: right;width: 99.333333%;">
+            <button type="button" class="btn btn-danger" ng-click="orderType('DineIn')" title="Dine In(Alt+N)"
+                    style={{style3}} ng-show="userAccessRights.restDineIn" >DINE IN
+            </button>
+            <button type="button" class="btn btn-danger" ng-click="orderType('TakeAway')" title="Pick Up(Alt+U)"
+                    style={{style2}} ng-show="userAccessRights.restTakeaway" >TAKE AWAY
+            </button>
+            <button type="button" class="btn btn-danger" ng-click="orderType('Delivery')"
+                    title="Delivery(Alt+D)" style={{style1}} ng-show="userAccessRights.restDelivery">DELIVERY
+            </button>
+            <button type="button" class="btn btn-danger" ng-click="orderType('OnlineDelivery')" style={{style1}}>ONLINE DELIVERY</button>
+            <button type="button" class="btn btn-danger" ng-click="orderType('digiorders')" ng-show="userAccessRights.restDigiOrders">DIGI ORDERS</button>
+            <button type="button" class="btn btn-danger" ng-click="openTableReservation('tableReserve')" ng-show="userAccessRights.restTableReservation">TABLE RESERVATION</button>
+
+        </div>
+        <div class="col-md-7" style="width: 68%">
+            <button style="width: 132px; padding:15px; background: transparent; box-shadow: none; border:none; border-right:1px solid #000; margin-bottom: 0px;">
+                <div style="display: inline-block;" ng-click="getOnlineDelivery('')">All</div>
+                <span style="background: #2ecc71;" class="counter-ui">{{onlineorderlist.length}}</span>
+            </button>
+            <button style="width: 132px; padding:15px; background: transparent; box-shadow: none; border:none; border-right:1px solid #000; margin-bottom: 0px;">
+                <div style="display: inline-block;" ng-click="getOnlineDelivery('placed')">Placed</div>
+                <span style="background: #2ecc71;" class="counter-ui">{{placedList.length}}</span>
+            </button>
+            <button style="width: 139px; padding:15px; background: transparent; box-shadow: none; border:none; border-right:1px solid #000; margin-bottom: 0px;">
+                <div style="display: inline-block;" ng-click="getOnlineDelivery('Acknowledged')">In Progress</div>
+                <span style="background: #2ecc71;" class="counter-ui">{{ConfirmList.length}}</span>
+            </button>
+            <button style="width: 135px; padding:15px; background: transparent; box-shadow: none; border:none; border-right:1px solid #000; margin-bottom: 0px;">
+                <div style="display: inline-block;float: left;" ng-click="getOnlineDelivery('Completed')">Completed</div>
+                <span style="background: #2ecc71;" class="counter-ui">{{CompletedList.length}}</span>
+            </button>
+            <button style="width: 130px; padding:15px; background: transparent; box-shadow: none; border:none; border-right:1px solid #000; margin-bottom: 0px;">
+                <div style="display: inline-block;" ng-click="getOnlineDelivery('Cancelled')" >Cancelled</div>
+                <span style="background: #2ecc71;" class="counter-ui">{{CancelledList.length}}</span>
+            </button>
+            <!--<button style="width: 120px; padding:15px; background: transparent; box-shadow: none; border:none; border-right:1px solid #000; margin-bottom: 0px;">-->
+                <!--<div style="display: inline-block;" ng-click="getOnlineDelivery()">Future</div>-->
+                <!--<span style="background: #2ecc71;" class="counter-ui">{{onlineorderlist.length}}</span>-->
+            <!--</button>-->
+        </div>
+        <table class="table table-striped table_costomize ten_table_info"
+               id="saleslisttable">
+            <thead>
+            <tr>
+                <th data-field="name" style="width: 10% !important;">Placed At
+                </th>
+                <th data-field="name" style="width: 10% !important;text-align: center">Order Id
+                </th>
+                <th data-field="name" style="width: 10% !important;">Delivery Time
+                </th>
+                <th data-field="name" style="width: 10% !important;">Store</th>
+                <th data-field="name" style="width: 10% !important;">Customer
+                </th>
+                <th data-field="name" style="width: 10% !important;">Amount</th>
+                <th data-field="name" style="width: 10% !important;">Channel
+                </th>
+                <th data-field="name" style="width: 10% !important;">View</th>
+                <th data-field="name" style="width: 20% !important;">Actions</th>
+
+            </tr>
+            </thead>
+            <tbody id="parentTable">
+            <tr ng-repeat="online in onlineorderlist">
+                <td style="width: 10% !important;">
+                    {{online.createdTime|date:'dd-MMM-yyyy hh:mm:ss'}}
+                </td>
+                <td style="width: 10% !important;">{{online.notificationId}}
+                </td>
+                <td style="width: 10% !important;">
+                    {{online.deliveryTime|date:'dd-MMM-yyyy hh:mm:ss'}}
+                </td>
+                <td style="width: 10% !important;">{{online.restaurantName}}
+                </td>
+                <td style="width: 10% !important;">{{online.customerName}}<br>{{online.phone}}
+                </td>
+                <td style="width: 10% !important;">{{online.amount}}</td>
+                <td style="width: 10% !important;"
+                    ng-if="online.fromCompname=='zomato'"><img
+                        style="width:40px;height:40px;"
+                        src="resource/images/Zomato_logo.png"></td>
+                <td style="width: 10% !important;"
+                    ng-if="online.fromCompname=='swiggy'"><img
+                        style="width:40px;height:40px;"
+                        src="resource/images/swiggy-logo.png"></td>
+                <td style="width: 10% !important;"
+                    ng-if="online.fromCompname=='Restopos'"><img
+                        style="width:40px;height:40px;"
+                        src="resource/images/favicon-16x16.png"></td>
+                <td style="width: 10% !important;"
+                    ng-if="online.fromCompname=='foodpanda'"><img
+                        style="width:40px;height:40px;"
+                        src="resource/images/foodpanda.png"></td>
+                <td style="width: 10% !important;"
+                    ng-if="online.fromCompname=='ubereats'"><img
+                        style="width:40px;height:40px;"
+                        src="images/uber.png"></td>
+                <td style="width: 10% !important;">
+                    <button type="button" ng-click="viewAllDetails(online)"
+                            class="btn btn-default">Details
+                    </button>
+                </td>
+                <td style="display: inline-block !important; height: 100%;
+    width: 100% !important;">
+                    <button type="button" ng-show="stats=='placed'&&(online.status=='placed'||online.status=='Placed')" ng-click="changeStatusOfNotification(online,'Confirm')"
+                            class="btn btn-default">Confirm
+                    </button>
+                    <button type="button" ng-show="stats=='Acknowledged'&&online.status=='Acknowledged'" ng-click="changeStatusOfNotification(online,'foodready')"
+                            class="btn btn-default">FoodReady
+                    </button>
+                    <button type="button" ng-show="stats=='placed'&&(online.status=='placed'||online.status=='Placed')" ng-click="changeStatusOfNotification(online,'Cancel')"
+                            class="btn btn-default">Cancel
+                    </button>
+                    <button type="button" ng-show="(stats=='Acknowledged'||stats=='Completed'||stats=='Food Ready')&&(online.status=='Acknowledged'||online.status=='Food Ready'||online.status=='Completed')" ng-click="settlePayment(online)"
+                            class="btn btn-default">Invoice
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--<div class="form-group">-->
+        <!--<div class="col-sm-12 pagination_">-->
+
+            <!--<button type="button" class="btn btn-default hi_btn" ng-class="{'diabled-class': first}" ng-disabled="first"-->
+                    <!--ng-click="getPaginationList('firstPage')"  ng-model="first">First-->
+            <!--</button>-->
+            <!--<button type="button" class="btn btn-default hi_btn"  ng-class="{'diabled-class': prev}" ng-disabled="prev"-->
+                    <!--ng-click="getPaginationList('prevPage')"   ng-model="prev">Prev-->
+            <!--</button>-->
+            <!--<button type="button" class="btn btn-default hi_btn"  name="next" ng-disabled="next"-->
+                    <!--ng-click="getPaginationList('nextPage')"  value="next"  ng-class="{'diabled-class': next}" ng-model="next">Next-->
+            <!--</button>-->
+            <!--<button type="button" class="btn btn-default hi_btn"-->
+                    <!--ng-click="getPaginationList('lastPage')"   ng-class="{'diabled-class': last}" ng-disabled="last"-->
+                    <!--ng-model="last">Last-->
+            <!--</button>-->
+        <!--</div>-->
+        <!--<div align="center"><span style="color: red;"></span></div>-->
+    <!--</div>-->
+    <div class="modal fade printreceiptA4" tabindex="-1" id="viewalldetails" role="dialog"
+         data-backdrop="static"
+         aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-lg" style="width:770px;height:842px;">
+            <div class="modal-content checkout">
+                <div id="receiptPaymentPritableArea" class="panel-body" class="mini-print-wrapper"
+                     style=" max-height:500px;overflow-y: auto;">
+                    <button type="button" class="close" data-dismiss="modal" style="color: black !important;">x</button>
+                    <table style="width:700px;border:1px solid gray;">
+                        <tr>
+                            <td style="padding: 0 10px">
+                                <table class="hi_table">
+                                    <tr>
+                                        <td>
+                                            <table class="hi_table" style="width: 700px;border-bottom: 1px solid black;">
+                                                <tr>
+                                                    <td>
+                                                        <div class="invoice-title">
+                                                            <h3 style="text-align: center;font-weight: 600;">
+                                                                {{notification.restaurantName}} Order Details</h3>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                            <table style="width: 700px; border-bottom: 1px solid black; padding-bottom: 10px !important;">
+                                                <h><b style="text-align: center">Customer Details:</b></h>
+                                                <tr>
+                                                    <td>
+                                                        <table style="width:350px;" class="hi_table">
+
+                                                            <tr style="padding-top:20px!important;">
+                                                                <td style="width: 37%;">Customer Name</td>
+                                                                <td style="width: 3%;">:</td>
+                                                                <td>{{notification.customerName}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 37%;">Location</td>
+                                                                <td style="width: 3%;">:</td>
+                                                                <td>{{notification.location}}</td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Phone Number</td>
+                                                                <td>:</td>
+                                                                <td>{{notification.phone}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Aggregator</td>
+                                                                <td>:</td>
+                                                                <td>{{notification.fromCompname}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                    <td>
+                                                        <table style="width:350px;" class="hi_table">
+                                                            <tr style="padding-bottom:20px;">
+                                                                <td style="width: 37%;">Order Time</td>
+                                                                <td style="width: 3%;">:</td>
+                                                                <td>{{notification.date|date:'dd-MMM-yyyy hh:mm:ss'}}
+                                                                </td>
+                                                            </tr>
+                                                            <tr style="padding-bottom:20px;">
+                                                                <td style="width: 37%;">OrderId</td>
+                                                                <td style="width: 3%;">:</td>
+                                                                <td>{{notification.notificationId}}</td>
+                                                            </tr>
+                                                            <tr style="padding-bottom:20px;" ng-show="notification.email">
+                                                                <td style="width: 37%;">Email</td>
+                                                                <td style="width: 3%;">:</td>
+                                                                <td>{{notification.email}}</td>
+                                                            </tr>
+
+                                                            <tr style="padding-bottom:20px;" ng-show="notification.pincode">
+                                                                <td>PinCode</td>
+                                                                <td>:</td>
+                                                                <td>{{notification.pincode}}</td>
+                                                            </tr>
+                                                            <tr style="padding-bottom:20px;" ng-show="notification.paymentStatus">
+                                                                <td>Payment Status</td>
+                                                                <td>:</td>
+                                                                <td>{{notification.paymentStatus}}</td>
+                                                            </tr>
+                                                            <tr style="padding-bottom:20px;">
+                                                                <td>&nbsp;</td>
+                                                                <td>&nbsp;</td>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>&nbsp;</tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table class="border_info" style="width: 700px;" class="hi_table">
+                                                <h><b style="text-align: center">Order Details:</b><br></h>
+                                                <br>
+                                                <thead style="padding-top: 12px; margin-top: 20px;">
+                                                <tr>
+                                                    <th>SL.No</th>
+                                                    <th>Item Name</th>
+                                                    <!--<th>Tax</th>-->
+                                                    <th>Unit Price</th>
+                                                    <th>Quantity</th>
+                                                    <th>Final Price</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="item in notification.itemdetails">
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{item.item_name}}</td>
+                                                    <!--<td>{{item.item_final_price-item.item_unit_price|number:2}}</td>-->
+                                                    <td>{{item.item_unit_price}}</td>
+                                                    <td>{{item.item_quantity}}</td>
+                                                    <td>{{item.item_final_price*item.item_quantity|number:2}}</td>
+                                                </tr>
+                                                </tbody>
+
+                                            </table>
+
+                                            <br>
+                                            <h><b style="text-align: center">Instructions:</b><br></h>
+                                            <br>
+                                            <p>{{notification.instructions}}</p>
+                                </table>
+
+                                <table class="hi_tabled"
+                                       style="width: 700px;padding-bottom:10px;border-bottom: 1px solid black;margin-top: -70px !important;">
+                                    <br>
+                                    <h><b>Payment Details</b></h>
+                                    <tr style="text-align: right;margin-left: 10px">
+                                        <td>SubTotal</td>
+                                        <td>:</td>
+                                        <td>{{notification.subTotal|number:2}}</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <br>
+                                    <tr style="text-align: right;margin-left: 10px"
+                                        ng-repeat="charge in notification.charges">
+                                        <td>{{charge.title}}</td>
+                                        <td>:</td>
+                                        <td>{{charge.value|number:2}}</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <br>
+                                    <tr style="text-align: right;margin-left: 10px">
+                                        <td>Total Charges</td>
+                                        <td>:</td>
+                                        <td>{{notification.itemCharge|number:2}}</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <br><tr style="text-align: right;margin-left: 10px">
+                                        <td>Discount</td>
+                                        <td>:</td>
+                                        <td>{{notification.discount|number:2}}</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <br>
+                                    <tr style="text-align: right;margin-left: 10px">
+                                        <td>Order Total</td>
+                                        <td>:</td>
+                                        <td>{{notification.total|number:2}}</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <br>
+                                    <tr style="text-align: right">
+                                        <td>Payment Mode</td>
+                                        <td> :</td>
+                                        <td>{{notification.paymentmode}}</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </table>
+                                <div class="modal-footer">
+                                    <button type="button" ng-click="remove()" class="btn btn-default" data-dismiss="modal">
+                                        Close
+                                    </button>
+                                    <!--<button type="button"  ng-click="foodReady(online,'cancel')"-->
+                                            <!--class="btn btn-success">Cancellation-->
+                                    <!--</button>-->
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <payment-modal-restaurant></payment-modal-restaurant>
+    <restaurant-print></restaurant-print>
+</div>
+</body>

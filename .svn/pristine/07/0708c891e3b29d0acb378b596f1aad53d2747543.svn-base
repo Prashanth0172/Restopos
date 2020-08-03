@@ -1,0 +1,7 @@
+export class TableZone {
+  tableconfigid: number;
+  configurationname: string;
+  status: string;
+  rowtableconfig: number;
+  columntableconfig: number;
+}

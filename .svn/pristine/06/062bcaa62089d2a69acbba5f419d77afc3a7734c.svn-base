@@ -1,0 +1,141 @@
+import { Observable } from "rxjs";
+import { EmployeeService } from "./../employee.service";
+import { Employee } from "./../employee";
+import { Component, OnInit } from "@angular/core";
+import { Router } from '@angular/router';
+
+@Component({
+  selector: "app-employee-list",
+  templateUrl: "./employee-list.component.html",
+  styleUrls: ["./employee-list.component.css"]
+})
+export class EmployeeListComponent implements OnInit {
+  employees: Observable<Employee[]>;
+  employee: Employee = new Employee();
+
+  public emp=[];
+  public staffGroupss=[];
+  ButtonStatus : String="InActive";
+  inactiveStatus :String ="1";
+  clicked : Boolean = false;
+  firstPage :Boolean = true;
+  lastPage :Boolean = false;
+  prevPage :Boolean = false;
+  pageNo :number = 1;
+  noOfPages : number;
+  first : Boolean;
+  last : Boolean;
+  prev : Boolean;
+  next : Boolean;
+  page : String ='firstPage';
+  private submitted: boolean;
+  constructor(private employeeService: EmployeeService,
+    private router: Router) {}
+
+
+  ngOnInit() {
+    this.paginationList(this.page);
+    this.getStaffList();
+  }
+
+  getStaffList = function () {
+    this.employeeService.getAllStaffList().subscribe(data=> {
+      this.staffGroupss = data.data;
+    })
+  };
+
+  paginationList(page){
+    switch (page){
+      case 'firstPage':
+        this.pageNo = 1;
+        break;
+      case 'lastPage':
+        this.pageNo = this.noOfPages;
+        break;
+      case 'nextPage':
+        this.pageNo = this.pageNo + 1;
+        break;
+      case 'prevPage':
+        this.pageNo = this.pageNo - 1;
+        break;
+      default:
+        this.pageNo=1;
+        this.firstPage = true;
+    }
+    this.employeeService.getEmployeesList(this.inactiveStatus,"",(this.pageNo.toString())).subscribe(data=>
+    {
+      this.emp = data.data;
+      for(let cat of this.emp) {
+        if (cat.staff_status == 0) {
+          cat.staff_status = "InActive";
+        } else {
+          cat.staff_status = "Active";
+        }
+      }
+      this.noOfPages=data.no_of_paginations;
+      if (this.noOfPages == 1||this.noOfPages==0) {
+        this.first = true;
+        this.last = true;
+        this.prev = true;
+        this.next = true;
+      }else if(this.pageNo == this.noOfPages){
+        this.first = false;
+        this.last = true;
+        this.prev = false;
+        this.next = true;
+      }else if(this.pageNo==1){
+        this.first = true;
+        this.last = false;
+        this.prev = true;
+        this.next = false;
+      }else if(this.pageNo < this.noOfPages){
+        this.first = false;
+        this.last = false;
+        this.prev = false;
+        this.next = false;
+      }
+    })
+  }
+
+  inactiveButton(){
+    if(this.clicked ==false) {
+      this.inactiveStatus = "0";
+      this.ButtonStatus = "Active";
+    }
+    else {
+      this.inactiveStatus = "1";
+      this.ButtonStatus = "InActive";
+    }
+    this.clicked = !this.clicked;
+    this.paginationList('');
+
+  }
+
+  updateEmployee(data){
+    this.employee=data;
+    if (data.staff_status == "Active") {
+      data.staff_status = "1";
+    } else {
+      data.staff_status = "0";
+    }
+    this.openModal(true);
+  }
+  private mdlSampleIsOpen : boolean = false;
+  private openModal(open : boolean) : void {
+    this.mdlSampleIsOpen = open;
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    this.save();
+    this.openModal(false);
+  }
+
+  save() {
+    this.employeeService.createEmployee(this.employee)
+      .subscribe(data => console.log(data), error => console.log(error));
+    this.employee = new Employee();
+    this.paginationList(this.page);
+  }
+
+}

@@ -1,0 +1,66 @@
+.top-button-area{
+	margin:10px 0px;
+}
+.top-button-area1{
+	margin:10px 0px;
+	float: right;
+	margin-top: -25px;
+}
+.top-box{
+	border: 1px solid #dadada;
+    padding: 5px 0px;
+    margin: 0px;
+    height: 70px;
+}
+.top-box1{
+	border: 1px solid #dadada;
+	padding: 10px 10px;
+	margin: 0px;
+	height: 205px;
+}
+.form-group {
+    margin-bottom: 40px;
+}
+.content{
+	min-height: 0px;
+}
+@media only screen and (max-width: 767px) {
+.top-button-area{
+	margin-top:17px;
+}
+.dataTables_wrapper{
+	margin-top: 80px;
+}
+.customer-data{
+	margin-top: 102px;
+}
+	.form-group {
+		margin-bottom: 5px;
+	}
+	.no-pad{
+		padding: 0px 15px!important;
+	}
+	.top-button-area1{
+		margin-top: 10px;
+	}
+	.top-box1{
+		height: 586px;
+	}
+	}
+@media only screen and (max-width: 768px) {
+	.top-box1{
+		height: 325px;
+	}
+	.top-button-area1{
+		margin-top: 10px;
+	}
+	.top-button-area{
+		margin-top:25px;
+	}
+	.no-pad{
+		padding: 0px 15px!important;
+	}
+	.form-group {
+		margin-bottom: 5px;
+	}
+}

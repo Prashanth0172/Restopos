@@ -1,0 +1,10 @@
+export class Category {
+  itemCategoryId: number;
+  itemCategoryName: string;
+  code: string;
+  itemCategoryDesc: string;
+  status: string;
+  Restaurant_id: string;
+  location_connect_id: string;
+}
+

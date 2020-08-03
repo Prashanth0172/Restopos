@@ -1,0 +1,16 @@
+package com.hyva.restopos.rest.pojo;
+
+import lombok.Data;
+
+@Data
+public class EmployeePojo {
+    private Long employeeId;
+    private String employeeName;
+    private String staff_group_id;
+    private String status;
+    private String username;
+    private String password;
+    private String staff_email;
+    private String incentives;
+    private String permission;
+}
